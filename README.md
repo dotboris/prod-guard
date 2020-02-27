@@ -1,6 +1,7 @@
 # Prod Watch
 
 [![Build Status](https://travis-ci.com/dotboris/prod-watch.svg?branch=master)](https://travis-ci.com/dotboris/prod-watch)
+[![Known Vulnerabilities](https://snyk.io/test/github/dotboris/prod-watch/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dotboris/prod-watch?targetFile=package.json)
 
 Browser extension that lets you know when you're connected to production by
 giving you a clear visual cue. Never accidentally make changes to production
