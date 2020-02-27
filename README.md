@@ -14,7 +14,34 @@ TODO: How to use / configure this extension
 
 ## Development
 
-TODO
+### Build
+
+```sh
+yarn build
+# or
+yarn build:prod
+```
+
+### Run
+
+1. In one terminal start the watch build
+
+    ```sh
+    yarn build:watch
+    ```
+
+1. In another terminal a browser with the extension loaded
+
+    ```sh
+    yarn start
+    ```
+
+### Lint
+
+```sh
+yarn build
+yarn lint
+```
 
 ## Release
 
