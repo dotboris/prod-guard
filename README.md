@@ -1,5 +1,7 @@
 # Prod Watch
 
+[![Build Status](https://travis-ci.com/dotboris/prod-watch.svg?branch=master)](https://travis-ci.com/dotboris/prod-watch)
+
 Browser extension that lets you know when you're connected to production by
 giving you a clear visual cue. Never accidentally make changes to production
 ever again.
