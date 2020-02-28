@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Prod Watch",
+  "name": "Prod Guard",
   "description": "Browser extension that lets you know when you're connected to production by giving you a clear visual cue. Never accidentally make changes to production ever again.",
   "version": "0.0.0",
 
