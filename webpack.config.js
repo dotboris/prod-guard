@@ -10,7 +10,8 @@ module.exports = {
 
   context: path.resolve(__dirname, 'src'),
   entry: {
-    'content-script': './content-script'
+    'content-script': './content-script',
+    'background': './background'
   },
 
   plugins: [

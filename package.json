@@ -27,5 +27,10 @@
     "web-ext": "^4.1.0",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "content-scripts-register-polyfill": "^1.0.0",
+    "webext-options-sync": "^1.2.2",
+    "webextension-polyfill": "^0.6.0"
   }
 }
