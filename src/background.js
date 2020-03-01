@@ -1,22 +1,13 @@
 import 'webextension-polyfill'
 import 'content-scripts-register-polyfill'
-import OptionsSync from 'webext-options-sync'
+import Options from './options'
 
 const CONTENT_SCRIPTS = new Map()
-
-const OPTIONS = new OptionsSync({
-  defaults: {
-    sites: {}
-  },
-  migrations: [
-    OptionsSync.migrations.removeUnused
-  ]
-})
 
 setup()
 
 async function setup () {
-  const options = await OPTIONS.getAll();
+  const options = await Options.getAll();
   await syncContentScripts(options.sites)
 }
 
