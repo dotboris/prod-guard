@@ -21,9 +21,9 @@ export default {
   async mounted () {
     const options = await Options.getAll()
     this.sites = Object.entries(options.sites)
-      .map(([id, site]) => ({id, ...site}))
+      .map(([id, site]) => ({ id, ...site }))
 
-    this.loading = false;
+    this.loading = false
   },
 
   methods: {
@@ -38,7 +38,7 @@ export default {
   render () {
     const rows = this.sites.map(site => (
       <SiteRow id={site.id} pattern={site.pattern} />
-    ));
+    ))
 
     return (
       <div class='settings'>
