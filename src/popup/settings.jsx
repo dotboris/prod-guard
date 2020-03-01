@@ -6,14 +6,25 @@ export default {
   data () {
     return {
       loading: true,
-      sites: []
+      sites: [
+        { id: '1', pattern: 'test1.com' },
+        { id: '2', pattern: 'test1.com' },
+        { id: '3', pattern: 'test1.com' },
+        { id: '4', pattern: 'test1.com' },
+        { id: '5', pattern: 'test1.com' },
+        { id: '6', pattern: 'test1.com' },
+        { id: '7', pattern: 'test1.com' },
+        { id: '8', pattern: 'test1.com' },
+        { id: '9', pattern: 'test1.com' },
+        { id: '0', pattern: 'test1.com' }
+      ]
     }
   },
 
   async mounted () {
-    const options = await Options.getAll()
-    this.sites = Object.entries(options.sites)
-      .map(([id, site]) => ({ id, ...site }))
+    // const options = await Options.getAll()
+    // this.sites = Object.entries(options.sites)
+    //   .map(([id, site]) => ({ id, ...site }))
 
     this.loading = false
   },
