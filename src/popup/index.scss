@@ -1,4 +1,12 @@
 html,
 body {
+  width: 30rem;
+
+  > div {
+    padding: 1rem;
+  }
+}
+
+table {
   width: 100%;
 }
