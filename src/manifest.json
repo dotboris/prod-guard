@@ -8,6 +8,11 @@
     "scripts": ["background.js"]
   },
 
+  "browser_action": {
+    "browser_style": true,
+    "default_popup": "popup.html"
+  },
+
   "permissions": [
     "storage"
   ],
