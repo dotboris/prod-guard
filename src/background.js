@@ -7,7 +7,7 @@ const CONTENT_SCRIPTS = new Map()
 setup()
 
 async function setup () {
-  const options = await Options.getAll();
+  const options = await Options.getAll()
   await syncContentScripts(options.sites)
 }
 

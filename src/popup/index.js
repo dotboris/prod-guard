@@ -9,10 +9,9 @@ main()
 
 async function main () {
   Vue.use(VueRouter)
-  const app = new (Vue.extend(App))
+  const app = new (Vue.extend(App))()
 
   const root = document.createElement('div')
   document.body.append(root)
   app.$mount(root)
 }
-

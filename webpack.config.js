@@ -12,8 +12,8 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   entry: {
     'content-script': './content-script',
-    'background': './background',
-    'popup': './popup'
+    background: './background',
+    popup: './popup'
   },
 
   plugins: [
