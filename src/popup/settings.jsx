@@ -1,13 +1,5 @@
 import Options from '../options'
 
-const SiteRow = ({ props }) => (
-  <tr>
-    <td>{props.pattern}</td>
-    <td>E</td>
-    <td>X</td>
-  </tr>
-)
-
 export default {
   name: 'Settings',
 
@@ -37,7 +29,11 @@ export default {
 
   render () {
     const rows = this.sites.map(site => (
-      <SiteRow key={site.id} id={site.id} pattern={site.pattern} />
+      <tr key={site.id}>
+        <td>{site.pattern}</td>
+        <td>E</td>
+        <td>X</td>
+      </tr>
     ))
 
     return (
