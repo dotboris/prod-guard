@@ -30,11 +30,23 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
       }
     ]
+  },
+
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
 
   devtool: 'source-map'
