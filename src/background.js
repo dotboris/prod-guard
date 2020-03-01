@@ -25,7 +25,7 @@ async function syncContentScripts (sites) {
     }
 
     // Register the new one
-    if (sites.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(sites, key)) {
       const site = sites[key]
 
       const scriptHandle = await browser.contentScripts.register({

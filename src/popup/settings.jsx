@@ -27,7 +27,7 @@ export default {
   },
 
   methods: {
-    addSite () {
+    handleAddSite () {
       this.sites.unshift({
         id: 'TODO-generate id',
         pattern: ''
@@ -37,14 +37,14 @@ export default {
 
   render () {
     const rows = this.sites.map(site => (
-      <SiteRow id={site.id} pattern={site.pattern} />
+      <SiteRow key={site.id} id={site.id} pattern={site.pattern} />
     ))
 
     return (
       <div class='settings'>
         <h1>Settings</h1>
 
-        <button onClick={this.addSite}>Add Site</button>
+        <button onClick={this.handleAddSite}>Add Site</button>
 
         <table>
           <thead>
