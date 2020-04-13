@@ -1,5 +1,3 @@
-import Options from '../options'
-
 export default {
   name: 'Settings',
 
