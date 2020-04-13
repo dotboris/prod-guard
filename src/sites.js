@@ -1,5 +1,5 @@
 export function createDb () {
-  return Map()
+  return new Map()
 }
 
 export function loadAll (db, sites) {
