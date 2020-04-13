@@ -50,9 +50,7 @@ export default {
     ))
 
     return (
-      <div class='settings'>
-        <h1>Settings</h1>
-
+      <div>
         <button onClick={this.handleAddSite}>Add Site</button>
 
         <table>
