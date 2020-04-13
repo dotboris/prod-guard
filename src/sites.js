@@ -27,15 +27,7 @@ export function getAll (db) {
 }
 
 export function get (db, id) {
-  const site = db.sites.get(id)
-  if (site) {
-    return {
-      ...site,
-      id
-    }
-  } else {
-    return null
-  }
+  return db.sites.get(id) || null
 }
 
 export function remove (db, id) {

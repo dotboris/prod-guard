@@ -77,6 +77,16 @@ describe('sites.js', () => {
       expect(res).to.have.property('phony', 42)
     })
 
+    it('should not return id', () => {
+      const db = sites.createDb()
+      sites.addAll(db, [{ phony: 42 }])
+      const id = sites.getAll(db)[0].id
+
+      const res = sites.get(db, id)
+
+      expect(res).to.not.have.property('id')
+    })
+
     it('should return null if nothing is found', () => {
       const db = sites.createDb()
       sites.addAll(db, [{ phony: 42 }])
