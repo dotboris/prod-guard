@@ -1,12 +1,18 @@
-import Settings from './settings'
+import SitesList from './sites-list'
+import SiteForm from './site-form'
 import VueRouter from 'vue-router'
 
 const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'settings',
-      component: Settings
+      name: 'sites-list',
+      component: SitesList
+    },
+    {
+      path: '/new',
+      name: 'sites-new',
+      component: SiteForm
     }
   ]
 })

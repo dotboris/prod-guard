@@ -1,39 +1,50 @@
 import 'webextension-polyfill'
 import 'content-scripts-register-polyfill'
 import Options from './options'
+import * as Sites from './sites'
 
-const CONTENT_SCRIPTS = new Map()
+let sitesDb
 
 setup()
 
 async function setup () {
   const options = await Options.getAll()
-  await syncContentScripts(options.sites)
+
+  sitesDb = Sites.createDb()
+  Sites.addAll(sitesDb, options.sites)
+
+  browser.runtime.onMessage.addListener(onMessage)
 }
 
-async function syncContentScripts (sites) {
-  let keys = Object.keys(CONTENT_SCRIPTS)
-  keys = keys.concat(Object.keys(sites))
-  keys = new Set(keys)
+async function saveSites () {
+  const sites = Sites.getAll(sitesDb)
+  await Options.set({ sites })
+}
 
-  for (const key of keys) {
-    // Unregister the old one
-    if (CONTENT_SCRIPTS.has(key)) {
-      const script = CONTENT_SCRIPTS.get(key)
-      script.unregister()
-      CONTENT_SCRIPTS.delete(key)
-    }
+const api = {
+  async getAllSites () {
+    return Sites.getAll(sitesDb)
+  },
 
-    // Register the new one
-    if (Object.prototype.hasOwnProperty.call(sites, key)) {
-      const site = sites[key]
+  async getSite ({ id }) {
+    return Sites.get(sitesDb, id)
+  },
 
-      const scriptHandle = await browser.contentScripts.register({
-        js: 'content-script.js',
-        matches: site.pattern
-      })
+  async addSite ({ site }) {
+    Sites.add(sitesDb, site)
+    await saveSites()
+  },
 
-      CONTENT_SCRIPTS[key] = scriptHandle
-    }
+  async updateSite ({ id, site }) {
+    Sites.update(sitesDb, id, site)
+    await saveSites()
+  }
+}
+
+function onMessage (message, sender) {
+  const type = message.type
+
+  if (Object.hasOwnProperty.call(api, type)) {
+    return api[type](message, sender)
   }
 }
