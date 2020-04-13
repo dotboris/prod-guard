@@ -1,6 +1,8 @@
 import SitesList from './sites-list'
 import SiteForm from './site-form'
 import VueRouter from 'vue-router'
+import Icon from './icon'
+import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/home.svg'
 
 const router = new VueRouter({
   routes: [
@@ -40,7 +42,7 @@ export default {
       <div>
         <div class='title-bar'>
           <router-link to='/'>
-            Home
+            <Icon svg={HomeIcon} title='Home' />
           </router-link>
 
           <h1>{this.$router.currentRoute.meta.title}</h1>
