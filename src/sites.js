@@ -49,5 +49,6 @@ export function update (db, id, site) {
 }
 
 export function findMatching (db, url) {
-  // TODO
+  const sites = Array.from(db.sites.values())
+  return sites.filter(site => url.match(site.pattern))
 }

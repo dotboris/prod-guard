@@ -14,6 +14,7 @@ async function setup () {
   Sites.addAll(sitesDb, options.sites)
 
   browser.runtime.onMessage.addListener(onMessage)
+  browser.tabs.onUpdated.addListener(onTabChange, { properties: ['status'] })
 }
 
 async function saveSites () {
@@ -51,5 +52,21 @@ function onMessage (message, sender) {
 
   if (Object.hasOwnProperty.call(api, type)) {
     return api[type](message, sender)
+  }
+}
+
+async function onTabChange (tabId, { status }, tab) {
+  if (status !== 'complete') {
+    return
+  }
+
+  const sites = Sites.findMatching(sitesDb, tab.url)
+  if (sites.length > 0) {
+    await browser.tabs.executeScript(
+      tabId,
+      { file: 'content-script.js' }
+    )
+
+    console.log(`Loaded content script into ${tab.url} (tabId: ${tabId})`)
   }
 }
