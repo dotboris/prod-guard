@@ -33,7 +33,7 @@ yarn build:prod
     yarn build:watch
     ```
 
-1. In another terminal a browser with the extension loaded
+1. In another terminal start a browser with the extension loaded
 
     ```sh
     yarn start
