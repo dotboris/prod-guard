@@ -183,4 +183,49 @@ describe('sites.js', () => {
       expect(secondRes).to.not.have.property('changed')
     })
   })
+
+  describe('findMatching()', () => {
+    it('should return sites where pattern matches url', () => {
+      const db = sites.createDb()
+      sites.addAll(db, [
+        { pattern: 'fo' },
+        { pattern: 'foo' },
+        { pattern: 'bar' },
+        { pattern: 'baz' }
+      ])
+
+      const matches = sites.findMatching(db, 'https://foobar.com')
+
+      const patterns = matches.map(site => site.pattern).sort()
+      expect(patterns).to.deep.eq([
+        'bar',
+        'fo',
+        'foo'
+      ])
+    })
+
+    it('should return empty array with no matches', () => {
+      const db = sites.createDb()
+      sites.addAll(db, [
+        { pattern: 'fo' },
+        { pattern: 'foo' },
+        { pattern: 'bar' },
+        { pattern: 'baz' }
+      ])
+
+      const matches = sites.findMatching(db, 'https://something-else.com')
+
+      const patterns = matches.map(site => site.pattern).sort()
+      expect(patterns).to.deep.eq([])
+    })
+
+    it('should return empty array with no sites', () => {
+      const db = sites.createDb()
+
+      const matches = sites.findMatching(db, 'https://something-else.com')
+
+      const patterns = matches.map(site => site.pattern).sort()
+      expect(patterns).to.deep.eq([])
+    })
+  })
 })
