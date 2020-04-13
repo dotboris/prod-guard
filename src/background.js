@@ -38,6 +38,11 @@ const api = {
   async updateSite ({ id, site }) {
     Sites.update(sitesDb, id, site)
     await saveSites()
+  },
+
+  async removeSite ({ id }) {
+    Sites.remove(sitesDb, id)
+    await saveSites()
   }
 }
 

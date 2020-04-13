@@ -8,12 +8,24 @@ export default {
   },
 
   async mounted () {
-    this.sites = await browser.runtime.sendMessage({ type: 'getAllSites' })
+    await this.reload()
   },
 
   methods: {
+    async reload () {
+      this.sites = await browser.runtime.sendMessage({ type: 'getAllSites' })
+    },
+
     handleAddSite () {
       this.$router.push({ name: 'sites-new' })
+    },
+
+    async removeSite (id) {
+      await browser.runtime.sendMessage({
+        type: 'removeSite',
+        id
+      })
+      await this.reload()
     }
   },
 
@@ -22,7 +34,9 @@ export default {
       <tr key={site.id}>
         <td>{site.pattern}</td>
         <td>E</td>
-        <td>X</td>
+        <td onClick={async () => this.removeSite(site.id)}>
+          X
+        </td>
       </tr>
     ))
 
