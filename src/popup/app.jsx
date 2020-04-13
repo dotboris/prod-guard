@@ -7,18 +7,21 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'sites-list',
-      component: SitesList
+      component: SitesList,
+      meta: { title: 'Prod Guard' }
     },
     {
       path: '/new',
       name: 'sites-new',
-      component: SiteForm
+      component: SiteForm,
+      meta: { title: 'Add site' }
     },
     {
       path: '/edit/:id',
       name: 'sites-edit',
       component: SiteForm,
-      props: true
+      props: true,
+      meta: { title: 'Edit site' }
     }
   ]
 })
@@ -34,7 +37,19 @@ export default {
 
   render () {
     return (
-      <router-view />
+      <div>
+        <div class='title-bar'>
+          <router-link to='/'>
+            Home
+          </router-link>
+
+          <h1>{this.$router.currentRoute.meta.title}</h1>
+        </div>
+
+        <div class='page-content'>
+          <router-view />
+        </div>
+      </div>
     )
   }
 }
