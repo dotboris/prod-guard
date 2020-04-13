@@ -52,7 +52,6 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "content-scripts-register-polyfill": "^1.0.0",
     "vue": "^2.6.11",
     "webext-options-sync": "^1.2.2",
     "webextension-polyfill": "^0.6.0"

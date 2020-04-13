@@ -1,5 +1,4 @@
 import 'webextension-polyfill'
-import 'content-scripts-register-polyfill'
 import Options from './options'
 import * as Sites from './sites'
 
