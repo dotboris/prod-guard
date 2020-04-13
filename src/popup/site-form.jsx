@@ -25,6 +25,12 @@ export default {
       })
 
       this.pattern = res.pattern
+    } else {
+      const tabs = await browser.tabs.query({ currentWindow: true, active: true })
+      if (tabs.length > 0) {
+        const url = new URL(tabs[0].url)
+        this.pattern = url.host.replace(/\./g, '\\.')
+      }
     }
   },
 
