@@ -13,6 +13,12 @@ const router = new VueRouter({
       path: '/new',
       name: 'sites-new',
       component: SiteForm
+    },
+    {
+      path: '/edit/:id',
+      name: 'sites-edit',
+      component: SiteForm,
+      props: true
     }
   ]
 })

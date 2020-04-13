@@ -33,7 +33,16 @@ export default {
     const rows = this.sites.map(site => (
       <tr key={site.id}>
         <td>{site.pattern}</td>
-        <td>E</td>
+        <td
+          onClick={async () => this.$router.push({
+            name: 'sites-edit',
+            params: {
+              id: site.id
+            }
+          })}
+        >
+          E
+        </td>
         <td onClick={async () => this.removeSite(site.id)}>
           X
         </td>

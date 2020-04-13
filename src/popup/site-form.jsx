@@ -11,8 +11,14 @@ export default {
     }
   },
 
+  computed: {
+    hasId () {
+      return typeof this.id !== 'undefined'
+    }
+  },
+
   async mounted () {
-    if (typeof this.id !== 'undefined') {
+    if (this.hasId) {
       const res = await browser.runtime.sendMessage({
         type: 'getSite',
         id: this.id
@@ -28,7 +34,7 @@ export default {
         pattern: this.pattern
       }
 
-      if (this.id) {
+      if (this.hasId) {
         await browser.runtime.sendMessage({
           type: 'updateSite',
           id: this.id,
@@ -41,7 +47,7 @@ export default {
         })
       }
 
-      this.$router.go(-1)
+      this.$router.back()
     }
   },
 
