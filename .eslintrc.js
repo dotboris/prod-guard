@@ -1,3 +1,10 @@
 module.exports = {
-  extends: 'standard'
+  extends: [
+    'standard',
+    'standard-jsx'
+  ],
+  env: {
+    browser: true,
+    webextensions: true
+  }
 }

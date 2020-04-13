@@ -1,0 +1,95 @@
+@import '../palette';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 30rem;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  color: black;
+}
+
+table {
+  $color-alt: $color-light-shade;
+
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 1rem 0;
+
+  td,
+  th {
+    padding: 0.75rem;
+  }
+
+  thead {
+    th {
+      border-bottom: 1px solid $color-dark-shade;
+      background-color: $color-alt;
+
+      &:first-child {
+        padding-top: 1.5rem;
+      }
+    }
+  }
+
+  tbody {
+    tr:nth-of-type(odd) {
+      background-color: $color-alt;
+    }
+
+    tr:last-child td {
+      padding-bottom: 1.5rem;
+    }
+  }
+}
+
+.settings {
+  position: relative;
+  margin: 1rem;
+
+  .loading-overlay,
+  .loading-spinner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .loading-overlay {
+    background-color: $color-light-shade;
+    opacity: 0.9;
+    filter: blur(4px);
+  }
+
+  .loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      @keyframes spinner {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      content: " ";
+      width: 7rem;
+      height: 7rem;
+      border-radius: 50%;
+      border: 5px solid $color-light-accent;
+      border-top-color: $color-main;
+      animation: spinner 1s infinite linear;
+    }
+  }
+}

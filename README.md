@@ -39,6 +39,15 @@ yarn build:prod
     yarn start
     ```
 
+### Test
+
+```sh
+# Watch
+yarn test
+# Single run
+yarn test --single-run
+```
+
 ### Lint
 
 ```sh

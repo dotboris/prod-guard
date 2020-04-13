@@ -4,10 +4,23 @@
   "description": "Browser extension that lets you know when you're connected to production by giving you a clear visual cue. Never accidentally make changes to production ever again.",
   "version": "0.0.0",
 
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content-script.js"]
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "<all_urls>"
+  ],
+
+  "applications": {
+    "gecko": {
+      "id": "dev-prog-guard-extension@example.com"
     }
-  ]
+  }
 }
