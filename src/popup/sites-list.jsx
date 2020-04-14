@@ -1,4 +1,8 @@
 import './sites-list.scss'
+import * as WarningStyles from './warning-styles'
+import Icon from './icon'
+import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/edit.svg'
+import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 
 export default {
   name: 'SitesList',
@@ -28,27 +32,30 @@ export default {
         id
       })
       await this.reload()
+    },
+
+    async editSite (id) {
+      await this.$router.push({
+        name: 'sites-edit',
+        params: { id }
+      })
     }
   },
 
   render () {
-    const rows = this.sites.map(site => (
-      <tr key={site.id}>
-        <td>{site.pattern}</td>
-        <td
-          onClick={async () => this.$router.push({
-            name: 'sites-edit',
-            params: {
-              id: site.id
-            }
-          })}
-        >
-          E
-        </td>
-        <td onClick={async () => this.removeSite(site.id)}>
-          X
-        </td>
-      </tr>
+    const items = this.sites.map(site => (
+      <div key={site.id}>
+        <div class='details'>
+          <p class='pattern'>{site.pattern}</p>
+          <p>Style: {WarningStyles.names[site.warningStyle]}</p>
+        </div>
+        <div class='action' onClick={async () => this.editSite(site.id)}>
+          <Icon svg={EditIcon} title='Edit Warning' />
+        </div>
+        <div class='action' onClick={async () => this.removeSite(site.id)}>
+          <Icon svg={TrashIcon} title='Delete Warning' />
+        </div>
+      </div>
     ))
 
     return (
@@ -58,18 +65,9 @@ export default {
           <button onClick={this.handleAddSite}>New Warning</button>
         </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Site</th>
-              <th />
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
+        <div class='items'>
+          {items}
+        </div>
       </div>
     )
   }

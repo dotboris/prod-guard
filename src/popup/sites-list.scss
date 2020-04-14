@@ -1,3 +1,5 @@
+@import '../palette.scss';
+
 .sites-list {
   .title {
     display: flex;
@@ -7,6 +9,56 @@
     h2 {
       flex-grow: 1;
       margin: 0 0 1rem;
+    }
+  }
+
+  .items {
+    > * {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid $color-light-shade;
+
+      &:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: $color-light-shade;
+      }
+
+      .icon {
+        padding: 0.5rem;
+
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+
+      .action {
+        cursor: pointer;
+
+        &:hover,
+        &:active {
+          color: $color-dark-accent;
+        }
+      }
+
+      .details {
+        flex-grow: 1;
+        margin-right: 0.5rem;
+
+        .pattern {
+          font-family: 'Lucida Console', Monaco, monospace;
+        }
+
+        p {
+          margin: 0.5rem 0;
+        }
+      }
     }
   }
 }

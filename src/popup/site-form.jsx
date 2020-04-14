@@ -1,4 +1,5 @@
 import './site-form.scss'
+import * as WarningStyles from './warning-styles'
 
 export default {
   name: 'SiteForm',
@@ -63,6 +64,11 @@ export default {
   },
 
   render () {
+    const styleOptions = Object.entries(WarningStyles.names)
+      .map(([key, name]) => (
+        <option key={key} value={key}>{name}</option>
+      ))
+
     return (
       <form
         class='site-form'
@@ -88,9 +94,7 @@ export default {
             required
             vModel={this.warningStyle}
           >
-            <option value='border'>Border</option>
-            <option value='topBanner'>Top Banner</option>
-            <option value='bottomBanner'>Bottom Banner</option>
+            {styleOptions}
           </select>
         </label>
 
