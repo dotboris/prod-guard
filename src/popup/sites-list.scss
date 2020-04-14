@@ -12,6 +12,11 @@
     }
   }
 
+  .nothing-here {
+    padding: 3rem 0;
+    text-align: center;
+  }
+
   .items {
     > * {
       display: flex;
