@@ -1,4 +1,3 @@
-import 'webextension-polyfill'
 import './index.scss'
 import App from './app'
 import Vue from 'vue'

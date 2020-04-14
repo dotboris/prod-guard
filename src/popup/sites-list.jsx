@@ -1,4 +1,5 @@
 import './sites-list.scss'
+import browser from 'webextension-polyfill'
 import * as WarningStyles from './warning-styles'
 import Icon from './icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/edit.svg'
