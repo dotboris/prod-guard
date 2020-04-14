@@ -64,11 +64,15 @@ export default {
 
   render () {
     return (
-      <div class='site-form'>
+      <form
+        class='site-form'
+        onSubmit={this.handleSave}
+      >
         <label class='field'>
           <span>Pattern (Regex):</span>
           <input
             type='text'
+            required
             vModel={this.pattern}
           />
         </label>
@@ -80,7 +84,10 @@ export default {
 
         <label class='field'>
           <span>Style:</span>
-          <select vModel={this.warningStyle}>
+          <select
+            required
+            vModel={this.warningStyle}
+          >
             <option value='border'>Border</option>
             <option value='topBanner'>Top Banner</option>
             <option value='bottomBanner'>Bottom Banner</option>
@@ -92,14 +99,9 @@ export default {
         </p>
 
         <div class='controls'>
-          <button
-            type='button'
-            onClick={this.handleSave}
-          >
-            Save
-          </button>
+          <button type='submit'>Save</button>
         </div>
-      </div>
+      </form>
     )
   }
 }
