@@ -1,3 +1,5 @@
+import './site-form.scss'
+
 export default {
   name: 'SiteForm',
 
@@ -62,17 +64,22 @@ export default {
 
   render () {
     return (
-      <div>
-        <label>
-          Pattern (Regex):
+      <div class='site-form'>
+        <label class='field'>
+          <span>Pattern (Regex):</span>
           <input
             type='text'
             vModel={this.pattern}
           />
         </label>
 
-        <label>
-          Style
+        <p class='field-help'>
+          The pattern is a regular expression that matches URLs.
+          Any tab whose URL matches this pattern will show a warning.
+        </p>
+
+        <label class='field'>
+          <span>Style:</span>
           <select vModel={this.warningStyle}>
             <option value='border'>Border</option>
             <option value='topBanner'>Top Banner</option>
@@ -80,12 +87,18 @@ export default {
           </select>
         </label>
 
-        <button
-          type='button'
-          onClick={this.handleSave}
-        >
-          Save
-        </button>
+        <p class='field-help'>
+          The style controls how the warning is displayed.
+        </p>
+
+        <div class='controls'>
+          <button
+            type='button'
+            onClick={this.handleSave}
+          >
+            Save
+          </button>
+        </div>
       </div>
     )
   }
