@@ -1,0 +1,39 @@
+.site-form {
+  > * {
+    margin-top: 2rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .field {
+    display: flex;
+    align-items: center;
+
+    > * {
+      margin-right: 1rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    input,
+    select {
+      flex-grow: 1;
+    }
+  }
+
+  .field-help {
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    padding-left: 1rem;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}

@@ -1,3 +1,6 @@
+import './site-form.scss'
+import * as WarningStyles from './warning-styles'
+
 export default {
   name: 'SiteForm',
 
@@ -61,32 +64,48 @@ export default {
   },
 
   render () {
+    const styleOptions = Object.entries(WarningStyles.names)
+      .map(([key, name]) => (
+        <option key={key} value={key}>{name}</option>
+      ))
+
     return (
-      <div>
-        <label>
-          Pattern (Regex):
+      <form
+        class='site-form'
+        onSubmit={this.handleSave}
+      >
+        <label class='field'>
+          <span>Pattern (Regex):</span>
           <input
             type='text'
+            required
             vModel={this.pattern}
           />
         </label>
 
-        <label>
-          Style
-          <select vModel={this.warningStyle}>
-            <option value='border'>Border</option>
-            <option value='topBanner'>Top Banner</option>
-            <option value='bottomBanner'>Bottom Banner</option>
+        <p class='field-help'>
+          The pattern is a regular expression that matches URLs.
+          Any tab whose URL matches this pattern will show a warning.
+        </p>
+
+        <label class='field'>
+          <span>Style:</span>
+          <select
+            required
+            vModel={this.warningStyle}
+          >
+            {styleOptions}
           </select>
         </label>
 
-        <button
-          type='button'
-          onClick={this.handleSave}
-        >
-          Save
-        </button>
-      </div>
+        <p class='field-help'>
+          The style controls how the warning is displayed.
+        </p>
+
+        <div class='controls'>
+          <button type='submit'>Save</button>
+        </div>
+      </form>
     )
   }
 }
