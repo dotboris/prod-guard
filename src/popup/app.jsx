@@ -16,14 +16,14 @@ const router = new VueRouter({
       path: '/new',
       name: 'sites-new',
       component: SiteForm,
-      meta: { title: 'Add Site' }
+      meta: { title: 'New Warning' }
     },
     {
       path: '/edit/:id',
       name: 'sites-edit',
       component: SiteForm,
       props: true,
-      meta: { title: 'Edit Site' }
+      meta: { title: 'Edit Warning' }
     }
   ]
 })
