@@ -1,3 +1,5 @@
+import './sites-list.scss'
+
 export default {
   name: 'SitesList',
 
@@ -50,8 +52,11 @@ export default {
     ))
 
     return (
-      <div>
-        <button onClick={this.handleAddSite}>Add Site</button>
+      <div class='sites-list'>
+        <div class='title'>
+          <h2>Warnings:</h2>
+          <button onClick={this.handleAddSite}>New Warning</button>
+        </div>
 
         <table>
           <thead>
