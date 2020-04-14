@@ -1,0 +1,24 @@
+@mixin floating-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5rem 0;
+  z-index: 9999999;
+}
+
+.__prod-guard-extension-top-banner {
+  @include floating-banner();
+
+  top: 0;
+}
+
+.__prod-guard-extension-bottom-banner {
+  @include floating-banner();
+
+  bottom: 0;
+}

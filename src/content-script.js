@@ -1,3 +1,38 @@
-console.log('hello world from script')
-document.documentElement.style.border = 'solid 3px red'
-document.body.style.border = 'solid 3px pink'
+import './content-script.scss'
+
+const warnings = {
+  border () {
+    document.body.style.border = '3px solid red'
+  },
+
+  topBanner () {
+    makeBanner('top', 'Warning! This is production!')
+  },
+
+  bottomBanner () {
+    makeBanner('bottom', 'Warning! This is production!')
+  }
+}
+
+main()
+
+async function main () {
+  const sites = window.prodGuardSites || []
+
+  for (const site of sites) {
+    const warningFn = warnings[site.warningStyle]
+    if (warningFn) {
+      warningFn(site)
+    }
+  }
+}
+
+function makeBanner (type, text) {
+  const el = document.createElement('div')
+  el.className = `__prod-guard-extension-${type}-banner`
+  el.textContent = text
+
+  document.body.append(el)
+
+  return el
+}
