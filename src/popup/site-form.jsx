@@ -1,4 +1,5 @@
 import './site-form.scss'
+import browser from 'webextension-polyfill'
 import * as WarningStyles from './warning-styles'
 
 export default {

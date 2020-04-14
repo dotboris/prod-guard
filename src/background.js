@@ -1,4 +1,4 @@
-import 'webextension-polyfill'
+import browser from 'webextension-polyfill'
 import Options from './options'
 import * as Sites from './sites'
 
