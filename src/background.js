@@ -63,6 +63,10 @@ async function onTabChange (tabId, { status }, tab) {
   if (sites.length > 0) {
     await browser.tabs.executeScript(
       tabId,
+      { code: `window.prodGuardSites = ${JSON.stringify(sites)};` }
+    )
+    await browser.tabs.executeScript(
+      tabId,
       { file: 'content-script.js' }
     )
 

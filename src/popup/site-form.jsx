@@ -7,7 +7,8 @@ export default {
 
   data () {
     return {
-      pattern: null
+      pattern: null,
+      warningStyle: 'border'
     }
   },
 
@@ -25,6 +26,7 @@ export default {
       })
 
       this.pattern = res.pattern
+      this.warningStyle = res.warningStyle
     } else {
       const tabs = await browser.tabs.query({ currentWindow: true, active: true })
       if (tabs.length > 0) {
@@ -37,7 +39,8 @@ export default {
   methods: {
     async handleSave () {
       const site = {
-        pattern: this.pattern
+        pattern: this.pattern,
+        warningStyle: this.warningStyle
       }
 
       if (this.hasId) {
@@ -66,6 +69,15 @@ export default {
             type='text'
             vModel={this.pattern}
           />
+        </label>
+
+        <label>
+          Style
+          <select vModel={this.warningStyle}>
+            <option value='border'>Border</option>
+            <option value='topBanner'>Top Banner</option>
+            <option value='bottomBanner'>Bottom Banner</option>
+          </select>
         </label>
 
         <button
