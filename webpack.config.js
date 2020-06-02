@@ -17,9 +17,11 @@ module.exports = {
   },
 
   plugins: [
-    new CopyPlugin([
-      'manifest.json'
-    ]),
+    new CopyPlugin({
+      patterns: [
+        'manifest.json'
+      ]
+    }),
     new HtmlWebpackPlugin({
       chunks: ['popup'],
       filename: 'popup.html',
