@@ -21,7 +21,7 @@
     "chai": "^4.2.0",
     "copy-webpack-plugin": "^6.0.2",
     "cross-env": "^7.0.0",
-    "css-loader": "^3.5.3",
+    "css-loader": "^3.6.0",
     "dirty-chai": "^2.0.1",
     "eslint": "^7.2.0",
     "eslint-config-standard": "^14.1.0",
