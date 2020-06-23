@@ -48,7 +48,7 @@
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
     "vue-router": "^3.3.4",
-    "web-ext": "^4.2.0",
+    "web-ext": "^4.3.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
