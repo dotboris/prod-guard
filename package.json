@@ -53,7 +53,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "vue": "^2.6.11",
     "webext-options-sync": "^1.2.2",
     "webextension-polyfill": "^0.6.0"
