@@ -98,3 +98,16 @@ table {
 .page-content {
   margin: 1rem;
 }
+
+button {
+  appearance: none;
+  border: 1px solid $color-dark-shade;
+  background-color: white;
+  padding: 0.5rem 1rem;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $color-light-shade;
+  }
+}
