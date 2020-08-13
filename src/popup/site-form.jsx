@@ -41,7 +41,9 @@ export default {
   },
 
   methods: {
-    async handleSave () {
+    async handleSave (event) {
+      event.preventDefault()
+
       const site = {
         pattern: this.pattern,
         warningStyle: this.warningStyle
