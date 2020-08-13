@@ -4,8 +4,11 @@ html,
 body {
   margin: 0;
   padding: 0;
-  width: 30rem;
-  min-height: 20rem;
+  // This is the width of the popup when it's "pinned to the menu" in firefox.
+  // Honestly, this is quite a dirty hack and I don't even know if it'll work on
+  // all platforms. It's rather annoying that when the popup is pinned it'll
+  // have a fixed size and otherwise it'll try to grow based on its content.
+  width: 413px;
 }
 
 html {
@@ -97,4 +100,48 @@ table {
 
 .page-content {
   margin: 1rem;
+}
+
+button {
+  appearance: none;
+  border: none;
+  background-color: $color-dark-shade;
+  padding: 0.5rem 1rem;
+  color: $color-light-shade;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $color-main;
+  }
+}
+
+input[type=text] {
+  appearance: none;
+  border: 1px solid $color-dark-shade;
+  background-color: white;
+  padding: 0.5rem;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: $color-dark-accent;
+  }
+}
+
+select {
+  appearance: none;
+  border: 1px solid $color-dark-shade;
+  background:
+    url('!url-loader!@fortawesome/fontawesome-free/svgs/solid/caret-down.svg')
+    right 0.5rem top 50%/0.5rem
+    no-repeat
+    white;
+  padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: $color-dark-accent;
+  }
 }
