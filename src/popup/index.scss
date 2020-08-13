@@ -111,3 +111,16 @@ button {
     background-color: $color-light-shade;
   }
 }
+
+input[type=text] {
+  appearance: none;
+  border: 1px solid $color-dark-shade;
+  background-color: white;
+  padding: 0.5rem;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: $color-dark-accent;
+  }
+}
