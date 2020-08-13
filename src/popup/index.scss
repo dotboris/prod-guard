@@ -4,8 +4,11 @@ html,
 body {
   margin: 0;
   padding: 0;
-  width: 30rem;
-  min-height: 20rem;
+  // This is the width of the popup when it's "pinned to the menu" in firefox.
+  // Honestly, this is quite a dirty hack and I don't even know if it'll work on
+  // all platforms. It's rather annoying that when the popup is pinned it'll
+  // have a fixed size and otherwise it'll try to grow based on its content.
+  width: 413px;
 }
 
 html {
