@@ -48,7 +48,7 @@ module.exports = {
       {
         test: /\.svg$/,
         use: [
-          // 'raw-loader'
+          'raw-loader'
         ]
       }
     ]

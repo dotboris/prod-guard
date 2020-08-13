@@ -130,7 +130,7 @@ select {
   appearance: none;
   border: 1px solid $color-dark-shade;
   background:
-    url('url-loader!@fortawesome/fontawesome-free/svgs/solid/caret-down.svg')
+    url('!url-loader!@fortawesome/fontawesome-free/svgs/solid/caret-down.svg')
     right 0.5rem top 50%/0.5rem
     no-repeat
     white;

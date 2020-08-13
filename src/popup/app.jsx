@@ -2,7 +2,7 @@ import SitesList from './sites-list'
 import SiteForm from './site-form'
 import VueRouter from 'vue-router'
 import Icon from './icon'
-import HomeIcon from 'raw-loader!@fortawesome/fontawesome-free/svgs/solid/home.svg'
+import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/home.svg'
 
 const router = new VueRouter({
   routes: [
