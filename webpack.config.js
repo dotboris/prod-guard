@@ -19,7 +19,8 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        'manifest.json'
+        'manifest.json',
+        'icon/*.svg'
       ]
     }),
     new HtmlWebpackPlugin({
