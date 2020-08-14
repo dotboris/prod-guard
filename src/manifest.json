@@ -10,15 +10,16 @@
 
   "browser_action": {
     "default_popup": "popup.html",
+    "default_icon": "icon/dark-icon.svg",
     "theme_icons": [
       {
-        "dark": "icon-light.svg",
-        "light": "icon-dark.svg",
+        "dark": "icon/dark-icon.svg",
+        "light": "icon/light-icon.svg",
         "size": 16
       },
       {
-        "dark": "icon-light.svg",
-        "light": "icon-dark.svg",
+        "dark": "icon/dark-icon.svg",
+        "light": "icon/light-icon.svg",
         "size": 32
       }
     ]
