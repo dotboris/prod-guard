@@ -78,7 +78,7 @@ export default {
         onSubmit={this.handleSave}
       >
         <label class='field'>
-          <span>Pattern (Regex):</span>
+          <span>URL Pattern:</span>
           <input
             type='text'
             required
@@ -87,8 +87,8 @@ export default {
         </label>
 
         <p class='field-help'>
-          The pattern is a regular expression that matches URLs.
-          Any tab whose URL matches this pattern will show a warning.
+          A regular expression matched against a tab's URL.
+          If there's a match, the warning is displayed.
         </p>
 
         <label class='field'>
@@ -102,7 +102,7 @@ export default {
         </label>
 
         <p class='field-help'>
-          The style controls how the warning is displayed.
+          Controls what kind of warning to display.
         </p>
 
         <div class='controls'>
