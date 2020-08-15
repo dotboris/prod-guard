@@ -57,4 +57,27 @@ yarn lint
 
 ## Release
 
-TODO
+1.  Checkout `master` and make sure that you have a clean environment
+1.  Bump the version
+
+    ```sh
+    yarn version
+    ```
+
+1.  Push your version bump
+
+    ```sh
+    git push --tags origin master
+    ```
+
+1.  Build & package the extension
+
+    ```sh
+    yarn build:prod
+    yarn package
+    ```
+
+1.  Upload the packaged extension to the Firefox addons site
+
+    Note that the previous step created a packaged extension for you to upload
+    in `web-ext-artifacts/`. Make sure that you're uploading the right version!

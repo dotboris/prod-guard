@@ -1,9 +1,17 @@
+const { version } = require('./package.json')
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
+const CleanPlugin = require('webpack-clean-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 function isProd () {
   return process.env.NODE_ENV === 'production'
+}
+
+function patchManifest (manifestContent) {
+  const manifest = JSON.parse(manifestContent)
+  manifest.version = version
+  return JSON.stringify(manifest)
 }
 
 module.exports = {
@@ -17,9 +25,16 @@ module.exports = {
   },
 
   plugins: [
+    new CleanPlugin(),
     new CopyPlugin({
       patterns: [
-        'manifest.json',
+        {
+          from: 'manifest.json',
+          to: 'manifest.json',
+          transform (content) {
+            return patchManifest(content)
+          }
+        },
         'icon/*.svg'
       ]
     }),
