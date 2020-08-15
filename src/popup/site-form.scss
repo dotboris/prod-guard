@@ -27,8 +27,14 @@
 
   .field-help {
     font-size: 0.9rem;
-    margin-top: 0.25rem;
+    margin-top: 0;
+    padding-top: 0.25rem;
     padding-left: 1rem;
+
+    .text {
+      width: 0;
+      min-width: 100%;
+    }
   }
 
   .controls {

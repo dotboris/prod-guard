@@ -2,6 +2,12 @@ import './site-form.scss'
 import browser from 'webextension-polyfill'
 import * as WarningStyles from './warning-styles'
 
+const FieldHelp = ({ children }) => (
+  <div class='field-help'>
+    <div class='text'>{children}</div>
+  </div>
+)
+
 export default {
   name: 'SiteForm',
 
@@ -78,7 +84,7 @@ export default {
         onSubmit={this.handleSave}
       >
         <label class='field'>
-          <span>Pattern (Regex):</span>
+          <span>URL Pattern:</span>
           <input
             type='text'
             required
@@ -86,10 +92,10 @@ export default {
           />
         </label>
 
-        <p class='field-help'>
-          The pattern is a regular expression that matches URLs.
-          Any tab whose URL matches this pattern will show a warning.
-        </p>
+        <FieldHelp>
+          A regular expression matched against a tab's URL.
+          If there's a match, the warning is displayed.
+        </FieldHelp>
 
         <label class='field'>
           <span>Style:</span>
@@ -101,9 +107,9 @@ export default {
           </select>
         </label>
 
-        <p class='field-help'>
-          The style controls how the warning is displayed.
-        </p>
+        <FieldHelp>
+          Controls what kind of warning to display.
+        </FieldHelp>
 
         <div class='controls'>
           <button type='submit'>Save</button>

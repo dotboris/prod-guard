@@ -4,11 +4,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  // This is the width of the popup when it's "pinned to the menu" in firefox.
-  // Honestly, this is quite a dirty hack and I don't even know if it'll work on
-  // all platforms. It's rather annoying that when the popup is pinned it'll
-  // have a fixed size and otherwise it'll try to grow based on its content.
-  width: 413px;
 }
 
 html {
@@ -17,45 +12,12 @@ html {
   color: black;
 }
 
-table {
-  $color-alt: $color-light-shade;
-
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-  margin: 1rem 0;
-
-  td,
-  th {
-    padding: 0.75rem;
-  }
-
-  thead {
-    th {
-      border-bottom: 1px solid $color-dark-shade;
-      background-color: $color-alt;
-
-      &:first-child {
-        padding-top: 1.5rem;
-      }
-    }
-  }
-
-  tbody {
-    tr:nth-of-type(odd) {
-      background-color: $color-alt;
-    }
-
-    tr:last-child td {
-      padding-bottom: 1.5rem;
-    }
-  }
+.app {
+  min-width: 20rem;
 }
 
-.icon,
-.icon svg {
-  fill: currentColor;
-  display: inline-block;
+.page-content {
+  padding: 1rem;
 }
 
 .title-bar {
@@ -98,8 +60,10 @@ table {
   }
 }
 
-.page-content {
-  margin: 1rem;
+.icon,
+.icon svg {
+  fill: currentColor;
+  display: inline-block;
 }
 
 button {

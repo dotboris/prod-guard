@@ -10,6 +10,7 @@ async function main () {
   const app = new (Vue.extend(App))()
 
   const root = document.createElement('div')
+  root.className = 'app'
   document.body.append(root)
   app.$mount(root)
 }

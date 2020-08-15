@@ -39,7 +39,7 @@ export default {
 
   render () {
     return (
-      <div>
+      <div class='app'>
         <div class='title-bar'>
           <router-link to='/'>
             <Icon svg={HomeIcon} title='Home' />
