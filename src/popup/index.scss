@@ -16,10 +16,8 @@ html {
   min-width: 20rem;
 }
 
-.icon,
-.icon svg {
-  fill: currentColor;
-  display: inline-block;
+.page-content {
+  padding: 1rem;
 }
 
 .title-bar {
@@ -62,8 +60,10 @@ html {
   }
 }
 
-.page-content {
-  margin: 1rem;
+.icon,
+.icon svg {
+  fill: currentColor;
+  display: inline-block;
 }
 
 button {
