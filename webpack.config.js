@@ -1,5 +1,6 @@
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
+const CleanPlugin = require('webpack-clean-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 function isProd () {
@@ -17,6 +18,7 @@ module.exports = {
   },
 
   plugins: [
+    new CleanPlugin(),
     new CopyPlugin({
       patterns: [
         'manifest.json',

@@ -1,12 +1,12 @@
 {
   "name": "prod-guard",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "web-ext run -s dist --verbose",
     "build": "webpack",
     "build:watch": "webpack --watch",
     "build:prod": "cross-env NODE_ENV=production webpack",
+    "package": "web-ext build -s dist -o",
     "lint": "run-p 'lint:**'",
     "lint:js": "eslint . --ext .js --ext .jsx",
     "lint:css": "stylelint 'src/**/*.scss'",
@@ -53,6 +53,7 @@
     "vue-router": "^3.4.3",
     "web-ext": "^5.0.0",
     "webpack": "^4.44.1",
+    "webpack-clean-plugin": "^0.2.3",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
