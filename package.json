@@ -1,5 +1,6 @@
 {
   "name": "prod-guard",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "web-ext run -s dist --verbose",
