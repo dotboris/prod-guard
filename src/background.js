@@ -13,7 +13,7 @@ async function setup () {
   Sites.addAll(sitesDb, options.sites)
 
   browser.runtime.onMessage.addListener(onMessage)
-  browser.tabs.onUpdated.addListener(onTabChange, { properties: ['status'] })
+  browser.tabs.onUpdated.addListener(onTabChange)
 }
 
 async function saveSites () {
