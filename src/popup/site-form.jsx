@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       pattern: null,
-      warningStyle: 'border'
+      warningStyle: Object.keys(WarningStyles.names)[0]
     }
   },
 

@@ -1,5 +1,5 @@
 export const names = {
-  border: 'Border',
   topBanner: 'Top Banner',
-  bottomBanner: 'Bottom Banner'
+  bottomBanner: 'Bottom Banner',
+  border: 'Border'
 }
