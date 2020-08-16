@@ -1,15 +1,15 @@
 # Prod Guard
 
-[![Build Status](https://travis-ci.com/dotboris/prod-guard.svg?branch=master)](https://travis-ci.com/dotboris/prod-guard)
-[![Known Vulnerabilities](https://snyk.io/test/github/dotboris/prod-guard/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dotboris/prod-guard?targetFile=package.json)
-
 <img
     src="src/icon/dark-icon.svg"
     alt="Prod Guard logo"
     width="128"
     height="128"
-    align="left"
+    align="right"
 />
+
+[![Build Status](https://travis-ci.com/dotboris/prod-guard.svg?branch=master)](https://travis-ci.com/dotboris/prod-guard)
+[![Known Vulnerabilities](https://snyk.io/test/github/dotboris/prod-guard/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dotboris/prod-guard?targetFile=package.json)
 
 A browser extension that lets you know when you're connected to production by
 giving you a clear visual warning. Never accidentally make changes to
