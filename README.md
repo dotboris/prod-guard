@@ -8,7 +8,7 @@
     alt="Prod Guard logo"
     width="128"
     height="128"
-    style="float: left;"
+    align="left"
 />
 
 A browser extension that lets you know when you're connected to production by
