@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v1.0.0 - 2020-08-16
+
 ### Added
 
 - Ability to add warning to websites based regular expressions.
