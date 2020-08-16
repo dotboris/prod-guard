@@ -4,8 +4,8 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/dotboris/prod-guard/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dotboris/prod-guard?targetFile=package.json)
 
 A browser extension that lets you know when you're connected to production by
-giving you a clear visual warning. Never accidentally make changes to production
-ever again.
+giving you a clear visual warning. Never accidentally make changes to
+production.
 
 Specifically, Prog Guard lets you add big red warnings to any website.
 
