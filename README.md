@@ -3,9 +3,28 @@
 [![Build Status](https://travis-ci.com/dotboris/prod-guard.svg?branch=master)](https://travis-ci.com/dotboris/prod-guard)
 [![Known Vulnerabilities](https://snyk.io/test/github/dotboris/prod-guard/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dotboris/prod-guard?targetFile=package.json)
 
-Browser extension that lets you know when you're connected to production by
-giving you a clear visual cue. Never accidentally make changes to production
+A browser extension that lets you know when you're connected to production by
+giving you a clear visual warning. Never accidentally make changes to production
 ever again.
+
+Specifically, Prog Guard lets you add big red warnings to any website.
+
+## Showcase
+
+What follows are the available warnings that can be shown on website.
+
+<table>
+  <tr>
+    <th>Top Banner</th>
+    <th>Bottom Banner</th>
+    <th>Border</th>
+  </tr>
+  <tr>
+    <td><img src="doc/top-banner-showcase" alt="Website with a top banner warning"/></td>
+    <td><img src="doc/bottom-banner-showcase" alt="Website with a bottom banner warning"/></td>
+    <td><img src="doc/border-showcase" alt="Website with a border warning"/></td>
+  </tr>
+</table>
 
 ## Install
 
