@@ -20,9 +20,9 @@ What follows are the available warnings that can be shown on website.
     <th>Border</th>
   </tr>
   <tr>
-    <td><img src="doc/top-banner-showcase" alt="Website with a top banner warning"/></td>
-    <td><img src="doc/bottom-banner-showcase" alt="Website with a bottom banner warning"/></td>
-    <td><img src="doc/border-showcase" alt="Website with a border warning"/></td>
+    <td><img src="doc/top-banner-showcase.png" alt="Website with a top banner warning"/></td>
+    <td><img src="doc/bottom-banner-showcase.png" alt="Website with a bottom banner warning"/></td>
+    <td><img src="doc/border-showcase.png" alt="Website with a border warning"/></td>
   </tr>
 </table>
 
