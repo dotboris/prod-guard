@@ -8,19 +8,7 @@
   },
 
   "browser_action": {
-    "default_popup": "popup.html",
-    "theme_icons": [
-      {
-        "dark": "icon/dark-icon.svg",
-        "light": "icon/light-icon.svg",
-        "size": 16
-      },
-      {
-        "dark": "icon/dark-icon.svg",
-        "light": "icon/light-icon.svg",
-        "size": 32
-      }
-    ]
+    "default_popup": "popup.html"
   },
 
   "permissions": [
