@@ -9,7 +9,6 @@
 
   "browser_action": {
     "default_popup": "popup.html",
-    "default_icon": "icon/dark-icon.svg",
     "theme_icons": [
       {
         "dark": "icon/dark-icon.svg",
