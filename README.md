@@ -9,6 +9,10 @@ ever again.
 
 Specifically, Prog Guard lets you add big red warnings to any website.
 
+## Install
+
+TODO: publish extension & give links here
+
 ## Showcase
 
 What follows are the available warnings that can be shown on website.
@@ -25,10 +29,6 @@ What follows are the available warnings that can be shown on website.
     <td><img src="doc/border-showcase.png" alt="Website with a border warning"/></td>
   </tr>
 </table>
-
-## Install
-
-TODO: publish extension & give links here
 
 ## Usage
 
