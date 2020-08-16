@@ -13,7 +13,28 @@ TODO: publish extension & give links here
 
 ## Usage
 
-TODO: How to use / configure this extension
+Adding a warning to a site is very simple.
+
+1.  Open click on the Prod Guard icon in your browser to open the settings.
+
+    ![settings screen](doc/empty-home-screen.png)
+
+1.  Click on __New Warning__ in the top right corner.
+
+1.  Fill in the details for the site of your choice.
+
+    ![new warning screen](doc/new-warning-screen.png)
+
+    __URL Pattern__ is a regular expression that matches the URL of the website.
+    This lets you match the host, port, path, scheme, etc.
+
+    __Style__ is the type of warning that will be shown. Examples are shown
+    above.
+
+1.  Click on __Save__.
+
+1.  Open or refresh the page you want to see a warning on. You should now see a
+    warning.
 
 ## Development
 
