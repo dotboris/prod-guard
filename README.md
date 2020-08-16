@@ -132,7 +132,9 @@ yarn lint
     yarn package
     ```
 
-1.  Upload the packaged extension to the Firefox add-ons site.
+    This step creates a fully packaged extension in `web-ext-artifacts/`. You
+    may have old versions from previous builds. Be sure to use the right version
+    when publishing.
 
-    Note that the previous step created a packaged extension for you to upload
-    in `web-ext-artifacts/`. Make sure that you're uploading the right version!
+1.  Publish to the Firefox add-ons site.
+1.  Publish to the Chrome web store

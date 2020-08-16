@@ -17,6 +17,12 @@ const warnings = {
 main()
 
 async function main () {
+  if (window.prodGuardHasRun) {
+    return
+  }
+
+  window.prodGuardHasRun = true
+
   const sites = window.prodGuardSites || []
 
   for (const site of sites) {

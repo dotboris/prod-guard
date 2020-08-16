@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Prod Guard",
-  "description": "Browser extension that lets you know when you're connected to production by giving you a clear visual cue. Never accidentally make changes to production ever again.",
+  "description": "Warns you when you are connected to production. Never accidentally make changes to production.",
 
   "background": {
     "scripts": ["background.js"]
@@ -9,7 +9,6 @@
 
   "browser_action": {
     "default_popup": "popup.html",
-    "default_icon": "icon/dark-icon.svg",
     "theme_icons": [
       {
         "dark": "icon/dark-icon.svg",
