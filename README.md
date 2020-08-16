@@ -15,7 +15,7 @@ TODO: publish extension & give links here
 
 ## Showcase
 
-What follows are the available warnings that can be shown on website.
+What follows are the available warnings that can be shown on websites.
 
 <table>
   <tr>
@@ -97,7 +97,7 @@ yarn lint
 
 ## Release
 
-1.  Checkout `master` and make sure that you have a clean environment
+1.  Checkout `master` and make sure that you have a clean environment.
 1.  Bump the version
 
     ```sh
@@ -117,7 +117,7 @@ yarn lint
     yarn package
     ```
 
-1.  Upload the packaged extension to the Firefox addons site
+1.  Upload the packaged extension to the Firefox add-ons site.
 
     Note that the previous step created a packaged extension for you to upload
     in `web-ext-artifacts/`. Make sure that you're uploading the right version!
