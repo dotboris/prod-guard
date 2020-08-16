@@ -106,19 +106,26 @@ yarn lint
 ## Release
 
 1.  Checkout `master` and make sure that you have a clean environment.
-1.  Bump the version
+1.  Update the [changelog](CHANGELOG.md)
+
+    You'll need to change the `Unreleased` section to the version you're about
+    to release and create a new empty `Unreleased` section.
+
+    Once that's done, commit this change directly to `master`.
+
+1.  Bump the version.
 
     ```sh
     yarn version
     ```
 
-1.  Push your version bump
+1.  Push your version bump and changelog update.
 
     ```sh
     git push --tags origin master
     ```
 
-1.  Build & package the extension
+1.  Build & package the extension.
 
     ```sh
     yarn build:prod
