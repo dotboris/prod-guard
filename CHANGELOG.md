@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed major bug where loading, adding, removing, changing warnings did not
   work at all but only on the published version of the extension. It works in
-  dev but it falls flat when it's published for real. (#138)
+  dev but it falls flat when it's published for real.
 
 ## v1.1.0 - 2020-08-16
 
