@@ -1,5 +1,4 @@
 import browser from 'webextension-polyfill'
-import Options from './options'
 import * as Sites from './sites'
 
 let sitesDb
@@ -7,10 +6,10 @@ let sitesDb
 setup()
 
 async function setup () {
-  const options = await Options.getAll()
+  const { sites = [] } = await browser.storage.sync.get('sites')
 
   sitesDb = Sites.createDb()
-  Sites.addAll(sitesDb, options.sites)
+  Sites.addAll(sitesDb, sites)
 
   browser.runtime.onMessage.addListener(onMessage)
   browser.tabs.onUpdated.addListener(onTabChange)
@@ -18,7 +17,7 @@ async function setup () {
 
 async function saveSites () {
   const sites = Sites.getAll(sitesDb)
-  await Options.set({ sites })
+  await browser.storage.sync.set({ sites })
 }
 
 const api = {

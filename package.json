@@ -61,7 +61,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
     "vue": "^2.6.11",
-    "webext-options-sync": "^1.2.2",
     "webextension-polyfill": "^0.6.0"
   }
 }
