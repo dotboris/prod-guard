@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "webextension-polyfill": "^0.6.0"
   }
 }
