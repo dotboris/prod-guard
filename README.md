@@ -72,6 +72,14 @@ Adding a warning to a site is very simple.
 
 ## Development
 
+### Setup
+
+Install dependencies:
+
+```sh
+yarn
+```
+
 ### Build
 
 ```sh
