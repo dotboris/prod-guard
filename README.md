@@ -74,8 +74,6 @@ Adding a warning to a site is very simple.
 
 ### Setup
 
-Install dependencies:
-
 ```sh
 yarn
 ```
@@ -116,6 +114,15 @@ yarn test --single-run
 ```sh
 yarn build
 yarn lint
+```
+
+### Package
+
+This is usually not required for normal development. Here are the instructions
+in case you need them.
+
+```sh
+yarn package
 ```
 
 ## Release
