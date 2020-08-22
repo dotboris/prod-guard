@@ -19,7 +19,14 @@ Specifically, Prog Guard lets you add big red warnings to any website.
 
 ## Install
 
-TODO: publish extension & give links here
+<center>
+<a href="https://chrome.google.com/webstore/detail/prod-guard/hiimciamoiopmcjmbpgbfkiilbdnccdk">
+![Install on Chrome](./doc/chrome-install-badge.png)
+</a>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/prod-guard/">
+![Install on Firefox](./doc/firefox-install-badge.png)
+</a>
+</center>
 
 ## Showcase
 
