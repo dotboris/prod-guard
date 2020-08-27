@@ -47,7 +47,7 @@
     "raw-loader": "^4.0.1",
     "sass": "^1.26.10",
     "sass-loader": "^10.0.1",
-    "sharp": "^0.25.4",
+    "sharp": "^0.26.0",
     "style-loader": "^1.2.1",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
