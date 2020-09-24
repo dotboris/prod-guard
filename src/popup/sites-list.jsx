@@ -27,7 +27,7 @@ export default {
       this.$router.push({ name: 'sites-new' })
     },
 
-    async removeSite (id) {
+    async handleRemoveSite (id) {
       await browser.runtime.sendMessage({
         type: 'removeSite',
         id
@@ -35,7 +35,7 @@ export default {
       await this.reload()
     },
 
-    async editSite (id) {
+    async handleEditSite (id) {
       await this.$router.push({
         name: 'sites-edit',
         params: { id }
@@ -53,10 +53,10 @@ export default {
             <p class='pattern'>{site.pattern}</p>
             <p>Style: {WarningStyles.names[site.warningStyle]}</p>
           </div>
-          <div class='action' onClick={async () => this.editSite(site.id)}>
+          <div class='action' onClick={() => this.handleEditSite(site.id)}>
             <Icon svg={EditIcon} title='Edit Warning' />
           </div>
-          <div class='action' onClick={async () => this.removeSite(site.id)}>
+          <div class='action' onClick={() => this.handleRemoveSite(site.id)}>
             <Icon svg={TrashIcon} title='Delete Warning' />
           </div>
         </div>
