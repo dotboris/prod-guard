@@ -5,12 +5,12 @@ const warnings = {
     document.body.style.border = '3px solid red'
   },
 
-  topBanner () {
-    makeBanner('top', 'Warning! This is production!')
+  topBanner (site) {
+    makeBanner('top', site.warningText)
   },
 
-  bottomBanner () {
-    makeBanner('bottom', 'Warning! This is production!')
+  bottomBanner (site) {
+    makeBanner('bottom', site.warningText)
   }
 }
 
