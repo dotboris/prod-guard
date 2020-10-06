@@ -18,7 +18,8 @@ export default {
   data () {
     return {
       pattern: null,
-      warningStyle: Object.keys(WarningStyles.names)[0]
+      warningStyle: Object.keys(WarningStyles.names)[0],
+      warningText: 'Warning! This is production!'
     }
   },
 
@@ -37,6 +38,7 @@ export default {
 
       this.pattern = res.pattern
       this.warningStyle = res.warningStyle
+      this.warningText = res.warningText
     } else {
       const tabs = await browser.tabs.query({ currentWindow: true, active: true })
       if (tabs.length > 0) {
@@ -52,7 +54,8 @@ export default {
 
       const site = {
         pattern: this.pattern,
-        warningStyle: this.warningStyle
+        warningStyle: this.warningStyle,
+        warningText: this.warningText
       }
 
       if (this.hasId) {
@@ -109,6 +112,19 @@ export default {
 
         <FieldHelp>
           Controls what kind of warning to display.
+        </FieldHelp>
+
+        <label class='field'>
+          <span>Text:</span>
+          <input
+            type='text'
+            required
+            vModel={this.warningText}
+          />
+        </label>
+
+        <FieldHelp>
+          The warning text to display
         </FieldHelp>
 
         <div class='controls'>
