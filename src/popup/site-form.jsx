@@ -85,7 +85,7 @@ export default {
     let textInput = ''
     if (styleDefinition.hasText) {
       textInput = (
-        <fieldset>
+        <div>
           <label class='field'>
             <span>Text:</span>
             <input
@@ -98,7 +98,7 @@ export default {
           <FieldHelp>
             The warning text to display
           </FieldHelp>
-        </fieldset>
+        </div>
       )
     }
 
