@@ -80,7 +80,7 @@ export default {
       .map(([key, def]) => (
         <option key={key} value={key}>{def.label}</option>
       ))
-    const styleDefinition = WarningStyles.definitions[this.warningStyle];
+    const styleDefinition = WarningStyles.definitions[this.warningStyle]
 
     let textInput = ''
     if (styleDefinition.hasText) {
