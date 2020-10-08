@@ -51,7 +51,7 @@ export default {
         <div key={site.id}>
           <div class='details'>
             <p class='pattern'>{site.pattern}</p>
-            <p>Style: {WarningStyles.names[site.warningStyle]}</p>
+            <p>Style: {WarningStyles.definitions[site.warningStyle].label}</p>
           </div>
           <div class='action' onClick={() => this.handleEditSite(site.id)}>
             <Icon svg={EditIcon} title='Edit Warning' />
