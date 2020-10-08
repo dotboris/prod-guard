@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       pattern: null,
-      warningStyle: Object.keys(WarningStyles.names)[0],
+      warningStyle: Object.keys(WarningStyles.definitions)[0],
       warningText: 'Warning! This is production!'
     }
   },
@@ -76,10 +76,31 @@ export default {
   },
 
   render () {
-    const styleOptions = Object.entries(WarningStyles.names)
-      .map(([key, name]) => (
-        <option key={key} value={key}>{name}</option>
+    const styleOptions = Object.entries(WarningStyles.definitions)
+      .map(([key, def]) => (
+        <option key={key} value={key}>{def.label}</option>
       ))
+    const styleDefinition = WarningStyles.definitions[this.warningStyle];
+
+    let textInput = ''
+    if (styleDefinition.hasText) {
+      textInput = (
+        <fieldset>
+          <label class='field'>
+            <span>Text:</span>
+            <input
+              type='text'
+              required
+              vModel={this.warningText}
+            />
+          </label>
+
+          <FieldHelp>
+            The warning text to display
+          </FieldHelp>
+        </fieldset>
+      )
+    }
 
     return (
       <form
@@ -114,18 +135,7 @@ export default {
           Controls what kind of warning to display.
         </FieldHelp>
 
-        <label class='field'>
-          <span>Text:</span>
-          <input
-            type='text'
-            required
-            vModel={this.warningText}
-          />
-        </label>
-
-        <FieldHelp>
-          The warning text to display
-        </FieldHelp>
+        {textInput}
 
         <div class='controls'>
           <button type='submit'>Save</button>
