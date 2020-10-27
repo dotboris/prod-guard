@@ -17,7 +17,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
-    "@vue/babel-preset-jsx": "^1.1.2",
+    "@vue/babel-preset-jsx": "^1.2.3",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
