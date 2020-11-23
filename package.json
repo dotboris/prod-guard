@@ -15,7 +15,7 @@
     "test": "karma start karma.conf.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
+    "@babel/core": "^7.12.7",
     "@babel/preset-env": "^7.12.1",
     "@vue/babel-preset-jsx": "^1.2.4",
     "autoprefixer": "^9.8.6",
