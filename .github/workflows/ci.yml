@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-        width: { node-version: '12' }
+        with: { node-version: '12' }
       - run: yarn install
       - run: yarn build:prod
 
@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-        width: { node-version: '12' }
+        with: { node-version: '12' }
       - run: yarn install
       - run: yarn test --single-run --browsers ${{ matrix.browser }}
 
@@ -32,6 +32,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-        width: { node-version: '12' }
+        with: { node-version: '12' }
       - run: yarn install
       - run: yarn lint
