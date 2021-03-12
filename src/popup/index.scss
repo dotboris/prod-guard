@@ -97,7 +97,7 @@ select {
   appearance: none;
   border: 1px solid $color-dark-shade;
   background:
-    url('!url-loader!@fortawesome/fontawesome-free/svgs/solid/caret-down.svg')
+    url('@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri')
     right 0.5rem top 50%/0.5rem
     no-repeat
     white;
