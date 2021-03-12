@@ -103,9 +103,12 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: [
-          'raw-loader'
-        ]
+        type: 'asset/source'
+      },
+      {
+        test: /\.svg$/,
+        resourceQuery: /data-uri/,
+        type: 'asset/inline'
       }
     ]
   },
