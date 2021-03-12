@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-- Migrate the whole build process to webpack 5. This should have no impact on
+### Changed
+
+- Migrate the whole build process to Webpack 5. This should have no impact on
   end user but it's worth mentioning.
 
 ## v1.1.1 - 2020-08-18
