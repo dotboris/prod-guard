@@ -52,7 +52,7 @@
     "stylelint-config-standard": "^21.0.0",
     "vue-router": "^3.5.1",
     "web-ext": "^6.0.0",
-    "webpack": "^5.26.0",
+    "webpack": "^5.26.2",
     "webpack-clean-plugin": "^0.2.3",
     "webpack-cli": "^4.5.0"
   },
