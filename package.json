@@ -33,7 +33,7 @@
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-react": "^7.23.1",
     "html-webpack-plugin": "^5.3.1",
-    "karma": "^6.3.0",
+    "karma": "^6.3.1",
     "karma-chrome-launcher": "^3.1.0",
     "karma-firefox-launcher": "^2.1.0",
     "karma-mocha": "^2.0.1",
