@@ -18,11 +18,6 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
     })
   }
 
-  const styleOptions = Object.entries(warningStyles)
-    .map(([key, name]) => (
-      <option key={key} value={key}>{name}</option>
-    ))
-
   return (
     <form
       className='site-form'
@@ -52,7 +47,10 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
           onChange={e => setWarningStyle(e.target.value)}
           disabled={disabled}
         >
-          {styleOptions}
+          {Object.entries(warningStyles)
+            .map(([key, name]) => (
+              <option key={key} value={key}>{name}</option>
+            ))}
         </select>
       </label>
 
