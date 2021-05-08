@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill'
+import { migrateStorageData, migrations } from './migrations'
 import * as Warnings from './warnings'
 
 let warningsDb
@@ -6,18 +7,39 @@ let warningsDb
 setup()
 
 async function setup () {
-  const { sites = [] } = await browser.storage.sync.get('sites')
+  console.log('starting setup')
 
+  const rawStorageData = await browser.storage.sync.get() ?? {}
+  const [hasMigrated, storageData] = await migrateStorageData(
+    migrations,
+    rawStorageData
+  )
+
+  if (hasMigrated) {
+    console.log('storage data was migrated')
+    console.log('previous storage data:', rawStorageData)
+    console.log('new storage data:', storageData)
+    console.log('replacing all existing storage data with new storage data')
+    await browser.storage.sync.clear()
+    await browser.storage.sync.set(storageData)
+    console.log('storage data migration is done')
+  }
+
+  console.log('initializing warnings database from storage data')
   warningsDb = Warnings.createDb()
-  Warnings.addAll(warningsDb, sites)
+  Warnings.addAll(warningsDb, storageData.warnings)
 
+  console.log('registering event listeners')
   browser.runtime.onMessage.addListener(onMessage)
   browser.tabs.onUpdated.addListener(onTabChange)
+
+  console.log('setup is done')
 }
 
 async function saveWarnings () {
-  const sites = Warnings.getAll(warningsDb)
-  await browser.storage.sync.set({ sites })
+  console.log('saving warnings to storage')
+  const warnings = Warnings.getAll(warningsDb)
+  await browser.storage.sync.set({ warnings })
 }
 
 const api = {
