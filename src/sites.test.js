@@ -1,5 +1,3 @@
-import './test-helper'
-import { expect } from 'chai'
 import * as Sites from '../src/sites'
 
 describe('sites.js', () => {
@@ -8,7 +6,7 @@ describe('sites.js', () => {
 
     const res = Sites.getAll(db)
 
-    expect(res).to.deep.eq([])
+    expect(res).toEqual([])
   })
 
   describe('add()', () => {
@@ -16,10 +14,11 @@ describe('sites.js', () => {
       const db = Sites.createDb()
 
       Sites.add(db, { phony: 1 })
+
       const res = Sites.getAll(db)
 
-      expect(res).to.have.lengthOf(1)
-      expect(res[0]).to.have.property('phony', 1)
+      expect(res).toHaveLength(1)
+      expect(res[0]).toHaveProperty('phony', 1)
     })
 
     it('should not generate duplicate ids', () => {
@@ -31,9 +30,9 @@ describe('sites.js', () => {
       Sites.add(db, {})
       const res = Sites.getAll(db)
 
-      expect(res).to.have.lengthOf(4)
+      expect(res).toHaveLength(4)
       const ids = Array.from(new Set(res.map(site => site.id)))
-      expect(ids).to.have.lengthOf(4)
+      expect(ids).toHaveLength(4)
     })
   })
 
@@ -51,7 +50,7 @@ describe('sites.js', () => {
 
       const phonies = res.map(site => site.phony)
       phonies.sort()
-      expect(phonies).to.deep.eq(['a', 'b', 'c', 'd'])
+      expect(phonies).toEqual(['a', 'b', 'c', 'd'])
     })
 
     it('should not generate duplicate ids', () => {
@@ -60,9 +59,9 @@ describe('sites.js', () => {
       Sites.addAll(db, [{}, {}, {}, {}])
       const res = Sites.getAll(db)
 
-      expect(res).to.have.lengthOf(4)
+      expect(res).toHaveLength(4)
       const ids = Array.from(new Set(res.map(site => site.id)))
-      expect(ids).to.have.lengthOf(4)
+      expect(ids).toHaveLength(4)
     })
   })
 
@@ -74,7 +73,7 @@ describe('sites.js', () => {
 
       const res = Sites.get(db, id)
 
-      expect(res).to.have.property('phony', 42)
+      expect(res).toHaveProperty('phony', 42)
     })
 
     it('should not return id', () => {
@@ -84,7 +83,7 @@ describe('sites.js', () => {
 
       const res = Sites.get(db, id)
 
-      expect(res).to.not.have.property('id')
+      expect(res).not.toHaveProperty('id')
     })
 
     it('should return null if nothing is found', () => {
@@ -94,7 +93,7 @@ describe('sites.js', () => {
 
       const res = Sites.get(db, id + 1)
 
-      expect(res).to.be.null()
+      expect(res).toBeNull()
     })
 
     it('should not coerce between strings and numbers', () => {
@@ -104,7 +103,7 @@ describe('sites.js', () => {
 
       const res = Sites.get(db, String(id))
 
-      expect(res).to.be.null()
+      expect(res).toBeNull()
     })
   })
 
@@ -117,7 +116,7 @@ describe('sites.js', () => {
       Sites.remove(db, id)
       const res = Sites.getAll(db)
 
-      expect(res).to.be.deep.eq([])
+      expect(res).toEqual([])
     })
 
     it('should not remove when id does not match', () => {
@@ -128,7 +127,7 @@ describe('sites.js', () => {
       Sites.remove(db, id + 1)
       const res = Sites.getAll(db)
 
-      expect(res).to.have.lengthOf(1)
+      expect(res).toHaveLength(1)
     })
 
     it('should not coerce between string and int ids', () => {
@@ -139,7 +138,7 @@ describe('sites.js', () => {
       Sites.remove(db, String(id))
       const res = Sites.getAll(db)
 
-      expect(res).to.have.lengthOf(1)
+      expect(res).toHaveLength(1)
     })
   })
 
@@ -152,9 +151,9 @@ describe('sites.js', () => {
       Sites.update(db, first.id, { changed: true })
 
       const changed = Sites.get(db, first.id)
-      expect(changed).to.have.property('changed', true)
+      expect(changed).toHaveProperty('changed', true)
       const other = Sites.get(db, second.id)
-      expect(other).not.to.have.property('changed')
+      expect(other).not.toHaveProperty('changed')
     })
 
     it('should do nothing when id does not exist', () => {
@@ -165,9 +164,9 @@ describe('sites.js', () => {
       Sites.update(db, second.id + 20, { changed: true })
 
       const firstRes = Sites.get(db, first.id)
-      expect(firstRes).to.not.have.property('changed')
+      expect(firstRes).not.toHaveProperty('changed')
       const secondRes = Sites.get(db, second.id)
-      expect(secondRes).to.not.have.property('changed')
+      expect(secondRes).not.toHaveProperty('changed')
     })
 
     it('should not coerce between string and int ids', () => {
@@ -178,9 +177,9 @@ describe('sites.js', () => {
       Sites.update(db, String(first.id), { changed: true })
 
       const firstRes = Sites.get(db, first.id)
-      expect(firstRes).to.not.have.property('changed')
+      expect(firstRes).not.toHaveProperty('changed')
       const secondRes = Sites.get(db, second.id)
-      expect(secondRes).to.not.have.property('changed')
+      expect(secondRes).not.toHaveProperty('changed')
     })
   })
 
@@ -197,7 +196,7 @@ describe('sites.js', () => {
       const matches = Sites.findMatching(db, 'https://foobar.com')
 
       const patterns = matches.map(site => site.pattern).sort()
-      expect(patterns).to.deep.eq([
+      expect(patterns).toEqual([
         'bar',
         'fo',
         'foo'
@@ -216,7 +215,7 @@ describe('sites.js', () => {
       const matches = Sites.findMatching(db, 'https://something-else.com')
 
       const patterns = matches.map(site => site.pattern).sort()
-      expect(patterns).to.deep.eq([])
+      expect(patterns).toEqual([])
     })
 
     it('should return empty array with no sites', () => {
@@ -225,7 +224,7 @@ describe('sites.js', () => {
       const matches = Sites.findMatching(db, 'https://something-else.com')
 
       const patterns = matches.map(site => site.pattern).sort()
-      expect(patterns).to.deep.eq([])
+      expect(patterns).toEqual([])
     })
   })
 })
