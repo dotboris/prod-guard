@@ -6,5 +6,12 @@ module.exports = {
   env: {
     browser: true,
     webextensions: true
-  }
+  },
+
+  overrides: [
+    {
+      files: ['**/*.test.js'],
+      extends: ['plugin:jest/recommended']
+    }
+  ]
 }
