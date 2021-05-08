@@ -1,6 +1,6 @@
 import './content-script.scss'
 
-const warnings = {
+const warningsFactories = {
   border () {
     document.body.style.border = '3px solid red'
   },
@@ -23,12 +23,12 @@ async function main () {
 
   window.prodGuardHasRun = true
 
-  const sites = window.prodGuardSites || []
+  const warnings = window.prodGuardWarnings || []
 
-  for (const site of sites) {
-    const warningFn = warnings[site.warningStyle]
+  for (const warning of warnings) {
+    const warningFn = warningsFactories[warning.warningStyle]
     if (warningFn) {
-      warningFn(site)
+      warningFn(warning)
     }
   }
 }

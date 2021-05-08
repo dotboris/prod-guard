@@ -80,11 +80,11 @@ async function onTabChange (tabId, { status }, tab) {
     return
   }
 
-  const sites = Warnings.findMatching(warningsDb, tab.url)
-  if (sites.length > 0) {
+  const warnings = Warnings.findMatching(warningsDb, tab.url)
+  if (warnings.length > 0) {
     await browser.tabs.executeScript(
       tabId,
-      { code: `window.prodGuardSites = ${JSON.stringify(sites)};` }
+      { code: `window.prodGuardWarnings = ${JSON.stringify(warnings)};` }
     )
     await browser.tabs.executeScript(
       tabId,
