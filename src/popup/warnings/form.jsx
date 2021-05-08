@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { warningStyles } from './friendly-names'
 
 export default function WarningForm ({ onSave, value, disabled = false }) {
-  // TODO: default value by guessing from current tab url
   const [pattern, setPattern] = useState(
     value?.pattern ?? ''
   )
