@@ -15,7 +15,7 @@ export default function WarningsListPage () {
         <div className='title'>
           <h2>Warnings</h2>
           {/* TODO: style as button */}
-          <Link to='/new'>New Warning</Link>
+          <Link className='button' to='/new'>New Warning</Link>
         </div>
 
         <WarningList />
