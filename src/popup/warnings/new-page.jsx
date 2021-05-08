@@ -11,7 +11,6 @@ export default function NewWarningPage () {
     data: suggestedPattern
   } = useSuggestedPattern()
   const addWarningMutation = useAddWarningMutation()
-  console.log(isSuggestedPatternLoading, suggestedPattern)
 
   async function handleSave (warning) {
     await addWarningMutation.mutateAsync({ warning })
