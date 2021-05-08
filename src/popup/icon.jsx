@@ -1,7 +1,11 @@
-export default ({ props }) => (
-  <span
-    class='icon'
-    title={props.title}
-    domPropsInnerHTML={props.svg}
-  />
-)
+import React from 'react'
+
+export default function Icon ({ title, svg }) {
+  return (
+    <span
+      className='icon'
+      title={title}
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  )
+}

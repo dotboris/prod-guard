@@ -1,7 +1,8 @@
 module.exports = {
   extends: [
     'standard',
-    'standard-jsx'
+    'standard-jsx',
+    'standard-react'
   ],
   env: {
     browser: true,
