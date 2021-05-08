@@ -11,7 +11,7 @@ import { Link } from '@reach/router'
 export default function WarningsListPage () {
   return (
     <Layout title='Prod Guard'>
-      <div className='sites-list'>
+      <div className='warning-list'>
         <div className='title'>
           <h2>Warnings</h2>
           <Link className='button' to='/new'>New Warning</Link>

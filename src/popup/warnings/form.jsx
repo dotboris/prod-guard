@@ -20,7 +20,7 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
 
   return (
     <form
-      className='site-form'
+      className='warning-form'
       onSubmit={handleSubmit}
     >
       <label className='field'>
