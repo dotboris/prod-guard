@@ -76,14 +76,14 @@ describe('warnings.js', () => {
       expect(res).toHaveProperty('phony', 42)
     })
 
-    it('should not return id', () => {
+    it('should replace existing id field', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [{ phony: 42 }])
+      Warnings.addAll(db, [{ id: 9999, phony: 42 }])
       const id = Warnings.getAll(db)[0].id
 
       const res = Warnings.get(db, id)
 
-      expect(res).not.toHaveProperty('id')
+      expect(res).toEqual({ id, phony: 42 })
     })
 
     it('should return null if nothing is found', () => {

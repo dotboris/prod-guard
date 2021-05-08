@@ -27,7 +27,12 @@ export function getAll (db) {
 }
 
 export function get (db, id) {
-  return db.warnings.get(id) || null
+  const res = db.warnings.get(id)
+  if (res) {
+    return { ...res, id }
+  } else {
+    return null
+  }
 }
 
 export function remove (db, id) {
