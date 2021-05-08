@@ -1,47 +1,47 @@
 import browser from 'webextension-polyfill'
-import * as Sites from './sites'
+import * as Warnings from './warnings'
 
-let sitesDb
+let warningsDb
 
 setup()
 
 async function setup () {
   const { sites = [] } = await browser.storage.sync.get('sites')
 
-  sitesDb = Sites.createDb()
-  Sites.addAll(sitesDb, sites)
+  warningsDb = Warnings.createDb()
+  Warnings.addAll(warningsDb, sites)
 
   browser.runtime.onMessage.addListener(onMessage)
   browser.tabs.onUpdated.addListener(onTabChange)
 }
 
-async function saveSites () {
-  const sites = Sites.getAll(sitesDb)
+async function saveWarnings () {
+  const sites = Warnings.getAll(warningsDb)
   await browser.storage.sync.set({ sites })
 }
 
 const api = {
-  async getAllSites () {
-    return Sites.getAll(sitesDb)
+  async getAllWarnings () {
+    return Warnings.getAll(warningsDb)
   },
 
-  async getSite ({ id }) {
-    return Sites.get(sitesDb, id)
+  async getWarning ({ id }) {
+    return Warnings.get(warningsDb, id)
   },
 
-  async addSite ({ site }) {
-    Sites.add(sitesDb, site)
-    await saveSites()
+  async addWarning ({ warning }) {
+    Warnings.add(warningsDb, warning)
+    await saveWarnings()
   },
 
-  async updateSite ({ id, site }) {
-    Sites.update(sitesDb, id, site)
-    await saveSites()
+  async updateWarning ({ id, warning }) {
+    Warnings.update(warningsDb, id, warning)
+    await saveWarnings()
   },
 
-  async removeSite ({ id }) {
-    Sites.remove(sitesDb, id)
-    await saveSites()
+  async removeWarning ({ id }) {
+    Warnings.remove(warningsDb, id)
+    await saveWarnings()
   }
 }
 
@@ -58,7 +58,7 @@ async function onTabChange (tabId, { status }, tab) {
     return
   }
 
-  const sites = Sites.findMatching(sitesDb, tab.url)
+  const sites = Warnings.findMatching(warningsDb, tab.url)
   if (sites.length > 0) {
     await browser.tabs.executeScript(
       tabId,

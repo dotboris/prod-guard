@@ -3,13 +3,13 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 
 export function useAllWarnings () {
   return useQuery('warnings', async () =>
-    await browser.runtime.sendMessage({ type: 'getAllSites' })
+    await browser.runtime.sendMessage({ type: 'getAllWarnings' })
   )
 }
 
 export function useWarning (id) {
   return useQuery(['warnings', id], async () =>
-    await browser.runtime.sendMessage({ type: 'getSite', id })
+    await browser.runtime.sendMessage({ type: 'getWarning', id })
   )
 }
 
@@ -19,8 +19,8 @@ export function useAddWarningMutation () {
   return useMutation(
     async ({ warning }) => {
       return await browser.runtime.sendMessage({
-        type: 'addSite',
-        site: warning
+        type: 'addWarning',
+        warning
       })
     },
     {
@@ -37,9 +37,9 @@ export function useUpdateWarningMutation () {
   return useMutation(
     async ({ id, warning }) => {
       return await browser.runtime.sendMessage({
-        type: 'updateSite',
+        type: 'updateWarning',
         id,
-        site: warning
+        warning
       })
     },
     {
@@ -56,7 +56,7 @@ export function useRemoveWarningMutation () {
   return useMutation(
     async ({ id }) => {
       return await browser.runtime.sendMessage({
-        type: 'removeSite',
+        type: 'removeWarning',
         id
       })
     },
