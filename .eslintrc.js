@@ -4,9 +4,14 @@ module.exports = {
     'standard-jsx',
     'standard-react'
   ],
+
   env: {
     browser: true,
     webextensions: true
+  },
+
+  rules: {
+    'react/prop-types': 'off'
   },
 
   overrides: [
