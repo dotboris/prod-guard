@@ -27,7 +27,6 @@ function WarningList () {
   const { isLoading, data: warnings } = useAllWarnings()
 
   if (isLoading) {
-    // TODO loading?
     return null
   }
 
