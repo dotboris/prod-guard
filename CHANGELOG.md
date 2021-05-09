@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   end users but it's worth mentioning.
 - Migrate tests to Jest. This should have no impact on end users but it's worth
   mentioning.
+- Migrate codebase from Vue.js to React. This should have no impact on end users
+  but it's worth mentioning.
 
 ## v1.1.1 - 2020-08-18
 
