@@ -1,4 +1,5 @@
 import React from 'react'
+import browser from 'webextension-polyfill'
 import WarningForm from './form'
 import Layout from '../layout'
 import { useAddWarningMutation } from './state'
