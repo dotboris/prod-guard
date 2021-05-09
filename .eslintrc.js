@@ -6,8 +6,7 @@ module.exports = {
   ],
 
   env: {
-    browser: true,
-    webextensions: true
+    browser: true
   },
 
   rules: {
