@@ -1,6 +1,6 @@
-@import '../palette.scss';
+@import '../../palette.scss';
 
-.sites-list {
+.warning-list {
   .title {
     display: flex;
     flex-direction: row;
@@ -44,6 +44,8 @@
       }
 
       .action {
+        color: black;
+        text-decoration: none;
         cursor: pointer;
 
         &:hover,

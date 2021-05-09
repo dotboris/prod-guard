@@ -1,11 +1,16 @@
 module.exports = {
   extends: [
     'standard',
-    'standard-jsx'
+    'standard-jsx',
+    'standard-react'
   ],
+
   env: {
-    browser: true,
-    webextensions: true
+    browser: true
+  },
+
+  rules: {
+    'react/prop-types': 'off'
   },
 
   overrides: [

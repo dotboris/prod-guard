@@ -1,47 +1,69 @@
 import browser from 'webextension-polyfill'
-import * as Sites from './sites'
+import { migrateStorageData, migrations } from './migrations'
+import * as Warnings from './warnings'
 
-let sitesDb
+let warningsDb
 
 setup()
 
 async function setup () {
-  const { sites = [] } = await browser.storage.sync.get('sites')
+  console.log('starting setup')
 
-  sitesDb = Sites.createDb()
-  Sites.addAll(sitesDb, sites)
+  const rawStorageData = await browser.storage.sync.get() ?? {}
+  const [hasMigrated, storageData] = await migrateStorageData(
+    migrations,
+    rawStorageData
+  )
 
+  if (hasMigrated) {
+    console.log('storage data was migrated')
+    console.log('previous storage data:', rawStorageData)
+    console.log('new storage data:', storageData)
+    console.log('replacing all existing storage data with new storage data')
+    await browser.storage.sync.clear()
+    await browser.storage.sync.set(storageData)
+    console.log('storage data migration is done')
+  }
+
+  console.log('initializing warnings database from storage data')
+  warningsDb = Warnings.createDb()
+  Warnings.addAll(warningsDb, storageData.warnings)
+
+  console.log('registering event listeners')
   browser.runtime.onMessage.addListener(onMessage)
   browser.tabs.onUpdated.addListener(onTabChange)
+
+  console.log('setup is done')
 }
 
-async function saveSites () {
-  const sites = Sites.getAll(sitesDb)
-  await browser.storage.sync.set({ sites })
+async function saveWarnings () {
+  console.log('saving warnings to storage')
+  const warnings = Warnings.getAll(warningsDb)
+  await browser.storage.sync.set({ warnings })
 }
 
 const api = {
-  async getAllSites () {
-    return Sites.getAll(sitesDb)
+  async getAllWarnings () {
+    return Warnings.getAll(warningsDb)
   },
 
-  async getSite ({ id }) {
-    return Sites.get(sitesDb, id)
+  async getWarning ({ id }) {
+    return Warnings.get(warningsDb, id)
   },
 
-  async addSite ({ site }) {
-    Sites.add(sitesDb, site)
-    await saveSites()
+  async addWarning ({ warning }) {
+    Warnings.add(warningsDb, warning)
+    await saveWarnings()
   },
 
-  async updateSite ({ id, site }) {
-    Sites.update(sitesDb, id, site)
-    await saveSites()
+  async updateWarning ({ id, warning }) {
+    Warnings.update(warningsDb, id, warning)
+    await saveWarnings()
   },
 
-  async removeSite ({ id }) {
-    Sites.remove(sitesDb, id)
-    await saveSites()
+  async removeWarning ({ id }) {
+    Warnings.remove(warningsDb, id)
+    await saveWarnings()
   }
 }
 
@@ -58,11 +80,11 @@ async function onTabChange (tabId, { status }, tab) {
     return
   }
 
-  const sites = Sites.findMatching(sitesDb, tab.url)
-  if (sites.length > 0) {
+  const warnings = Warnings.findMatching(warningsDb, tab.url)
+  if (warnings.length > 0) {
     await browser.tabs.executeScript(
       tabId,
-      { code: `window.prodGuardSites = ${JSON.stringify(sites)};` }
+      { code: `window.prodGuardWarnings = ${JSON.stringify(warnings)};` }
     )
     await browser.tabs.executeScript(
       tabId,
