@@ -64,10 +64,7 @@ describe('data migrations', () => {
     const [hasMigrated, res] = await migrateStorageData(migrations, {})
 
     expect(hasMigrated).toBe(true)
-    expect(res).toEqual({
-      dataVersion: 1,
-      warnings: []
-    })
+    expect(res.warnings).toEqual([])
   })
 
   it('should convert sites to warnings when set', async () => {
@@ -79,9 +76,36 @@ describe('data migrations', () => {
     const [hasMigrated, res] = await migrateStorageData(migrations, { sites })
 
     expect(hasMigrated).toBe(true)
-    expect(res).toEqual({
+    const warningIds = res.warnings.map(warning => warning.id)
+    expect(warningIds).toEqual([0, 1, 2])
+  })
+
+  it('should set default text for banners type warnings', async () => {
+    const warnings = [
+      { id: 0, pattern: 'test1', warningStyle: 'border' },
+      { id: 1, pattern: 'test2', warningStyle: 'bottomBanner' },
+      { id: 2, pattern: 'test3', warningStyle: 'topBanner' }
+    ]
+    const [hasMigrated, res] = await migrateStorageData(migrations, {
       dataVersion: 1,
-      warnings: [...sites]
+      warnings
     })
+
+    expect(hasMigrated).toBe(true)
+    expect(res.warnings).toEqual([
+      { id: 0, pattern: 'test1', warningStyle: 'border' },
+      {
+        id: 1,
+        pattern: 'test2',
+        warningStyle: 'bottomBanner',
+        text: 'Warning! This is Production!'
+      },
+      {
+        id: 2,
+        pattern: 'test3',
+        warningStyle: 'topBanner',
+        text: 'Warning! This is Production!'
+      }
+    ])
   })
 })
