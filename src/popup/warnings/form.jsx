@@ -3,9 +3,7 @@ import React, { useState } from 'react'
 import { warningStyles } from './friendly-names'
 
 export default function WarningForm ({ onSave, value, disabled = false }) {
-  const [pattern, setPattern] = useState(
-    value?.pattern ?? ''
-  )
+  const [pattern, setPattern] = useState(value?.pattern ?? '')
   const [warningStyle, setWarningStyle] = useState(
     value?.warningStyle ?? Object.keys(warningStyles)[0]
   )
