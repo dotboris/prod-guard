@@ -5,12 +5,12 @@ const warningsFactories = {
     document.body.style.border = '3px solid red'
   },
 
-  topBanner () {
-    makeBanner('top', 'Warning! This is production!')
+  topBanner ({ text = 'Warning! This is production!' }) {
+    makeBanner('top', text)
   },
 
-  bottomBanner () {
-    makeBanner('bottom', 'Warning! This is production!')
+  bottomBanner ({ text = 'Warning! This is production!' }) {
+    makeBanner('bottom', text)
   }
 }
 

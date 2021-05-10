@@ -15,10 +15,16 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
 
   function handleSubmit (event) {
     event.preventDefault()
-    onSave({
+    const payload = {
       pattern,
       warningStyle
-    })
+    }
+
+    if (hasText) {
+      payload.text = text
+    }
+
+    onSave(payload)
   }
 
   return (
