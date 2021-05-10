@@ -9,6 +9,9 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
   const [warningStyle, setWarningStyle] = useState(
     value?.warningStyle ?? Object.keys(warningStyles)[0]
   )
+  const [text, setText] = useState(value?.text ?? 'Warning! This is Production!')
+
+  const hasText = ['bottomBanner', 'topBanner'].includes(warningStyle)
 
   function handleSubmit (event) {
     event.preventDefault()
@@ -58,8 +61,27 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
         Controls what kind of warning to display.
       </FieldHelp>
 
+      {hasText
+        ? (
+          <label className='field'>
+            <span>Text:</span>
+            <input
+              type='text'
+              required
+              value={text}
+              onChange={e => setText(e.target.value)}
+              disabled={disabled}
+            />
+          </label>)
+        : null}
+
       <div className='controls'>
-        <button type='submit'>Save</button>
+        <button
+          type='submit'
+          disabled={disabled}
+        >
+          Save
+        </button>
       </div>
     </form>
   )
