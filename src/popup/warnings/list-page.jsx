@@ -7,6 +7,7 @@ import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import Layout from '../layout'
 import { useAllWarnings, useRemoveWarningMutation } from './state'
 import { Link } from '@reach/router'
+import { hasText } from './util'
 
 export default function WarningsListPage () {
   return (
@@ -36,9 +37,7 @@ function WarningList () {
         {warnings.map(warning =>
           <WarningItem
             key={warning.id}
-            id={warning.id}
-            pattern={warning.pattern}
-            warningStyle={warning.warningStyle}
+            warning={warning}
           />
         )}
       </div>
@@ -54,14 +53,27 @@ function WarningList () {
   }
 }
 
-function WarningItem ({ id, pattern, warningStyle }) {
+function WarningItem ({ warning }) {
   const removeWarningMutation = useRemoveWarningMutation()
+
+  const {
+    id,
+    pattern,
+    warningStyle,
+    text
+  } = warning
 
   return (
     <div>
       <div className='details'>
         <p className='pattern'>{pattern}</p>
-        <p>Style: {warningStyles[warningStyle]}</p>
+        <dl>
+          <dt>Style:</dt>
+          <dd>{warningStyles[warningStyle]}</dd>
+          {hasText(warningStyle)
+            ? <><dt>Text:</dt><dd>{text}</dd></>
+            : null}
+        </dl>
       </div>
       <Link className='action' to={`/edit/${id}`}>
         <Icon svg={EditIcon} title='Edit Warning' />

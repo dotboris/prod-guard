@@ -1,6 +1,7 @@
 import './form.scss'
 import React, { useState } from 'react'
 import { warningStyles } from './friendly-names'
+import { hasText } from './util'
 
 export default function WarningForm ({ onSave, value, disabled = false }) {
   const [pattern, setPattern] = useState(value?.pattern ?? '')
@@ -9,8 +10,6 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
   )
   const [text, setText] = useState(value?.text ?? 'Warning! This is Production!')
 
-  const hasText = ['bottomBanner', 'topBanner'].includes(warningStyle)
-
   function handleSubmit (event) {
     event.preventDefault()
     const payload = {
@@ -18,7 +17,7 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
       warningStyle
     }
 
-    if (hasText) {
+    if (hasText(warningStyle)) {
       payload.text = text
     }
 
@@ -65,7 +64,7 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
         Controls what kind of warning to display.
       </FieldHelp>
 
-      {hasText
+      {hasText(warningStyle)
         ? (
           <label className='field'>
             <span>Text:</span>
