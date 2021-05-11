@@ -80,7 +80,7 @@ describe('data migrations', () => {
     expect(warningIds).toEqual([0, 1, 2])
   })
 
-  it('should set default text for banners type warnings', async () => {
+  it('should set default fields values for warnings', async () => {
     const warnings = [
       { id: 0, pattern: 'test1', warningStyle: 'border' },
       { id: 1, pattern: 'test2', warningStyle: 'bottomBanner' },
@@ -93,18 +93,27 @@ describe('data migrations', () => {
 
     expect(hasMigrated).toBe(true)
     expect(res.warnings).toEqual([
-      { id: 0, pattern: 'test1', warningStyle: 'border' },
+      {
+        id: 0,
+        pattern: 'test1',
+        warningStyle: 'border',
+        borderColor: 'FF0000'
+      },
       {
         id: 1,
         pattern: 'test2',
         warningStyle: 'bottomBanner',
-        text: 'Warning! This is Production!'
+        text: 'Warning! This is Production!',
+        backgroundColor: 'FF0000',
+        textColor: 'FFFFFF'
       },
       {
         id: 2,
         pattern: 'test3',
         warningStyle: 'topBanner',
-        text: 'Warning! This is Production!'
+        text: 'Warning! This is Production!',
+        backgroundColor: 'FF0000',
+        textColor: 'FFFFFF'
       }
     ])
   })

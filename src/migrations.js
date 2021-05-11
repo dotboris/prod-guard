@@ -21,13 +21,22 @@ export const migrations = [
   async data => ({
     ...data,
     warnings: data.warnings.map(warning => {
-      if (['bottomBanner', 'topBanner'].includes(warning.warningStyle)) {
-        return {
-          ...warning,
-          text: 'Warning! This is Production!'
-        }
-      } else {
-        return warning
+      switch (warning.warningStyle) {
+        case 'topBanner':
+        case 'bottomBanner':
+          return {
+            ...warning,
+            text: 'Warning! This is Production!',
+            backgroundColor: 'FF0000',
+            textColor: 'FFFFFF'
+          }
+        case 'border':
+          return {
+            ...warning,
+            borderColor: 'FF0000'
+          }
+        default:
+          return warning
       }
     })
   })
