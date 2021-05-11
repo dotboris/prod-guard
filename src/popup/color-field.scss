@@ -1,0 +1,29 @@
+@import '../palette.scss';
+
+.color-field {
+  position: relative;
+
+  input {
+    width: 3.5rem;
+    padding-right: 2rem;
+  }
+
+  .preview-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    right: 0.5rem;
+
+    .preview {
+      $size: 1rem;
+
+      width: $size;
+      height: $size;
+      border-radius: 50%;
+      border: 1px solid $color-dark-shade;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import './form.scss'
 import React, { useState } from 'react'
+import ColorField from '../color-field'
 import { warningStyles } from './friendly-names'
-import { hasText } from './util'
 
 export default function WarningForm ({ onSave, value, disabled = false }) {
   const [pattern, setPattern] = useState(value?.pattern ?? '')
@@ -9,6 +9,9 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
     value?.warningStyle ?? Object.keys(warningStyles)[0]
   )
   const [text, setText] = useState(value?.text ?? 'Warning! This is Production!')
+  const [borderColor, setBorderColor] = useState(value?.borderColor ?? 'FF0000')
+  const [backgroundColor, setBackgroundColor] = useState(value?.backgroundColor ?? 'FF0000')
+  const [textColor, setTextColor] = useState(value?.textColor ?? 'FFFFFF')
 
   function handleSubmit (event) {
     event.preventDefault()
@@ -17,8 +20,11 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
       warningStyle
     }
 
-    if (hasText(warningStyle)) {
-      payload.text = text
+    switch (warningStyle) {
+      case 'bottomBanner':
+      case 'topBanner':
+        payload.text = text
+        break
     }
 
     onSave(payload)
@@ -64,18 +70,48 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
         Controls what kind of warning to display.
       </FieldHelp>
 
-      {hasText(warningStyle)
+      {warningStyle === 'border'
         ? (
           <label className='field'>
-            <span>Text:</span>
-            <input
-              type='text'
-              required
-              value={text}
-              onChange={e => setText(e.target.value)}
+            <span>Border Color:</span>
+            <ColorField
+              value={borderColor}
+              onChange={setBorderColor}
               disabled={disabled}
             />
           </label>)
+        : null}
+
+      {['topBanner', 'bottomBanner'].includes(warningStyle)
+        ? (
+          <>
+            <label className='field'>
+              <span>Text Color:</span>
+              <ColorField
+                value={textColor}
+                onChange={setTextColor}
+                disabled={disabled}
+              />
+            </label>
+            <label className='field'>
+              <span>Background Color:</span>
+              <ColorField
+                value={backgroundColor}
+                onChange={setBackgroundColor}
+                disabled={disabled}
+              />
+            </label>
+            <label className='field'>
+              <span>Text:</span>
+              <input
+                type='text'
+                required
+                value={text}
+                onChange={e => setText(e.target.value)}
+                disabled={disabled}
+              />
+            </label>
+          </>)
         : null}
 
       <div className='controls'>

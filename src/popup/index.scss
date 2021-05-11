@@ -96,6 +96,10 @@ input[type=text] {
   &:active {
     border-color: $color-dark-accent;
   }
+
+  &:invalid {
+    color: red;
+  }
 }
 
 select {
