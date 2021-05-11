@@ -24,6 +24,12 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
       case 'bottomBanner':
       case 'topBanner':
         payload.text = text
+        payload.backgroundColor = backgroundColor
+        payload.textColor = textColor
+        break
+
+      case 'border':
+        payload.borderColor = borderColor
         break
     }
 
