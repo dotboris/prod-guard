@@ -35,82 +35,65 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
       className='warning-form'
       onSubmit={handleSubmit}
     >
-      <label className='field'>
-        <span>URL Pattern:</span>
-        <input
-          type='text'
-          required
-          value={pattern}
-          onChange={e => setPattern(e.target.value)}
-          disabled={disabled}
-        />
-      </label>
+      <label>URL Regex:</label>
+      <input
+        type='text'
+        required
+        value={pattern}
+        onChange={e => setPattern(e.target.value)}
+        disabled={disabled}
+      />
 
-      <FieldHelp>
-        A regular expression matched against a tab's URL.
-        If there's a match, the warning is displayed.
-      </FieldHelp>
-
-      <label className='field'>
-        <span>Style:</span>
-        <select
-          required
-          value={warningStyle}
-          onChange={e => setWarningStyle(e.target.value)}
-          disabled={disabled}
-        >
-          {Object.entries(warningStyles)
-            .map(([key, name]) => (
-              <option key={key} value={key}>{name}</option>
-            ))}
-        </select>
-      </label>
-
-      <FieldHelp>
-        Controls what kind of warning to display.
-      </FieldHelp>
+      <label>Style:</label>
+      <select
+        required
+        value={warningStyle}
+        onChange={e => setWarningStyle(e.target.value)}
+        disabled={disabled}
+      >
+        {Object.entries(warningStyles)
+          .map(([key, name]) => (
+            <option key={key} value={key}>{name}</option>
+          ))}
+      </select>
 
       {warningStyle === 'border'
         ? (
-          <label className='field'>
-            <span>Border Color:</span>
+          <>
+            <label>Border Color:</label>
             <ColorField
               value={borderColor}
               onChange={setBorderColor}
               disabled={disabled}
             />
-          </label>)
+          </>)
         : null}
 
       {['topBanner', 'bottomBanner'].includes(warningStyle)
         ? (
           <>
-            <label className='field'>
-              <span>Text Color:</span>
-              <ColorField
-                value={textColor}
-                onChange={setTextColor}
-                disabled={disabled}
-              />
-            </label>
-            <label className='field'>
-              <span>Background Color:</span>
-              <ColorField
-                value={backgroundColor}
-                onChange={setBackgroundColor}
-                disabled={disabled}
-              />
-            </label>
-            <label className='field'>
-              <span>Text:</span>
-              <input
-                type='text'
-                required
-                value={text}
-                onChange={e => setText(e.target.value)}
-                disabled={disabled}
-              />
-            </label>
+            <label>Message:</label>
+            <input
+              type='text'
+              required
+              value={text}
+              onChange={e => setText(e.target.value)}
+              disabled={disabled}
+            />
+
+            <label>Text Color:</label>
+            <ColorField
+              value={textColor}
+              onChange={setTextColor}
+              disabled={disabled}
+            />
+
+            <label>Background Color:</label>
+            <ColorField
+              value={backgroundColor}
+              onChange={setBackgroundColor}
+              disabled={disabled}
+            />
           </>)
         : null}
 

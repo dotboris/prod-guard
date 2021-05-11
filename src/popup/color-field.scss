@@ -2,10 +2,11 @@
 
 .color-field {
   position: relative;
+  display: flex;
 
   input {
-    width: 3.5rem;
     padding-right: 2rem;
+    flex-grow: 1;
   }
 
   .preview-wrapper {
