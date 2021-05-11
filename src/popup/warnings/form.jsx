@@ -108,11 +108,3 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
     </form>
   )
 }
-
-function FieldHelp ({ children }) {
-  return (
-    <div className='field-help'>
-      <div className='text'>{children}</div>
-    </div>
-  )
-}
