@@ -73,6 +73,7 @@ function WarningItem ({ warning }) {
           {hasText(warningStyle)
             ? <><dt>Text:</dt><dd>{text}</dd></>
             : null}
+          {/* TODO: show colors or have a preview */}
         </dl>
       </div>
       <Link className='action' to={`/edit/${id}`}>
