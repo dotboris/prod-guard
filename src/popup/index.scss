@@ -12,8 +12,15 @@ html {
   color: black;
 }
 
-.app {
-  min-width: 20rem;
+.app-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  .app {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 25rem;
+  }
 }
 
 .page-content {

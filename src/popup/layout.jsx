@@ -5,19 +5,21 @@ import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/home.svg'
 
 export default function Layout ({ title, children }) {
   return (
-    <div className='app'>
-      <div className='title-bar'>
-        <Link to='/'>
-          <Icon
-            svg={HomeIcon}
-            title='Home'
-          />
-        </Link>
+    <div className='app-wrapper'>
+      <div className='app'>
+        <div className='title-bar'>
+          <Link to='/'>
+            <Icon
+              svg={HomeIcon}
+              title='Home'
+            />
+          </Link>
 
-        <h1>{title}</h1>
+          <h1>{title}</h1>
+        </div>
+
+        <div className='page-content'>{children}</div>
       </div>
-
-      <div className='page-content'>{children}</div>
     </div>
   )
 }

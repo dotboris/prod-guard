@@ -8,7 +8,7 @@ main()
 
 async function main () {
   const root = document.createElement('div')
-  root.className = 'app'
+  root.className = 'app-root'
   document.body.append(root)
 
   const queryClient = new QueryClient()
