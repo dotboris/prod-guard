@@ -84,7 +84,7 @@ function WarningItem ({ warning }) {
           ? (
             <>
               <dt>Color:</dt>
-              <dd><ColorTag colorHex={borderColor} /></dd>
+              <dd><Color colorHex={borderColor} /></dd>
             </>)
           : null}
         {['topBanner', 'bottomBanner'].includes(warningStyle)
@@ -94,9 +94,9 @@ function WarningItem ({ warning }) {
               <dd>{text}</dd>
               <dt>Color:</dt>
               <dd>
-                <ColorTag colorHex={textColor} />
+                <Color colorHex={textColor} />
                 {' on '}
-                <ColorTag colorHex={backgroundColor} />
+                <Color colorHex={backgroundColor} />
               </dd>
             </>)
           : null}
@@ -105,10 +105,10 @@ function WarningItem ({ warning }) {
   )
 }
 
-function ColorTag ({ colorHex }) {
+function Color ({ colorHex }) {
   return (
     <span
-      className='color-tag'
+      className='color'
       style={{ '--color': `#${colorHex}` }}
     >
       #{colorHex.toUpperCase()}
