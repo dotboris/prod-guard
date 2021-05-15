@@ -1,3 +1,4 @@
+import './layout.scss'
 import React from 'react'
 import { Link } from '@reach/router'
 import Icon from './icon'

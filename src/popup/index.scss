@@ -12,61 +12,6 @@ html {
   color: black;
 }
 
-.app-wrapper {
-  display: flex;
-  flex-direction: row;
-
-  .app {
-    flex-grow: 1;
-    flex-shrink: 1;
-    width: 25rem;
-  }
-}
-
-.page-content {
-  padding: 1rem;
-}
-
-.title-bar {
-  $height: 1.5rem;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: white;
-  background-color: $color-dark-shade;
-
-  > * {
-    padding: 0.75rem 1rem;
-  }
-
-  a {
-    outline: none;
-    color: white;
-    display: block;
-
-    &:hover,
-    &:active {
-      color: $color-main;
-    }
-  }
-
-  .icon,
-  .icon svg {
-    display: block;
-    width: $height;
-    height: $height;
-  }
-
-  h1 {
-    flex-grow: 1;
-    font-size: $height;
-    line-height: 1;
-    margin: 0;
-    padding: 0;
-  }
-}
-
 .icon,
 .icon svg {
   fill: currentColor;
