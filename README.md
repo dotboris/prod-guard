@@ -50,7 +50,7 @@ Adding a warning to a site is very simple.
 
 1.  Open click on the Prod Guard icon in your browser to open the settings.
 
-    ![home screen showing that there are no warnings configured](doc/empty-home-screen.png)
+    ![home screen showing that no warnings are configured](doc/empty-home-screen.png)
 
 1.  Click on __New Warning__ in the top right corner.
 
