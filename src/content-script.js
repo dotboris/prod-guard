@@ -37,8 +37,8 @@ function makeBanner (type, { text, backgroundColor, textColor }) {
   const el = document.createElement('div')
   el.className = `__prod-guard-extension-${type}-banner`
   el.textContent = text
-  el.style.color = textColor
-  el.style.backgroundColor = backgroundColor
+  el.style.color = `#${textColor}`
+  el.style.backgroundColor = `#${backgroundColor}`
 
   document.body.append(el)
 
