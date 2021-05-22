@@ -32,16 +32,13 @@ function WarningList () {
 
   if (warnings.length > 0) {
     return (
-      <div className='items'>
+      <ul className='items'>
         {warnings.map(warning =>
-          <WarningItem
-            key={warning.id}
-            id={warning.id}
-            pattern={warning.pattern}
-            warningStyle={warning.warningStyle}
-          />
+          <li key={warning.id}>
+            <WarningItem warning={warning} />
+          </li>
         )}
-      </div>
+      </ul>
     )
   } else {
     return (
@@ -54,21 +51,67 @@ function WarningList () {
   }
 }
 
-function WarningItem ({ id, pattern, warningStyle }) {
+function WarningItem ({ warning }) {
   const removeWarningMutation = useRemoveWarningMutation()
 
+  const {
+    id,
+    pattern,
+    warningStyle,
+
+    borderColor,
+
+    text,
+    textColor,
+    backgroundColor
+  } = warning
+
   return (
-    <div>
-      <div className='details'>
-        <p className='pattern'>{pattern}</p>
-        <p>Style: {warningStyles[warningStyle]}</p>
+    <>
+      <div className='header'>
+        <div className='pattern'>{pattern}</div>
+        <Link className='action' to={`/edit/${id}`}>
+          <Icon svg={EditIcon} title='Edit Warning' />
+        </Link>
+        <div className='action' onClick={() => removeWarningMutation.mutate({ id })}>
+          <Icon svg={TrashIcon} title='Delete Warning' />
+        </div>
       </div>
-      <Link className='action' to={`/edit/${id}`}>
-        <Icon svg={EditIcon} title='Edit Warning' />
-      </Link>
-      <div className='action' onClick={() => removeWarningMutation.mutate({ id })}>
-        <Icon svg={TrashIcon} title='Delete Warning' />
-      </div>
-    </div>
+      <dl>
+        <dt>Style:</dt>
+        <dd>{warningStyles[warningStyle]}</dd>
+        {warningStyle === 'border'
+          ? (
+            <>
+              <dt>Color:</dt>
+              <dd><Color colorHex={borderColor} /></dd>
+            </>)
+          : null}
+        {['topBanner', 'bottomBanner'].includes(warningStyle)
+          ? (
+            <>
+              <dt>Text:</dt>
+              <dd>{text}</dd>
+              <dt>Color:</dt>
+              <dd>
+                <Color colorHex={textColor} />
+                {' on '}
+                <Color colorHex={backgroundColor} />
+              </dd>
+            </>)
+          : null}
+      </dl>
+    </>
+  )
+}
+
+function Color ({ colorHex }) {
+  return (
+    <span
+      className='color'
+      style={{ '--color': `#${colorHex}` }}
+    >
+      #{colorHex.toUpperCase()}
+    </span>
   )
 }

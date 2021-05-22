@@ -1,16 +1,16 @@
 import './content-script.scss'
 
 const warningsFactories = {
-  border () {
-    document.body.style.border = '3px solid red'
+  border ({ borderColor }) {
+    document.body.style.border = `3px solid #${borderColor}`
   },
 
-  topBanner () {
-    makeBanner('top', 'Warning! This is production!')
+  topBanner (warning) {
+    makeBanner('top', warning)
   },
 
-  bottomBanner () {
-    makeBanner('bottom', 'Warning! This is production!')
+  bottomBanner (warning) {
+    makeBanner('bottom', warning)
   }
 }
 
@@ -33,10 +33,12 @@ async function main () {
   }
 }
 
-function makeBanner (type, text) {
+function makeBanner (type, { text, backgroundColor, textColor }) {
   const el = document.createElement('div')
   el.className = `__prod-guard-extension-${type}-banner`
   el.textContent = text
+  el.style.color = `#${textColor}`
+  el.style.backgroundColor = `#${backgroundColor}`
 
   document.body.append(el)
 

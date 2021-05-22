@@ -17,5 +17,27 @@ export async function migrateStorageData (migrations, storageData) {
 }
 
 export const migrations = [
-  async data => ({ warnings: data.sites ?? [] })
+  async data => ({ warnings: data.sites ?? [] }),
+  async data => ({
+    ...data,
+    warnings: data.warnings.map(warning => {
+      switch (warning.warningStyle) {
+        case 'topBanner':
+        case 'bottomBanner':
+          return {
+            ...warning,
+            text: 'Warning! This is Production!',
+            backgroundColor: 'FF0000',
+            textColor: 'FFFFFF'
+          }
+        case 'border':
+          return {
+            ...warning,
+            borderColor: 'FF0000'
+          }
+        default:
+          return warning
+      }
+    })
+  })
 ]

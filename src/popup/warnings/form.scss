@@ -1,43 +1,15 @@
 .warning-form {
-  > * {
-    margin-top: 2rem;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: center;
+  gap: 1rem;
 
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
-  .field {
-    display: flex;
-    align-items: center;
-
-    > * {
-      margin-right: 1rem;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-
-    input,
-    select {
-      flex-grow: 1;
-    }
-  }
-
-  .field-help {
-    font-size: 0.9rem;
-    margin-top: 0;
-    padding-top: 0.25rem;
-    padding-left: 1rem;
-
-    .text {
-      width: 0;
-      min-width: 100%;
-    }
+  label {
+    text-align: right;
   }
 
   .controls {
+    grid-column: span 2;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

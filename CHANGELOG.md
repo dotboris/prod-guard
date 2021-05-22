@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- It is now possible to change the text for the "Top Banner" and "Bottom Banner"
+  style warnings.
+- It is now possible to change the colors of all warnings.
+
 ### Changed
 
 - Migrate the whole build process to Webpack 5. This should have no impact on
