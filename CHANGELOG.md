@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v1.2.0 - 2021-05-22
+
 ### Added
 
 - It is now possible to change the text for the "Top Banner" and "Bottom Banner"
