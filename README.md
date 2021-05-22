@@ -50,19 +50,13 @@ Adding a warning to a site is very simple.
 
 1.  Open click on the Prod Guard icon in your browser to open the settings.
 
-    ![settings screen](doc/empty-home-screen.png)
+    ![home screen showing that no warnings are configured](doc/empty-home-screen.png)
 
 1.  Click on __New Warning__ in the top right corner.
 
 1.  Fill in the details for the site of your choice.
 
     ![new warning screen](doc/new-warning-screen.png)
-
-    __URL Pattern__ is a regular expression that matches the URL of the website.
-    This lets you match the host, port, path, scheme, etc.
-
-    __Style__ is the type of warning that will be shown. Examples are shown
-    above.
 
 1.  Click on __Save__.
 
