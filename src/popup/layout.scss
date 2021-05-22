@@ -1,61 +1,49 @@
 @import '../palette';
 
-.app-wrapper {
-  display: flex;
-  flex-direction: row;
+.app {
+  min-width: 25rem;
 
-  .app {
-    // We can't just set the min-width of the page. This is because firefox has
-    // an "overflow menu" where you can put addons. When an addon is in that
-    // menu, its popup is given a fixed size which may be smaller or bigger than
-    // the width of your actual popup. Instead of specifying a min-width we give
-    // a preferred size and let the content shrink or grow if need be.
-    flex-grow: 1;
-    flex-shrink: 1;
-    width: 25rem;
+  .page-content {
+    padding: 1rem;
+  }
 
-    .page-content {
-      padding: 1rem;
+  .title-bar {
+    $height: 1.5rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    background-color: $color-dark-shade;
+
+    > * {
+      padding: 0.75rem 1rem;
     }
 
-    .title-bar {
-      $height: 1.5rem;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+    a {
+      outline: none;
       color: white;
-      background-color: $color-dark-shade;
+      display: block;
 
-      > * {
-        padding: 0.75rem 1rem;
+      &:hover,
+      &:active {
+        color: $color-main;
       }
+    }
 
-      a {
-        outline: none;
-        color: white;
-        display: block;
+    .icon,
+    .icon svg {
+      display: block;
+      width: $height;
+      height: $height;
+    }
 
-        &:hover,
-        &:active {
-          color: $color-main;
-        }
-      }
-
-      .icon,
-      .icon svg {
-        display: block;
-        width: $height;
-        height: $height;
-      }
-
-      h1 {
-        flex-grow: 1;
-        font-size: $height;
-        line-height: 1;
-        margin: 0;
-        padding: 0;
-      }
+    h1 {
+      flex-grow: 1;
+      font-size: $height;
+      line-height: 1;
+      margin: 0;
+      padding: 0;
     }
   }
 }
