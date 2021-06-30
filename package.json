@@ -44,7 +44,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "web-ext": "^6.2.0",
-    "webpack": "^5.41.0",
+    "webpack": "^5.41.1",
     "webpack-clean-plugin": "^0.2.3",
     "webpack-cli": "^4.7.2"
   },
