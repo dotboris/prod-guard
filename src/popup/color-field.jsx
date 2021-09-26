@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import './color-field.scss'
 
 export default function ColorField ({ value, disabled, onChange }) {
   const [rawValue, setRawValue] = useState(value)
 
-  function handleChange (event) {
+  const handleChange = useCallback(event => {
     const newValue = event.target.value
     setRawValue(newValue)
     if (event.target.validity.valid) {
       onChange(newValue)
     }
-  }
+  }, [setRawValue, onChange])
 
   return (
     <div className='color-field'>

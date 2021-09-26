@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import browser from 'webextension-polyfill'
 import WarningForm from './form'
 import Layout from '../layout'
@@ -13,10 +13,10 @@ export default function NewWarningPage () {
   } = useSuggestedPattern()
   const addWarningMutation = useAddWarningMutation()
 
-  async function handleSave (warning) {
+  const handleSave = useCallback(async warning => {
     await addWarningMutation.mutateAsync({ warning })
     navigate('/')
-  }
+  }, [addWarningMutation])
 
   return (
     <Layout title='New Warning'>
