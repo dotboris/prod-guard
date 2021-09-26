@@ -1,5 +1,5 @@
 import { navigate, useParams } from '@reach/router'
-import React from 'react'
+import React, { useCallback } from 'react'
 import Layout from '../layout'
 import { useWarning, useUpdateWarningMutation } from './state'
 import WarningForm from './form'
@@ -10,10 +10,10 @@ export default function EditWarningPage () {
   const id = parseInt(rawId)
   const { isLoading, data: warning } = useWarning(id)
 
-  async function handleSave (warning) {
+  const handleSave = useCallback(async warning => {
     await updateWarningMutation.mutateAsync({ id, warning })
     navigate('/')
-  }
+  }, [updateWarningMutation, id])
 
   return (
     <Layout title='Edit Warning'>

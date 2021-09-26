@@ -1,5 +1,5 @@
 import './form.scss'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import ColorField from '../color-field'
 import { warningStyles } from './friendly-names'
 
@@ -13,28 +13,39 @@ export default function WarningForm ({ onSave, value, disabled = false }) {
   const [backgroundColor, setBackgroundColor] = useState(value?.backgroundColor ?? 'FF0000')
   const [textColor, setTextColor] = useState(value?.textColor ?? 'FFFFFF')
 
-  function handleSubmit (event) {
-    event.preventDefault()
-    const payload = {
+  const handleSubmit = useCallback(
+    event => {
+      event.preventDefault()
+      const payload = {
+        pattern,
+        warningStyle
+      }
+
+      switch (warningStyle) {
+        case 'bottomBanner':
+        case 'topBanner':
+          payload.text = text
+          payload.backgroundColor = backgroundColor
+          payload.textColor = textColor
+          break
+
+        case 'border':
+          payload.borderColor = borderColor
+          break
+      }
+
+      onSave(payload)
+    },
+    [
+      backgroundColor,
+      borderColor,
+      onSave,
       pattern,
+      text,
+      textColor,
       warningStyle
-    }
-
-    switch (warningStyle) {
-      case 'bottomBanner':
-      case 'topBanner':
-        payload.text = text
-        payload.backgroundColor = backgroundColor
-        payload.textColor = textColor
-        break
-
-      case 'border':
-        payload.borderColor = borderColor
-        break
-    }
-
-    onSave(payload)
-  }
+    ]
+  )
 
   return (
     <form
