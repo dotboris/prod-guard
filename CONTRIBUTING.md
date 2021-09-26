@@ -1,8 +1,6 @@
-# Contributing Guidelines
+# Contribution Guidelines & Documentation
 
-## Guide
-
-## Cheat Sheet
+## Development
 
 ### Dependencies
 
