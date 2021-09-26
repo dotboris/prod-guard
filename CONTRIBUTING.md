@@ -1,4 +1,4 @@
-# Contribution Guidelines & Documentation
+# How to contribute
 
 ## Development
 
