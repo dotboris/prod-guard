@@ -2,7 +2,8 @@ module.exports = {
   extends: [
     'standard',
     'standard-jsx',
-    'standard-react'
+    'standard-react',
+    'plugin:react-hooks/recommended'
   ],
 
   env: {
