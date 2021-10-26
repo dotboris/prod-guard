@@ -1,4 +1,4 @@
-@import '../palette';
+@import "../palette";
 
 html,
 body {
@@ -37,7 +37,7 @@ button {
   }
 }
 
-input[type=text] {
+input[type="text"] {
   appearance: none;
   border: 1px solid $color-dark-shade;
   background-color: white;
@@ -58,7 +58,7 @@ select {
   appearance: none;
   border: 1px solid $color-dark-shade;
   background:
-    url('@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri')
+    url("@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri")
     right 0.5rem top 50%/0.5rem
     no-repeat
     white;

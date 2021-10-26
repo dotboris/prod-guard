@@ -35,7 +35,7 @@ async function main () {
 
 function makeBanner (type, { text, backgroundColor, textColor }) {
   const el = document.createElement('div')
-  el.className = `__prod-guard-extension-${type}-banner`
+  el.className = `prod-guard-extension-${type}-banner`
   el.textContent = text
   el.style.color = `#${textColor}`
   el.style.backgroundColor = `#${backgroundColor}`

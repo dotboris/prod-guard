@@ -1,4 +1,4 @@
-@import '../../palette.scss';
+@import "../../palette";
 
 .warning-list {
   .title {
@@ -27,6 +27,17 @@
       padding: 1rem;
       border-bottom: 1px solid #ddd;
 
+      dl {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        gap: 0.5em;
+        margin: 0;
+
+        > * {
+          margin: 0;
+        }
+      }
+
       &:last-child {
         margin-bottom: 0;
         border-bottom: none;
@@ -44,7 +55,7 @@
         font-size: 1.1rem;
 
         .pattern {
-          font-family: 'Lucida Console', Monaco, monospace;
+          font-family: "Lucida Console", Monaco, monospace;
           flex-grow: 1;
         }
 
@@ -67,17 +78,6 @@
           }
         }
       }
-
-      dl {
-        display: grid;
-        grid-template-columns: min-content 1fr;
-        gap: 0.5em;
-        margin: 0;
-
-        > * {
-          margin: 0;
-        }
-      }
     }
   }
 
@@ -88,7 +88,7 @@
       display: inline-block;
       vertical-align: baseline;
       margin-right: 0.25em;
-      content: '';
+      content: "";
       width: 0.6em;
       height: 0.6em;
       border: 1px solid black;
