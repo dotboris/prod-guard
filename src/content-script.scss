@@ -9,13 +9,13 @@
   z-index: 9999999;
 }
 
-.__prod-guard-extension-top-banner {
+.prod-guard-extension-top-banner {
   @include floating-banner;
 
   top: 0;
 }
 
-.__prod-guard-extension-bottom-banner {
+.prod-guard-extension-bottom-banner {
   @include floating-banner;
 
   bottom: 0;
