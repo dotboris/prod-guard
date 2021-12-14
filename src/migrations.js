@@ -1,3 +1,5 @@
+import { v4 as uuidV4 } from 'uuid'
+
 export async function migrateStorageData (migrations, storageData) {
   let hasMigrated = false
   let res = storageData
@@ -39,5 +41,26 @@ export const migrations = [
           return warning
       }
     })
-  })
+  }),
+  async data => {
+    const ids = new Set()
+
+    function generateId () {
+      let candidate
+      do {
+        candidate = uuidV4()
+      } while (ids.has(candidate))
+
+      ids.add(candidate)
+      return candidate
+    }
+
+    return {
+      ...data,
+      warnings: data.warnings.map(warning => ({
+        ...warning,
+        id: generateId()
+      }))
+    }
+  }
 ]
