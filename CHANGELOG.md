@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+
+- Change internal IDs from temporary integers to permanent UUIDs. This is an
+  internal change that should not have any effect on users. This change is in
+  preparation for adding an import/export feature.
+
 ## v1.2.0 - 2021-05-22
 
 ### Added

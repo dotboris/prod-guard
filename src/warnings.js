@@ -1,20 +1,28 @@
+import { v4 as uuidV4 } from 'uuid'
+
 export function createDb () {
   return {
-    nextFreeId: 0,
     warnings: new Map()
   }
 }
 
-export function addAll (db, warnings) {
-  for (const warning of warnings) {
-    add(db, warning)
+export function importAll (db, warnings) {
+  for (const { id, ...warning } of warnings) {
+    db.warnings.set(id, warning)
   }
 }
 
 export function add (db, warning) {
-  const id = db.nextFreeId
-  db.nextFreeId += 1
-  db.warnings.set(id, warning)
+  db.warnings.set(uniqueWarningId(db), warning)
+}
+
+function uniqueWarningId (db) {
+  let candidate
+  do {
+    candidate = uuidV4()
+  } while (db.warnings.has(candidate))
+
+  return candidate
 }
 
 export function getAll (db) {

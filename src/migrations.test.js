@@ -1,4 +1,15 @@
 import { migrations, migrateStorageData } from './migrations'
+import { v4 as uuidV4 } from 'uuid'
+import { range } from 'lodash'
+
+const _uuid = jest.requireActual('uuid')
+
+jest.mock('uuid', () => ({ v4: jest.fn() }))
+
+function resetUuidV4 () {
+  uuidV4.mockReset()
+  uuidV4.mockImplementation(() => _uuid.v4())
+}
 
 describe('migrateStorageData()', () => {
   it('should return input data with no migrations', async () => {
@@ -60,61 +71,103 @@ describe('migrateStorageData()', () => {
 })
 
 describe('data migrations', () => {
-  it('should start us off with empty warnings on fresh dataset', async () => {
-    const [hasMigrated, res] = await migrateStorageData(migrations, {})
-
-    expect(hasMigrated).toBe(true)
-    expect(res.warnings).toEqual([])
+  beforeEach(() => {
+    resetUuidV4()
   })
 
-  it('should convert sites to warnings when set', async () => {
-    const sites = [
-      { id: 0, pattern: 'test1', warningStyle: 'border' },
-      { id: 1, pattern: 'test2', warningStyle: 'bottomBanner' },
-      { id: 2, pattern: 'test3', warningStyle: 'topBanner' }
-    ]
-    const [hasMigrated, res] = await migrateStorageData(migrations, { sites })
+  for (const [label, data] of [
+    ['starting with nothing', {}],
+    ['starting from v0', { dataVersion: 0, sites: [] }],
+    ['starting from v1', { dataVersion: 1, warnings: [] }],
+    ['starting from v2', { dataVersion: 2, warnings: [] }]
+  ]) {
+    it(`should start us off with a sane empty state (${label})`, async () => {
+      const [, res] = await migrateStorageData(migrations, data)
 
-    expect(hasMigrated).toBe(true)
-    const warningIds = res.warnings.map(warning => warning.id)
-    expect(warningIds).toEqual([0, 1, 2])
-  })
-
-  it('should set default fields values for warnings', async () => {
-    const warnings = [
-      { id: 0, pattern: 'test1', warningStyle: 'border' },
-      { id: 1, pattern: 'test2', warningStyle: 'bottomBanner' },
-      { id: 2, pattern: 'test3', warningStyle: 'topBanner' }
-    ]
-    const [hasMigrated, res] = await migrateStorageData(migrations, {
-      dataVersion: 1,
-      warnings
+      expect(res.warnings).toEqual([])
     })
+  }
 
-    expect(hasMigrated).toBe(true)
-    expect(res.warnings).toEqual([
-      {
-        id: 0,
-        pattern: 'test1',
-        warningStyle: 'border',
-        borderColor: 'FF0000'
-      },
-      {
-        id: 1,
-        pattern: 'test2',
-        warningStyle: 'bottomBanner',
-        text: 'Warning! This is Production!',
-        backgroundColor: 'FF0000',
-        textColor: 'FFFFFF'
-      },
-      {
-        id: 2,
-        pattern: 'test3',
-        warningStyle: 'topBanner',
-        text: 'Warning! This is Production!',
-        backgroundColor: 'FF0000',
-        textColor: 'FFFFFF'
+  for (const [label, data] of [
+    ['starting from v0', {
+      dataVersion: 0,
+      sites: [
+        { pattern: 'test1', warningStyle: 'border' },
+        { pattern: 'test2', warningStyle: 'bottomBanner' },
+        { pattern: 'test3', warningStyle: 'topBanner' }
+      ]
+    }],
+    ['starting from v1', {
+      dataVersion: 1,
+      warnings: [
+        { pattern: 'test1', warningStyle: 'border' },
+        { pattern: 'test2', warningStyle: 'bottomBanner' },
+        { pattern: 'test3', warningStyle: 'topBanner' }
+      ]
+    }]
+  ]) {
+    it(`should fill in default values (${label})`, async () => {
+      for (const i of range(0, 4)) {
+        uuidV4.mockImplementationOnce(() => `uuid-${i}`)
       }
-    ])
-  })
+
+      const [, res] = await migrateStorageData(migrations, data)
+
+      expect(res.warnings).toEqual([
+        {
+          id: 'uuid-0',
+          pattern: 'test1',
+          warningStyle: 'border',
+          borderColor: 'FF0000'
+        },
+        {
+          id: 'uuid-1',
+          pattern: 'test2',
+          warningStyle: 'bottomBanner',
+          text: 'Warning! This is Production!',
+          backgroundColor: 'FF0000',
+          textColor: 'FFFFFF'
+        },
+        {
+          id: 'uuid-2',
+          pattern: 'test3',
+          warningStyle: 'topBanner',
+          text: 'Warning! This is Production!',
+          backgroundColor: 'FF0000',
+          textColor: 'FFFFFF'
+        }
+      ])
+    })
+  }
+
+  for (const [label, data] of [
+    ['starting from v0', {
+      dataVersion: 0,
+      sites: [
+        { pattern: 'test1', warningStyle: 'border' },
+        { pattern: 'test2', warningStyle: 'border' }
+      ]
+    }],
+    ['starting from v1', {
+      dataVersion: 1,
+      warnings: [
+        { pattern: 'test1', warningStyle: 'border' },
+        { pattern: 'test2', warningStyle: 'border' }
+      ]
+    }]
+  ]) {
+    it(`should convert numeric ids to unique ids (${label})`, async () => {
+      // Duplicate ids are returned to test that the id generation is resistant
+      // to hitting duplicates.
+      uuidV4.mockImplementationOnce(() => 'uuid-1')
+      uuidV4.mockImplementationOnce(() => 'uuid-1')
+      uuidV4.mockImplementationOnce(() => 'uuid-2')
+      uuidV4.mockImplementationOnce(() => 'uuid-2')
+
+      const [, res] = await migrateStorageData(migrations, data)
+
+      const warningIds = res.warnings.map(warning => warning.id)
+      expect(warningIds).toEqual(['uuid-1', 'uuid-2'])
+    })
+  }
 })

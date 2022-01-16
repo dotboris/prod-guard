@@ -1,6 +1,21 @@
+import { sortBy } from 'lodash'
+import { v4 as uuidV4 } from 'uuid'
 import * as Warnings from './warnings'
 
+const _uuid = jest.requireActual('uuid')
+
+jest.mock('uuid', () => ({ v4: jest.fn() }))
+
+function resetUuidV4 () {
+  uuidV4.mockReset()
+  uuidV4.mockImplementation(() => _uuid.v4())
+}
+
 describe('warnings.js', () => {
+  beforeEach(() => {
+    resetUuidV4()
+  })
+
   it('should start with an empty db', () => {
     const db = Warnings.createDb()
 
@@ -22,6 +37,13 @@ describe('warnings.js', () => {
     })
 
     it('should not generate duplicate ids', () => {
+      uuidV4.mockImplementationOnce(() => 'uuid-1')
+      uuidV4.mockImplementationOnce(() => 'uuid-2')
+      uuidV4.mockImplementationOnce(() => 'uuid-2')
+      uuidV4.mockImplementationOnce(() => 'uuid-3')
+      uuidV4.mockImplementationOnce(() => 'uuid-3')
+      uuidV4.mockImplementationOnce(() => 'uuid-4')
+
       const db = Warnings.createDb()
 
       Warnings.add(db, {})
@@ -30,78 +52,74 @@ describe('warnings.js', () => {
       Warnings.add(db, {})
       const res = Warnings.getAll(db)
 
-      expect(res).toHaveLength(4)
-      const ids = Array.from(new Set(res.map(warning => warning.id)))
-      expect(ids).toHaveLength(4)
+      const ids = res.map(warning => warning.id)
+      ids.sort()
+      expect(ids).toEqual(['uuid-1', 'uuid-2', 'uuid-3', 'uuid-4'])
     })
   })
 
-  describe('addAll()', () => {
+  describe('importAll()', () => {
     it('should add to the warnings', () => {
       const db = Warnings.createDb()
 
-      Warnings.addAll(db, [
-        { phony: 'a' },
-        { phony: 'b' },
-        { phony: 'c' },
-        { phony: 'd' }
+      Warnings.importAll(db, [
+        { id: 'uuid-one', phony: 'a' },
+        { id: 'uuid-two', phony: 'b' },
+        { id: 'uuid-three', phony: 'c' },
+        { id: 'uuid-four', phony: 'd' }
       ])
-      const res = Warnings.getAll(db)
 
-      const phonies = res.map(warning => warning.phony)
-      phonies.sort()
-      expect(phonies).toEqual(['a', 'b', 'c', 'd'])
+      let warnings = Warnings.getAll(db)
+      warnings = sortBy(warnings, w => w.phony)
+      expect(warnings).toEqual([
+        { id: 'uuid-one', phony: 'a' },
+        { id: 'uuid-two', phony: 'b' },
+        { id: 'uuid-three', phony: 'c' },
+        { id: 'uuid-four', phony: 'd' }
+      ])
     })
 
-    it('should not generate duplicate ids', () => {
+    it('should overwrite anything with existing id', () => {
       const db = Warnings.createDb()
 
-      Warnings.addAll(db, [{}, {}, {}, {}])
-      const res = Warnings.getAll(db)
+      Warnings.importAll(db, [
+        { id: 'uuid-one', phony: 'a' },
+        { id: 'uuid-two', phony: 'b' },
+        { id: 'uuid-three', phony: 'c' },
+        { id: 'uuid-four', phony: 'd' }
+      ])
 
-      expect(res).toHaveLength(4)
-      const ids = Array.from(new Set(res.map(warning => warning.id)))
-      expect(ids).toHaveLength(4)
+      Warnings.importAll(db, [
+        { id: 'uuid-two', phony: 'b', overwritten: true },
+        { id: 'uuid-three', phony: 'c', overwritten: true }
+      ])
+
+      let warnings = Warnings.getAll(db)
+      warnings = sortBy(warnings, w => w.phony)
+      expect(warnings).toEqual([
+        { id: 'uuid-one', phony: 'a' },
+        { id: 'uuid-two', phony: 'b', overwritten: true },
+        { id: 'uuid-three', phony: 'c', overwritten: true },
+        { id: 'uuid-four', phony: 'd' }
+      ])
     })
   })
 
   describe('get()', () => {
     it('should get by id', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [{ phony: 42 }])
-      const id = Warnings.getAll(db)[0].id
+      Warnings.importAll(db, [{ id: 'uuid-the-one', phony: 42 }])
 
-      const res = Warnings.get(db, id)
+      const res = Warnings.get(db, 'uuid-the-one')
 
       expect(res).toHaveProperty('phony', 42)
     })
 
-    it('should replace existing id field', () => {
-      const db = Warnings.createDb()
-      Warnings.addAll(db, [{ id: 9999, phony: 42 }])
-      const id = Warnings.getAll(db)[0].id
-
-      const res = Warnings.get(db, id)
-
-      expect(res).toEqual({ id, phony: 42 })
-    })
-
     it('should return null if nothing is found', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [{ phony: 42 }])
-      const id = Warnings.getAll(db)[0].id
+      Warnings.importAll(db, [{ id: 'uuid-the-one', phony: 42 }])
 
-      const res = Warnings.get(db, id + 1)
-
-      expect(res).toBeNull()
-    })
-
-    it('should not coerce between strings and numbers', () => {
-      const db = Warnings.createDb()
-      Warnings.addAll(db, [{ phony: 42 }])
-      const id = Warnings.getAll(db)[0].id
-
-      const res = Warnings.get(db, String(id))
+      const res = Warnings.get(db, 'uuid-not-the-one')
 
       expect(res).toBeNull()
     })
@@ -110,10 +128,9 @@ describe('warnings.js', () => {
   describe('remove()', () => {
     it('should remove by id', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [{ phony: 42 }])
-      const id = Warnings.getAll(db)[0].id
+      Warnings.importAll(db, [{ id: 'uuid-the-one', phony: 42 }])
 
-      Warnings.remove(db, id)
+      Warnings.remove(db, 'uuid-the-one')
       const res = Warnings.getAll(db)
 
       expect(res).toEqual([])
@@ -121,21 +138,9 @@ describe('warnings.js', () => {
 
     it('should not remove when id does not match', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [{ phony: 42 }])
-      const id = Warnings.getAll(db)[0].id
+      Warnings.importAll(db, [{ id: 'uuid-the-one', phony: 42 }])
 
-      Warnings.remove(db, id + 1)
-      const res = Warnings.getAll(db)
-
-      expect(res).toHaveLength(1)
-    })
-
-    it('should not coerce between string and int ids', () => {
-      const db = Warnings.createDb()
-      Warnings.addAll(db, [{ phony: 42 }])
-      const id = Warnings.getAll(db)[0].id
-
-      Warnings.remove(db, String(id))
+      Warnings.remove(db, 'uuid-not-the-one')
       const res = Warnings.getAll(db)
 
       expect(res).toHaveLength(1)
@@ -145,7 +150,7 @@ describe('warnings.js', () => {
   describe('update()', () => {
     it('should replace the value when id matches', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [{}, {}])
+      Warnings.importAll(db, [{ id: 'uuid-first' }, { id: 'uuid-second' }])
       const [first, second] = Warnings.getAll(db)
 
       Warnings.update(db, first.id, { changed: true })
@@ -158,23 +163,10 @@ describe('warnings.js', () => {
 
     it('should do nothing when id does not exist', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [{}, {}])
+      Warnings.importAll(db, [{ id: 'uuid-first' }, { id: 'uuid-second' }])
       const [first, second] = Warnings.getAll(db)
 
-      Warnings.update(db, second.id + 20, { changed: true })
-
-      const firstRes = Warnings.get(db, first.id)
-      expect(firstRes).not.toHaveProperty('changed')
-      const secondRes = Warnings.get(db, second.id)
-      expect(secondRes).not.toHaveProperty('changed')
-    })
-
-    it('should not coerce between string and int ids', () => {
-      const db = Warnings.createDb()
-      Warnings.addAll(db, [{}, {}])
-      const [first, second] = Warnings.getAll(db)
-
-      Warnings.update(db, String(first.id), { changed: true })
+      Warnings.update(db, 'uuid-third', { changed: true })
 
       const firstRes = Warnings.get(db, first.id)
       expect(firstRes).not.toHaveProperty('changed')
@@ -186,12 +178,10 @@ describe('warnings.js', () => {
   describe('findMatching()', () => {
     it('should return warnings where pattern matches url', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [
-        { pattern: 'fo' },
-        { pattern: 'foo' },
-        { pattern: 'bar' },
-        { pattern: 'baz' }
-      ])
+      Warnings.add(db, { pattern: 'fo' })
+      Warnings.add(db, { pattern: 'foo' })
+      Warnings.add(db, { pattern: 'bar' })
+      Warnings.add(db, { pattern: 'baz' })
 
       const matches = Warnings.findMatching(db, 'https://foobar.com')
 
@@ -205,12 +195,10 @@ describe('warnings.js', () => {
 
     it('should return empty array with no matches', () => {
       const db = Warnings.createDb()
-      Warnings.addAll(db, [
-        { pattern: 'fo' },
-        { pattern: 'foo' },
-        { pattern: 'bar' },
-        { pattern: 'baz' }
-      ])
+      Warnings.add(db, { pattern: 'fo' })
+      Warnings.add(db, { pattern: 'foo' })
+      Warnings.add(db, { pattern: 'bar' })
+      Warnings.add(db, { pattern: 'baz' })
 
       const matches = Warnings.findMatching(db, 'https://something-else.com')
 

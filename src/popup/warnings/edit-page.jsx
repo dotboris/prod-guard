@@ -6,8 +6,7 @@ import WarningForm from './form'
 
 export default function EditWarningPage () {
   const updateWarningMutation = useUpdateWarningMutation()
-  const { id: rawId } = useParams()
-  const id = parseInt(rawId)
+  const { id } = useParams()
   const { isLoading, data: warning } = useWarning(id)
 
   const handleSave = useCallback(async warning => {
