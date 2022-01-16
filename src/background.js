@@ -27,7 +27,7 @@ async function setup () {
 
   console.log('initializing warnings database from storage data')
   warningsDb = Warnings.createDb()
-  Warnings.addAll(warningsDb, storageData.warnings)
+  Warnings.importAll(warningsDb, storageData.warnings)
 
   console.log('registering event listeners')
   browser.runtime.onMessage.addListener(onMessage)
