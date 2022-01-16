@@ -2,14 +2,20 @@ import { sortBy } from 'lodash'
 import { v4 as uuidV4 } from 'uuid'
 import * as Warnings from './warnings'
 
-jest.mock('uuid', () => {
-  const { v4: realUuidV4 } = jest.requireActual('uuid')
-  return {
-    v4: jest.fn(() => realUuidV4())
-  }
-})
+const _uuid = jest.requireActual('uuid')
+
+jest.mock('uuid', () => ({ v4: jest.fn() }))
+
+function resetUuidV4 () {
+  uuidV4.mockReset()
+  uuidV4.mockImplementation(() => _uuid.v4())
+}
 
 describe('warnings.js', () => {
+  beforeEach(() => {
+    resetUuidV4()
+  })
+
   it('should start with an empty db', () => {
     const db = Warnings.createDb()
 
