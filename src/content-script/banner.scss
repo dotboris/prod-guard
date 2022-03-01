@@ -1,0 +1,21 @@
+.prod-guard {
+  &.banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 9999999;
+    pointer-events: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  &.top {
+    top: 0;
+  }
+
+  &.bottom {
+    bottom: 0;
+  }
+}
