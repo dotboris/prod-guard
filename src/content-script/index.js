@@ -1,4 +1,4 @@
-import './content-script.scss'
+import { makeBanner } from './banner'
 
 const warningsFactories = {
   border ({ borderColor }) {
@@ -31,16 +31,4 @@ async function main () {
       warningFn(warning)
     }
   }
-}
-
-function makeBanner (type, { text, backgroundColor, textColor }) {
-  const el = document.createElement('div')
-  el.className = `prod-guard-extension-${type}-banner`
-  el.textContent = text
-  el.style.color = `#${textColor}`
-  el.style.backgroundColor = `#${backgroundColor}`
-
-  document.body.append(el)
-
-  return el
 }

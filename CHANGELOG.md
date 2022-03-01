@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Top and bottom banners now automatically hide themselves when the mouse gets
+  close. This allows you to see what's underneath a banner and to click or
+  interact with the parts of the page that would be under the banner.
+
 ### Changed
 
 - Change internal IDs from temporary integers to permanent UUIDs. This is an
