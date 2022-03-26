@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+
+- Fix bug where banners would stay invisible or partially visible when mouse
+  leaves the window. [#774](https://github.com/dotboris/prod-guard/issues/774)
+
 ## v1.3.0 - 2022-03-02
 
 ### Added
