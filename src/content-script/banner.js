@@ -9,22 +9,45 @@ export function makeBanner (type, { text, backgroundColor, textColor }) {
   banner.style.backgroundColor = `#${backgroundColor}`
   document.body.append(banner)
 
-  let bannerBox
-  function updateBannerBox () {
-    bannerBox = banner.getBoundingClientRect()
+  const state = {
+    mouseInWindow: true,
+    mouseX: 0,
+    mouseY: 0,
+    bannerBox: banner.getBoundingClientRect()
   }
-  window.addEventListener('resize', updateBannerBox)
-  updateBannerBox()
 
-  function updateOpacity (event) {
-    const distance = vertialDistance(bannerBox, event.clientY)
-
-    const threshold = bannerBox.height * 2
-    const opacity = Math.min(distance, threshold) / threshold
-
+  const setOpacity = rafThrottle(opacity => {
     banner.style.opacity = opacity
+  })
+
+  function update (newState) {
+    Object.assign(state, newState)
+
+    if (state.mouseInWindow) {
+      const distance = vertialDistance(state.bannerBox, state.mouseY)
+
+      const threshold = state.bannerBox.height * 2
+      const opacity = Math.min(distance, threshold) / threshold
+
+      setOpacity(opacity)
+    } else {
+      setOpacity(1)
+    }
   }
-  document.addEventListener('mousemove', rafThrottle(updateOpacity))
+
+  window.addEventListener('resize', () => update({
+    bannerBox: banner.getClientRects()
+  }))
+  document.addEventListener('mousemove', event => update({
+    mouseX: event.clientX,
+    mouseY: event.clientY
+  }))
+  document.documentElement.addEventListener('mouseenter', () => update({
+    mouseInWindow: true
+  }))
+  document.documentElement.addEventListener('mouseleave', () => update({
+    mouseInWindow: false
+  }))
 
   return banner
 }
