@@ -65,13 +65,13 @@ yarn package
 
 ## Release
 
-1.  Checkout `master` and make sure that you have a clean environment.
+1.  Checkout `main` and make sure that you have a clean environment.
 1.  Update the [changelog](CHANGELOG.md)
 
     You'll need to change the `Unreleased` section to the version you're about
     to release and create a new empty `Unreleased` section.
 
-    Once that's done, commit this change directly to `master`.
+    Once that's done, commit this change directly to `main`.
 
 1.  Bump the version.
 
@@ -82,7 +82,7 @@ yarn package
 1.  Push your version bump and changelog update.
 
     ```sh
-    git push --tags origin master
+    git push --tags origin main
     ```
 
 1.  Build & package the extension.
