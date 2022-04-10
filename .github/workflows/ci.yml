@@ -43,3 +43,9 @@ jobs:
         with: { node-version: '16' }
       - run: yarn install
       - run: yarn lint:css
+
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/dependency-review-action@v1
