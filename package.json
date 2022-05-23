@@ -41,7 +41,7 @@
     "postcss-loader": "^7.0.0",
     "sass": "^1.52.1",
     "sass-loader": "^13.0.0",
-    "sharp": "^0.30.4",
+    "sharp": "^0.30.5",
     "style-loader": "^3.3.1",
     "stylelint": "^14.8.2",
     "stylelint-config-standard-scss": "^3.0.0",
