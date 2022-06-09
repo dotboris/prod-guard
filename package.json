@@ -43,7 +43,7 @@
     "sass-loader": "^13.0.0",
     "sharp": "^0.30.6",
     "style-loader": "^3.3.1",
-    "stylelint": "^14.8.5",
+    "stylelint": "^14.9.0",
     "stylelint-config-standard-scss": "^4.0.0",
     "web-ext": "^6.8.0",
     "webpack": "^5.73.0",
