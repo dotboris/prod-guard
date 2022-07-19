@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ]
+    ":dependencyDashboard",
+    ":ignoreModulesAndTests",
+    "workarounds:all",
+    "group:monorepos",
+    "group:recommended",
+    "group:allNonMajor"
+  ],
+  "rangeStrategy": "update-lockfile"
 }
