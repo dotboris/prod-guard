@@ -7,21 +7,21 @@
 You'll need the following dependencies installed on your system:
 
 - Nodejs (any modern version should do)
-- Yarn
+- pnpm
 - A browser to test on (Firefox, Chrome, Chromium, etc.)
 
 ### Setup
 
 ```sh
-yarn
+pnpm
 ```
 
 ### Build
 
 ```sh
-yarn build
+pnpm build
 # or
-yarn build:prod
+pnpm build:prod
 ```
 
 ### Run
@@ -29,29 +29,29 @@ yarn build:prod
 1. In one terminal start the watch build
 
     ```sh
-    yarn build:watch
+    pnpm build:watch
     ```
 
 1. In another terminal start a browser with the extension loaded
 
     ```sh
-    yarn start
+    pnpm start
     ```
 
 ### Test
 
 ```sh
 # Watch
-yarn test
+pnpm test
 # Single run
-yarn test --single-run
+pnpm test --single-run
 ```
 
 ### Lint
 
 ```sh
-yarn build
-yarn lint
+pnpm build
+pnpm lint
 ```
 
 ### Package
@@ -60,7 +60,7 @@ This is usually not required for normal development. Here are the instructions
 in case you need them.
 
 ```sh
-yarn package
+pnpm package
 ```
 
 ## Release
@@ -76,7 +76,7 @@ yarn package
 1.  Bump the version.
 
     ```sh
-    yarn version
+    pnpm version
     ```
 
 1.  Push your version bump and changelog update.
@@ -88,8 +88,8 @@ yarn package
 1.  Build & package the extension.
 
     ```sh
-    yarn build:prod
-    yarn package
+    pnpm build:prod
+    pnpm package
     ```
 
     This step creates a fully packaged extension in `web-ext-artifacts/`. You

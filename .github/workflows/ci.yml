@@ -10,36 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: { node-version: '16' }
-      - run: yarn install
-      - run: yarn build:prod
-      - run: yarn package
-      - run: yarn lint:web-ext
+      - uses: ./.github/actions/setup-node
+      - run: pnpm build:prod
+      - run: pnpm package
+      - run: pnpm lint:web-ext
 
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: { node-version: '16' }
-      - run: yarn install
-      - run: yarn test
+      - uses: ./.github/actions/setup-node
+      - run: pnpm test
 
   lint-js:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: { node-version: '16' }
-      - run: yarn install
-      - run: yarn lint:js
+      - uses: ./.github/actions/setup-node
+      - run: pnpm lint:js
 
   lint-css:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: { node-version: '16' }
-      - run: yarn install
-      - run: yarn lint:css
+      - uses: ./.github/actions/setup-node
+      - run: pnpm lint:css
