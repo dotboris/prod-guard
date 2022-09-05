@@ -1,22 +1,25 @@
 import './index.scss'
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import App from './app'
+import { BrowserRouter } from 'react-router-dom'
 
 main()
 
 async function main () {
-  const root = document.createElement('div')
-  root.className = 'app-root'
-  document.body.append(root)
+  const rootElement = document.createElement('div')
+  rootElement.className = 'app-root'
+  document.body.append(rootElement)
 
   const queryClient = new QueryClient()
 
-  render(
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>,
-    root
+  const root = createRoot(rootElement)
+  root.render(
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </BrowserRouter>
   )
 }

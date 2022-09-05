@@ -1,6 +1,6 @@
 import './layout.scss'
 import React from 'react'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 import Icon from './icon'
 import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg'
 
