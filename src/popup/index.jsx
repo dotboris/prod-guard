@@ -3,6 +3,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import App from './app'
+import { LocationProvider } from '@reach/router'
 
 main()
 
@@ -14,9 +15,11 @@ async function main () {
   const queryClient = new QueryClient()
 
   render(
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>,
+    <LocationProvider>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </LocationProvider>,
     root
   )
 }
