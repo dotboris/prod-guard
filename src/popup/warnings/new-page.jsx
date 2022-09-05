@@ -3,8 +3,8 @@ import browser from 'webextension-polyfill'
 import WarningForm from './form'
 import Layout from '../layout'
 import { useAddWarningMutation } from './state'
-import { navigate } from '@reach/router'
 import { useQuery } from 'react-query'
+import { useNavigate } from 'react-router'
 
 export default function NewWarningPage () {
   const {
@@ -13,10 +13,11 @@ export default function NewWarningPage () {
   } = useSuggestedPattern()
   const addWarningMutation = useAddWarningMutation()
 
+  const navigate = useNavigate()
   const handleSave = useCallback(async warning => {
     await addWarningMutation.mutateAsync({ warning })
     navigate('/')
-  }, [addWarningMutation])
+  }, [addWarningMutation, navigate])
 
   return (
     <Layout title='New Warning'>
