@@ -14,7 +14,7 @@
     "lint:web-ext": "web-ext lint -s dist",
     "test": "jest"
   },
-  "packageManager": "pnpm@7.10.0",
+  "packageManager": "pnpm@7.11.0",
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
@@ -41,7 +41,7 @@
     "postcss-loader": "^7.0.1",
     "sass": "^1.53.0",
     "sass-loader": "^13.0.2",
-    "sharp": "^0.30.7",
+    "sharp": "^0.31.0",
     "style-loader": "^3.3.1",
     "stylelint": "^14.9.1",
     "stylelint-config-standard-scss": "^5.0.0",
