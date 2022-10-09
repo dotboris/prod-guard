@@ -14,7 +14,7 @@
     "lint:web-ext": "web-ext lint -s dist",
     "test": "jest"
   },
-  "packageManager": "pnpm@7.13.2",
+  "packageManager": "pnpm@7.13.3",
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
