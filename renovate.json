@@ -8,5 +8,8 @@
     "group:recommended",
     "group:allNonMajor"
   ],
-  "rangeStrategy": "update-lockfile"
+  "rangeStrategy": "update-lockfile",
+
+  "timezone": "America/Toronto",
+  "schedule": ["after 2pm on friday"]
 }
