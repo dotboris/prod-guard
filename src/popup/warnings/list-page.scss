@@ -1,4 +1,4 @@
-@import "../../palette";
+@import '../../palette';
 
 .warning-list {
   .title {
@@ -55,7 +55,7 @@
         font-size: 1.1rem;
 
         .pattern {
-          font-family: "Lucida Console", Monaco, monospace;
+          font-family: 'Lucida Console', Monaco, monospace;
           flex-grow: 1;
         }
 
@@ -88,7 +88,7 @@
       display: inline-block;
       vertical-align: baseline;
       margin-right: 0.25em;
-      content: "";
+      content: '';
       width: 0.6em;
       height: 0.6em;
       border: 1px solid black;
