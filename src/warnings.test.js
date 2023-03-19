@@ -6,7 +6,7 @@ const _uuid = jest.requireActual('uuid')
 
 jest.mock('uuid', () => ({ v4: jest.fn() }))
 
-function resetUuidV4 () {
+function resetUuidV4() {
   uuidV4.mockReset()
   uuidV4.mockImplementation(() => _uuid.v4())
 }
@@ -52,7 +52,7 @@ describe('warnings.js', () => {
       Warnings.add(db, {})
       const res = Warnings.getAll(db)
 
-      const ids = res.map(warning => warning.id)
+      const ids = res.map((warning) => warning.id)
       ids.sort()
       expect(ids).toEqual(['uuid-1', 'uuid-2', 'uuid-3', 'uuid-4'])
     })
@@ -66,16 +66,16 @@ describe('warnings.js', () => {
         { id: 'uuid-one', phony: 'a' },
         { id: 'uuid-two', phony: 'b' },
         { id: 'uuid-three', phony: 'c' },
-        { id: 'uuid-four', phony: 'd' }
+        { id: 'uuid-four', phony: 'd' },
       ])
 
       let warnings = Warnings.getAll(db)
-      warnings = sortBy(warnings, w => w.phony)
+      warnings = sortBy(warnings, (w) => w.phony)
       expect(warnings).toEqual([
         { id: 'uuid-one', phony: 'a' },
         { id: 'uuid-two', phony: 'b' },
         { id: 'uuid-three', phony: 'c' },
-        { id: 'uuid-four', phony: 'd' }
+        { id: 'uuid-four', phony: 'd' },
       ])
     })
 
@@ -86,21 +86,21 @@ describe('warnings.js', () => {
         { id: 'uuid-one', phony: 'a' },
         { id: 'uuid-two', phony: 'b' },
         { id: 'uuid-three', phony: 'c' },
-        { id: 'uuid-four', phony: 'd' }
+        { id: 'uuid-four', phony: 'd' },
       ])
 
       Warnings.importAll(db, [
         { id: 'uuid-two', phony: 'b', overwritten: true },
-        { id: 'uuid-three', phony: 'c', overwritten: true }
+        { id: 'uuid-three', phony: 'c', overwritten: true },
       ])
 
       let warnings = Warnings.getAll(db)
-      warnings = sortBy(warnings, w => w.phony)
+      warnings = sortBy(warnings, (w) => w.phony)
       expect(warnings).toEqual([
         { id: 'uuid-one', phony: 'a' },
         { id: 'uuid-two', phony: 'b', overwritten: true },
         { id: 'uuid-three', phony: 'c', overwritten: true },
-        { id: 'uuid-four', phony: 'd' }
+        { id: 'uuid-four', phony: 'd' },
       ])
     })
   })
@@ -185,12 +185,8 @@ describe('warnings.js', () => {
 
       const matches = Warnings.findMatching(db, 'https://foobar.com')
 
-      const patterns = matches.map(warning => warning.pattern).sort()
-      expect(patterns).toEqual([
-        'bar',
-        'fo',
-        'foo'
-      ])
+      const patterns = matches.map((warning) => warning.pattern).sort()
+      expect(patterns).toEqual(['bar', 'fo', 'foo'])
     })
 
     it('should return empty array with no matches', () => {
@@ -202,7 +198,7 @@ describe('warnings.js', () => {
 
       const matches = Warnings.findMatching(db, 'https://something-else.com')
 
-      const patterns = matches.map(warning => warning.pattern).sort()
+      const patterns = matches.map((warning) => warning.pattern).sort()
       expect(patterns).toEqual([])
     })
 
@@ -211,7 +207,7 @@ describe('warnings.js', () => {
 
       const matches = Warnings.findMatching(db, 'https://something-else.com')
 
-      const patterns = matches.map(warning => warning.pattern).sort()
+      const patterns = matches.map((warning) => warning.pattern).sort()
       expect(patterns).toEqual([])
     })
   })

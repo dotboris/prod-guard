@@ -5,7 +5,7 @@ import EditWarningPage from './warnings/edit-page'
 import { Routes, Route } from 'react-router'
 import { Redirect } from './redirect'
 
-export default function App () {
+export default function App() {
   return (
     <Routes>
       {/* The popup starts at /popup.html. We normalize that to / */}

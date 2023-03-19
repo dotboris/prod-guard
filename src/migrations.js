@@ -1,6 +1,6 @@
 import { v4 as uuidV4 } from 'uuid'
 
-export async function migrateStorageData (migrations, storageData) {
+export async function migrateStorageData(migrations, storageData) {
   let hasMigrated = false
   let res = storageData
 
@@ -19,10 +19,10 @@ export async function migrateStorageData (migrations, storageData) {
 }
 
 export const migrations = [
-  async data => ({ warnings: data.sites ?? [] }),
-  async data => ({
+  async (data) => ({ warnings: data.sites ?? [] }),
+  async (data) => ({
     ...data,
-    warnings: data.warnings.map(warning => {
+    warnings: data.warnings.map((warning) => {
       switch (warning.warningStyle) {
         case 'topBanner':
         case 'bottomBanner':
@@ -30,22 +30,22 @@ export const migrations = [
             ...warning,
             text: 'Warning! This is Production!',
             backgroundColor: 'FF0000',
-            textColor: 'FFFFFF'
+            textColor: 'FFFFFF',
           }
         case 'border':
           return {
             ...warning,
-            borderColor: 'FF0000'
+            borderColor: 'FF0000',
           }
         default:
           return warning
       }
-    })
+    }),
   }),
-  async data => {
+  async (data) => {
     const ids = new Set()
 
-    function generateId () {
+    function generateId() {
       let candidate
       do {
         candidate = uuidV4()
@@ -57,10 +57,10 @@ export const migrations = [
 
     return {
       ...data,
-      warnings: data.warnings.map(warning => ({
+      warnings: data.warnings.map((warning) => ({
         ...warning,
-        id: generateId()
-      }))
+        id: generateId(),
+      })),
     }
-  }
+  },
 ]

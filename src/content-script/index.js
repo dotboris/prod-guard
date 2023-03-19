@@ -1,22 +1,22 @@
 import { makeBanner } from './banner'
 
 const warningsFactories = {
-  border ({ borderColor }) {
+  border({ borderColor }) {
     document.body.style.border = `3px solid #${borderColor}`
   },
 
-  topBanner (warning) {
+  topBanner(warning) {
     makeBanner('top', warning)
   },
 
-  bottomBanner (warning) {
+  bottomBanner(warning) {
     makeBanner('bottom', warning)
-  }
+  },
 }
 
 main()
 
-async function main () {
+async function main() {
   if (window.prodGuardHasRun) {
     return
   }

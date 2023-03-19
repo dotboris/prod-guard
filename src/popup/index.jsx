@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 main()
 
-async function main () {
+async function main() {
   const rootElement = document.createElement('div')
   rootElement.className = 'app-root'
   document.body.append(rootElement)

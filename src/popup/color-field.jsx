@@ -1,24 +1,24 @@
 import React, { useCallback, useState } from 'react'
 import './color-field.scss'
 
-export default function ColorField ({ value, disabled, onChange }) {
+export default function ColorField({ value, disabled, onChange }) {
   const [rawValue, setRawValue] = useState(value)
 
-  const handleChange = useCallback(event => {
-    const newValue = event.target.value
-    setRawValue(newValue)
-    if (event.target.validity.valid) {
-      onChange(newValue)
-    }
-  }, [setRawValue, onChange])
+  const handleChange = useCallback(
+    (event) => {
+      const newValue = event.target.value
+      setRawValue(newValue)
+      if (event.target.validity.valid) {
+        onChange(newValue)
+      }
+    },
+    [setRawValue, onChange]
+  )
 
   return (
     <div className='color-field'>
       <div className='preview-wrapper'>
-        <div
-          className='preview'
-          style={{ backgroundColor: `#${rawValue}` }}
-        />
+        <div className='preview' style={{ backgroundColor: `#${rawValue}` }} />
       </div>
 
       <input
