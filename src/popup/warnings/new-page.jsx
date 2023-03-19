@@ -6,18 +6,19 @@ import { useAddWarningMutation } from './state'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router'
 
-export default function NewWarningPage () {
-  const {
-    isLoading: isSuggestedPatternLoading,
-    data: suggestedPattern
-  } = useSuggestedPattern()
+export default function NewWarningPage() {
+  const { isLoading: isSuggestedPatternLoading, data: suggestedPattern } =
+    useSuggestedPattern()
   const addWarningMutation = useAddWarningMutation()
 
   const navigate = useNavigate()
-  const handleSave = useCallback(async warning => {
-    await addWarningMutation.mutateAsync({ warning })
-    navigate('/')
-  }, [addWarningMutation, navigate])
+  const handleSave = useCallback(
+    async (warning) => {
+      await addWarningMutation.mutateAsync({ warning })
+      navigate('/')
+    },
+    [addWarningMutation, navigate]
+  )
 
   return (
     <Layout title='New Warning'>
@@ -32,13 +33,13 @@ export default function NewWarningPage () {
   )
 }
 
-function useSuggestedPattern () {
+function useSuggestedPattern() {
   return useQuery(
     'currentTab',
     async () => {
       const tabs = await browser.tabs.query({
         currentWindow: true,
-        active: true
+        active: true,
       })
 
       if (tabs.length > 0) {
@@ -52,7 +53,7 @@ function useSuggestedPattern () {
       // Disable caching for this query. Getting this information costs us
       // nothing. Having a wrong value in the cache is just going to cause
       // problems.
-      cacheTime: 0
+      cacheTime: 0,
     }
   )
 }

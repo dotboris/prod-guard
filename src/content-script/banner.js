@@ -1,7 +1,7 @@
 import './banner.scss'
 import rafThrottle from 'raf-throttle'
 
-export function makeBanner (type, { text, backgroundColor, textColor }) {
+export function makeBanner(type, { text, backgroundColor, textColor }) {
   const banner = document.createElement('div')
   banner.classList.add('prod-guard', 'banner', type)
   banner.textContent = text
@@ -13,14 +13,14 @@ export function makeBanner (type, { text, backgroundColor, textColor }) {
     mouseInWindow: true,
     mouseX: 0,
     mouseY: 0,
-    bannerBox: banner.getBoundingClientRect()
+    bannerBox: banner.getBoundingClientRect(),
   }
 
-  const setOpacity = rafThrottle(opacity => {
+  const setOpacity = rafThrottle((opacity) => {
     banner.style.opacity = opacity
   })
 
-  function update (newState) {
+  function update(newState) {
     Object.assign(state, newState)
 
     if (state.mouseInWindow) {
@@ -35,24 +35,32 @@ export function makeBanner (type, { text, backgroundColor, textColor }) {
     }
   }
 
-  window.addEventListener('resize', () => update({
-    bannerBox: banner.getClientRects()
-  }))
-  document.addEventListener('mousemove', event => update({
-    mouseX: event.clientX,
-    mouseY: event.clientY
-  }))
-  document.documentElement.addEventListener('mouseenter', () => update({
-    mouseInWindow: true
-  }))
-  document.documentElement.addEventListener('mouseleave', () => update({
-    mouseInWindow: false
-  }))
+  window.addEventListener('resize', () =>
+    update({
+      bannerBox: banner.getClientRects(),
+    })
+  )
+  document.addEventListener('mousemove', (event) =>
+    update({
+      mouseX: event.clientX,
+      mouseY: event.clientY,
+    })
+  )
+  document.documentElement.addEventListener('mouseenter', () =>
+    update({
+      mouseInWindow: true,
+    })
+  )
+  document.documentElement.addEventListener('mouseleave', () =>
+    update({
+      mouseInWindow: false,
+    })
+  )
 
   return banner
 }
 
-function vertialDistance (box, y) {
+function vertialDistance(box, y) {
   const topDistance = Math.abs(box.top - y)
   const bottomDistance = Math.abs(box.bottom - y)
 

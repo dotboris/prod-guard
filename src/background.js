@@ -6,10 +6,10 @@ let warningsDb
 
 setup()
 
-async function setup () {
+async function setup() {
   console.log('starting setup')
 
-  const rawStorageData = await browser.storage.sync.get() ?? {}
+  const rawStorageData = (await browser.storage.sync.get()) ?? {}
   const [hasMigrated, storageData] = await migrateStorageData(
     migrations,
     rawStorageData
@@ -36,38 +36,38 @@ async function setup () {
   console.log('setup is done')
 }
 
-async function saveWarnings () {
+async function saveWarnings() {
   console.log('saving warnings to storage')
   const warnings = Warnings.getAll(warningsDb)
   await browser.storage.sync.set({ warnings })
 }
 
 const api = {
-  async getAllWarnings () {
+  async getAllWarnings() {
     return Warnings.getAll(warningsDb)
   },
 
-  async getWarning ({ id }) {
+  async getWarning({ id }) {
     return Warnings.get(warningsDb, id)
   },
 
-  async addWarning ({ warning }) {
+  async addWarning({ warning }) {
     Warnings.add(warningsDb, warning)
     await saveWarnings()
   },
 
-  async updateWarning ({ id, warning }) {
+  async updateWarning({ id, warning }) {
     Warnings.update(warningsDb, id, warning)
     await saveWarnings()
   },
 
-  async removeWarning ({ id }) {
+  async removeWarning({ id }) {
     Warnings.remove(warningsDb, id)
     await saveWarnings()
-  }
+  },
 }
 
-function onMessage (message, sender) {
+function onMessage(message, sender) {
   const type = message.type
 
   if (Object.hasOwnProperty.call(api, type)) {
@@ -75,21 +75,17 @@ function onMessage (message, sender) {
   }
 }
 
-async function onTabChange (tabId, { status }, tab) {
+async function onTabChange(tabId, { status }, tab) {
   if (status !== 'complete') {
     return
   }
 
   const warnings = Warnings.findMatching(warningsDb, tab.url)
   if (warnings.length > 0) {
-    await browser.tabs.executeScript(
-      tabId,
-      { code: `window.prodGuardWarnings = ${JSON.stringify(warnings)};` }
-    )
-    await browser.tabs.executeScript(
-      tabId,
-      { file: 'content-script.js' }
-    )
+    await browser.tabs.executeScript(tabId, {
+      code: `window.prodGuardWarnings = ${JSON.stringify(warnings)};`,
+    })
+    await browser.tabs.executeScript(tabId, { file: 'content-script.js' })
 
     console.log(`Loaded content script into ${tab.url} (tabId: ${tabId})`)
   }

@@ -7,20 +7,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const ICON_SIZES = [16, 24, 32, 48, 64, 96, 128]
 
-function isProd () {
+function isProd() {
   return process.env.NODE_ENV === 'production'
 }
 
-function patchManifest (manifestContent) {
+function patchManifest(manifestContent) {
   const manifest = JSON.parse(manifestContent)
 
-  let darkIcons = ICON_SIZES.map(size => [String(size), pngIconPath('dark', size)])
+  let darkIcons = ICON_SIZES.map((size) => [
+    String(size),
+    pngIconPath('dark', size),
+  ])
   darkIcons = Object.fromEntries(darkIcons)
 
-  const themeIcons = ICON_SIZES.map(size => ({
+  const themeIcons = ICON_SIZES.map((size) => ({
     size,
     light: pngIconPath('light', size),
-    dark: pngIconPath('dark', size)
+    dark: pngIconPath('dark', size),
   }))
 
   manifest.version = version
@@ -31,22 +34,19 @@ function patchManifest (manifestContent) {
   return JSON.stringify(manifest)
 }
 
-function pngIconPath (type, size) {
+function pngIconPath(type, size) {
   return `icon/icon-${type}-${size}.png`
 }
 
-function copyPluginIconPatterns () {
-  const res = ['dark', 'light'].flatMap(type =>
-    ICON_SIZES.map(size => {
+function copyPluginIconPatterns() {
+  const res = ['dark', 'light'].flatMap((type) =>
+    ICON_SIZES.map((size) => {
       return {
         from: `icon/${type}-icon.svg`,
         to: pngIconPath(type, size),
-        async transform (content) {
-          return sharp(content)
-            .resize(size)
-            .png()
-            .toBuffer()
-        }
+        async transform(content) {
+          return sharp(content).resize(size).png().toBuffer()
+        },
       }
     })
   )
@@ -61,7 +61,7 @@ module.exports = {
   entry: {
     'content-script': './content-script',
     background: './background',
-    popup: './popup'
+    popup: './popup',
   },
 
   plugins: [
@@ -71,18 +71,18 @@ module.exports = {
         {
           from: 'manifest.json',
           to: 'manifest.json',
-          transform (content) {
+          transform(content) {
             return patchManifest(content)
-          }
+          },
         },
-        ...copyPluginIconPatterns()
-      ]
+        ...copyPluginIconPatterns(),
+      ],
     }),
     new HtmlWebpackPlugin({
       chunks: ['popup'],
       filename: 'popup.html',
-      title: 'Prod Guard Settings'
-    })
+      title: 'Prod Guard Settings',
+    }),
   ],
 
   module: {
@@ -90,32 +90,27 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.svg$/,
-        type: 'asset/source'
+        type: 'asset/source',
       },
       {
         test: /\.svg$/,
         resourceQuery: /data-uri/,
-        type: 'asset/inline'
-      }
-    ]
+        type: 'asset/inline',
+      },
+    ],
   },
 
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
 
-  devtool: 'source-map'
+  devtool: 'source-map',
 }

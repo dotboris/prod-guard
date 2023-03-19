@@ -2,21 +2,22 @@ module.exports = {
   extends: [
     'standard',
     'standard-jsx',
-    'plugin:react-hooks/recommended'
+    'plugin:react-hooks/recommended',
+    'prettier',
   ],
 
   env: {
-    browser: true
+    browser: true,
   },
 
   rules: {
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
   },
 
   overrides: [
     {
       files: ['**/*.test.js'],
-      extends: ['plugin:jest/recommended']
-    }
-  ]
+      extends: ['plugin:jest/recommended'],
+    },
+  ],
 }

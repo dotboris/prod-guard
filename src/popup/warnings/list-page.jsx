@@ -8,13 +8,15 @@ import Layout from '../layout'
 import { useAllWarnings, useRemoveWarningMutation } from './state'
 import { Link } from 'react-router-dom'
 
-export default function WarningsListPage () {
+export default function WarningsListPage() {
   return (
     <Layout title='Prod Guard'>
       <div className='warning-list'>
         <div className='title'>
           <h2>Warnings</h2>
-          <Link className='button' to='/new'>New Warning</Link>
+          <Link className='button' to='/new'>
+            New Warning
+          </Link>
         </div>
 
         <WarningList />
@@ -23,7 +25,7 @@ export default function WarningsListPage () {
   )
 }
 
-function WarningList () {
+function WarningList() {
   const { isLoading, data: warnings } = useAllWarnings()
 
   if (isLoading) {
@@ -33,11 +35,11 @@ function WarningList () {
   if (warnings.length > 0) {
     return (
       <ul className='items'>
-        {warnings.map(warning =>
+        {warnings.map((warning) => (
           <li key={warning.id}>
             <WarningItem warning={warning} />
           </li>
-        )}
+        ))}
       </ul>
     )
   } else {
@@ -51,7 +53,7 @@ function WarningList () {
   }
 }
 
-function WarningItem ({ warning }) {
+function WarningItem({ warning }) {
   const removeWarningMutation = useRemoveWarningMutation()
 
   const {
@@ -63,7 +65,7 @@ function WarningItem ({ warning }) {
 
     text,
     textColor,
-    backgroundColor
+    backgroundColor,
   } = warning
 
   return (
@@ -73,44 +75,44 @@ function WarningItem ({ warning }) {
         <Link className='action' to={`/edit/${id}`}>
           <Icon svg={EditIcon} title='Edit Warning' />
         </Link>
-        <div className='action' onClick={() => removeWarningMutation.mutate({ id })}>
+        <div
+          className='action'
+          onClick={() => removeWarningMutation.mutate({ id })}
+        >
           <Icon svg={TrashIcon} title='Delete Warning' />
         </div>
       </div>
       <dl>
         <dt>Style:</dt>
         <dd>{warningStyles[warningStyle]}</dd>
-        {warningStyle === 'border'
-          ? (
-            <>
-              <dt>Color:</dt>
-              <dd><Color colorHex={borderColor} /></dd>
-            </>)
-          : null}
-        {['topBanner', 'bottomBanner'].includes(warningStyle)
-          ? (
-            <>
-              <dt>Text:</dt>
-              <dd>{text}</dd>
-              <dt>Color:</dt>
-              <dd>
-                <Color colorHex={textColor} />
-                {' on '}
-                <Color colorHex={backgroundColor} />
-              </dd>
-            </>)
-          : null}
+        {warningStyle === 'border' ? (
+          <>
+            <dt>Color:</dt>
+            <dd>
+              <Color colorHex={borderColor} />
+            </dd>
+          </>
+        ) : null}
+        {['topBanner', 'bottomBanner'].includes(warningStyle) ? (
+          <>
+            <dt>Text:</dt>
+            <dd>{text}</dd>
+            <dt>Color:</dt>
+            <dd>
+              <Color colorHex={textColor} />
+              {' on '}
+              <Color colorHex={backgroundColor} />
+            </dd>
+          </>
+        ) : null}
       </dl>
     </>
   )
 }
 
-function Color ({ colorHex }) {
+function Color({ colorHex }) {
   return (
-    <span
-      className='color'
-      style={{ '--color': `#${colorHex}` }}
-    >
+    <span className='color' style={{ '--color': `#${colorHex}` }}>
       #{colorHex.toUpperCase()}
     </span>
   )
