@@ -13,8 +13,8 @@
     "lint:css": "stylelint 'src/**/*.scss'",
     "lint:web-ext": "web-ext lint -s dist",
     "test": "jest",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json}'",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json,scss}'",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,scss}'",
     "prepare": "husky install"
   },
   "packageManager": "pnpm@7.29.3",
@@ -70,7 +70,7 @@
     "webextension-polyfill": "^0.10.0"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json}": [
+    "*.{ts,tsx,js,jsx,json,scss}": [
       "prettier --write"
     ]
   }
