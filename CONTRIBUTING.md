@@ -52,7 +52,6 @@ pnpm test --single-run
 ```sh
 pnpm build
 pnpm lint
-pnpm format:check
 ```
 
 ### Package
