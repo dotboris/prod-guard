@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
-    "raf-throttle": "^2.0.5",
+    "raf-throttle": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.2",

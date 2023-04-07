@@ -1,15 +1,33 @@
 import './banner.scss'
 import rafThrottle from 'raf-throttle'
+import { type BannerWarning, WarningStyle } from '../warnings'
 
-export function makeBanner(type, { text, backgroundColor, textColor }) {
+const BANNER_CLASS = {
+  [WarningStyle.BottomBanner]: 'bottom',
+  [WarningStyle.TopBanner]: 'top',
+}
+
+interface BannerState {
+  mouseInWindow: boolean
+  mouseX: number
+  mouseY: number
+  bannerBox: DOMRect
+}
+
+export function makeBanner({
+  warningStyle,
+  text,
+  backgroundColor,
+  textColor,
+}: BannerWarning) {
   const banner = document.createElement('div')
-  banner.classList.add('prod-guard', 'banner', type)
+  banner.classList.add('prod-guard', 'banner', BANNER_CLASS[warningStyle])
   banner.textContent = text
   banner.style.color = `#${textColor}`
   banner.style.backgroundColor = `#${backgroundColor}`
   document.body.append(banner)
 
-  const state = {
+  const state: BannerState = {
     mouseInWindow: true,
     mouseX: 0,
     mouseY: 0,
@@ -20,11 +38,11 @@ export function makeBanner(type, { text, backgroundColor, textColor }) {
     banner.style.opacity = opacity
   })
 
-  function update(newState) {
+  function update(newState: Partial<BannerState>) {
     Object.assign(state, newState)
 
     if (state.mouseInWindow) {
-      const distance = vertialDistance(state.bannerBox, state.mouseY)
+      const distance = verticalDistance(state.bannerBox, state.mouseY)
 
       const threshold = state.bannerBox.height * 2
       const opacity = Math.min(distance, threshold) / threshold
@@ -37,7 +55,7 @@ export function makeBanner(type, { text, backgroundColor, textColor }) {
 
   window.addEventListener('resize', () =>
     update({
-      bannerBox: banner.getClientRects(),
+      bannerBox: banner.getClientRects()[0],
     })
   )
   document.addEventListener('mousemove', (event) =>
@@ -60,7 +78,7 @@ export function makeBanner(type, { text, backgroundColor, textColor }) {
   return banner
 }
 
-function vertialDistance(box, y) {
+function verticalDistance(box: DOMRect, y: number) {
   const topDistance = Math.abs(box.top - y)
   const bottomDistance = Math.abs(box.bottom - y)
 
