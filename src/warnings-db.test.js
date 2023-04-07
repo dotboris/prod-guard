@@ -1,6 +1,6 @@
 import { sortBy } from 'lodash'
 import { v4 as uuidV4 } from 'uuid'
-import * as Warnings from './warnings'
+import * as Warnings from './warnings-db'
 
 const _uuid = jest.requireActual('uuid')
 
@@ -11,7 +11,7 @@ function resetUuidV4() {
   uuidV4.mockImplementation(() => _uuid.v4())
 }
 
-describe('warnings.js', () => {
+describe('warnings-db.js', () => {
   beforeEach(() => {
     resetUuidV4()
   })

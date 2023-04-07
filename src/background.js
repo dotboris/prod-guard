@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill'
 import { migrateStorageData, migrations } from './migrations'
-import * as Warnings from './warnings'
+import * as WarningsDB from './warnings-db'
 
 let warningsDb
 
@@ -26,8 +26,8 @@ async function setup() {
   }
 
   console.log('initializing warnings database from storage data')
-  warningsDb = Warnings.createDb()
-  Warnings.importAll(warningsDb, storageData.warnings)
+  warningsDb = WarningsDB.createDb()
+  WarningsDB.importAll(warningsDb, storageData.warnings)
 
   console.log('registering event listeners')
   browser.runtime.onMessage.addListener(onMessage)
@@ -38,31 +38,31 @@ async function setup() {
 
 async function saveWarnings() {
   console.log('saving warnings to storage')
-  const warnings = Warnings.getAll(warningsDb)
+  const warnings = WarningsDB.getAll(warningsDb)
   await browser.storage.sync.set({ warnings })
 }
 
 const api = {
   async getAllWarnings() {
-    return Warnings.getAll(warningsDb)
+    return WarningsDB.getAll(warningsDb)
   },
 
   async getWarning({ id }) {
-    return Warnings.get(warningsDb, id)
+    return WarningsDB.get(warningsDb, id)
   },
 
   async addWarning({ warning }) {
-    Warnings.add(warningsDb, warning)
+    WarningsDB.add(warningsDb, warning)
     await saveWarnings()
   },
 
   async updateWarning({ id, warning }) {
-    Warnings.update(warningsDb, id, warning)
+    WarningsDB.update(warningsDb, id, warning)
     await saveWarnings()
   },
 
   async removeWarning({ id }) {
-    Warnings.remove(warningsDb, id)
+    WarningsDB.remove(warningsDb, id)
     await saveWarnings()
   },
 }
@@ -80,7 +80,7 @@ async function onTabChange(tabId, { status }, tab) {
     return
   }
 
-  const warnings = Warnings.findMatching(warningsDb, tab.url)
+  const warnings = WarningsDB.findMatching(warningsDb, tab.url)
   if (warnings.length > 0) {
     await browser.tabs.executeScript(tabId, {
       code: `window.prodGuardWarnings = ${JSON.stringify(warnings)};`,
