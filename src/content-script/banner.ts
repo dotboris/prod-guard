@@ -19,7 +19,7 @@ export function makeBanner({
   text,
   backgroundColor,
   textColor,
-}: BannerWarning) {
+}: BannerWarning): void {
   const banner = document.createElement('div')
   banner.classList.add('prod-guard', 'banner', BANNER_CLASS[warningStyle])
   banner.textContent = text
@@ -38,7 +38,7 @@ export function makeBanner({
     banner.style.opacity = opacity
   })
 
-  function update(newState: Partial<BannerState>) {
+  function update(newState: Partial<BannerState>): void {
     Object.assign(state, newState)
 
     if (state.mouseInWindow) {
@@ -53,32 +53,30 @@ export function makeBanner({
     }
   }
 
-  window.addEventListener('resize', () =>
+  window.addEventListener('resize', () => {
     update({
       bannerBox: banner.getClientRects()[0],
     })
-  )
-  document.addEventListener('mousemove', (event) =>
+  })
+  document.addEventListener('mousemove', (event) => {
     update({
       mouseX: event.clientX,
       mouseY: event.clientY,
     })
-  )
-  document.documentElement.addEventListener('mouseenter', () =>
+  })
+  document.documentElement.addEventListener('mouseenter', () => {
     update({
       mouseInWindow: true,
     })
-  )
-  document.documentElement.addEventListener('mouseleave', () =>
+  })
+  document.documentElement.addEventListener('mouseleave', () => {
     update({
       mouseInWindow: false,
     })
-  )
-
-  return banner
+  })
 }
 
-function verticalDistance(box: DOMRect, y: number) {
+function verticalDistance(box: DOMRect, y: number): number {
   const topDistance = Math.abs(box.top - y)
   const bottomDistance = Math.abs(box.bottom - y)
 
