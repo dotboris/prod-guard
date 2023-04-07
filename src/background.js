@@ -42,6 +42,7 @@ async function saveWarnings() {
   await browser.storage.sync.set({ warnings })
 }
 
+/** @type {import('./warnings-api').WarningsApi} */
 const api = {
   async getAllWarnings() {
     return WarningsDB.getAll(warningsDb)

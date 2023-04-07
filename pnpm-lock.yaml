@@ -45,6 +45,9 @@ devDependencies:
   '@tsconfig/recommended':
     specifier: ^1.0.2
     version: 1.0.2
+  '@types/webextension-polyfill':
+    specifier: ^0.10.0
+    version: 0.10.0
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.57.1
     version: 5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.22.0)(typescript@5.0.2)
@@ -2236,6 +2239,10 @@ packages:
 
   /@types/stack-utils@2.0.0:
     resolution: {integrity: sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==}
+    dev: true
+
+  /@types/webextension-polyfill@0.10.0:
+    resolution: {integrity: sha512-If4EcaHzYTqcbNMp/FdReVdRmLL/Te42ivnJII551bYjhX19bWem5m14FERCqdJA732OloGuxCRvLBvcMGsn4A==}
     dev: true
 
   /@types/yargs-parser@20.2.0:
