@@ -1,6 +1,6 @@
 module.exports = {
   extends: [
-    'standard',
+    'standard-with-typescript',
     'standard-jsx',
     'plugin:react-hooks/recommended',
     'prettier',
@@ -8,6 +8,10 @@ module.exports = {
 
   env: {
     browser: true,
+  },
+
+  parserOptions: {
+    project: './tsconfig.json',
   },
 
   rules: {
