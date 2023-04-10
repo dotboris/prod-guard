@@ -6,10 +6,10 @@ import {
   type UseMutationResult,
 } from 'react-query'
 import { type Warning } from '../../warnings'
-import { type ApiCall } from '../../api'
+import { type ApiCallName, type ApiCall } from '../../api'
 import browser from 'webextension-polyfill'
 
-const sendMessage: ApiCall = browser.runtime.sendMessage
+const sendMessage: ApiCall<ApiCallName> = browser.runtime.sendMessage
 
 export function useAllWarnings(): UseQueryResult<Warning[]> {
   return useQuery(
