@@ -5,7 +5,7 @@ import Icon from '../icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import Layout from '../layout'
-import { useAllWarnings, useRemoveWarningMutation } from './state'
+import { useAllWarnings, useRemoveWarningMutation } from './api-hooks'
 import { Link } from 'react-router-dom'
 
 export default function WarningsListPage() {

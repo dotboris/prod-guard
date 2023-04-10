@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import Layout from '../layout'
-import { useWarning, useUpdateWarningMutation } from './state'
+import { useWarning, useUpdateWarningMutation } from './api-hooks'
 import WarningForm from './form'
 import { useParams, useNavigate } from 'react-router'
 
