@@ -1,6 +1,7 @@
 import browser, { type Tabs } from 'webextension-polyfill'
 import { migrateStorageData, migrations } from '../migrations'
 import { State } from '../state'
+import { type ApiCall } from '../api'
 
 export async function setupService(): Promise<void> {
   console.log('starting setup')
@@ -54,7 +55,9 @@ export class Service {
     })
   }
 
-  async onMessage(message: any): Promise<any> {
+  async onMessage(
+    message: Parameters<ApiCall>[0]
+  ): Promise<ReturnType<ApiCall>> {
     try {
       switch (message.type) {
         case 'getAllWarnings':

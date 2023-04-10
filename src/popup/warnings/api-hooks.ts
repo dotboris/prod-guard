@@ -6,22 +6,33 @@ import {
   type UseMutationResult,
 } from 'react-query'
 import { type Warning } from '../../warnings'
-import { type ApiCall } from '../../api'
+import {
+  type GetAllWarningsApiCall,
+  type GetWarningApiCall,
+  type AddWarningApiCall,
+  type UpdateWarningApiCall,
+  type RemoveWarningApiCall,
+} from '../../api'
 import browser from 'webextension-polyfill'
-
-const sendMessage: ApiCall = browser.runtime.sendMessage
 
 export function useAllWarnings(): UseQueryResult<Warning[]> {
   return useQuery(
     'warnings',
-    async () => await sendMessage({ type: 'getAllWarnings' })
+    async () =>
+      await (browser.runtime.sendMessage as GetAllWarningsApiCall)({
+        type: 'getAllWarnings',
+      })
   )
 }
 
 export function useWarning(id: string): UseQueryResult<Warning> {
   return useQuery(
     ['warnings', id],
-    async () => await sendMessage({ type: 'getWarning', id })
+    async () =>
+      await (browser.runtime.sendMessage as GetWarningApiCall)({
+        type: 'getWarning',
+        id,
+      })
   )
 }
 
@@ -34,7 +45,10 @@ export function useAddWarningMutation(): UseMutationResult<
 
   return useMutation(
     async (req) => {
-      await sendMessage({ type: 'addWarning', warning: req.warning })
+      await (browser.runtime.sendMessage as AddWarningApiCall)({
+        type: 'addWarning',
+        warning: req.warning,
+      })
     },
     {
       async onSuccess() {
@@ -53,7 +67,7 @@ export function useUpdateWarningMutation(): UseMutationResult<
 
   return useMutation(
     async (req) => {
-      await sendMessage({
+      await (browser.runtime.sendMessage as UpdateWarningApiCall)({
         type: 'updateWarning',
         id: req.id,
         warning: req.warning,
@@ -76,7 +90,10 @@ export function useRemoveWarningMutation(): UseMutationResult<
 
   return useMutation(
     async (req) => {
-      await sendMessage({ type: 'removeWarning', id: req.id })
+      await (browser.runtime.sendMessage as RemoveWarningApiCall)({
+        type: 'removeWarning',
+        id: req.id,
+      })
     },
     {
       async onSuccess() {
