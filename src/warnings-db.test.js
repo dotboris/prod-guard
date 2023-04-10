@@ -1,4 +1,4 @@
-import { sortBy } from 'lodash'
+import { sortBy } from 'lodash-es'
 import { v4 as uuidV4 } from 'uuid'
 import * as Warnings from './warnings-db'
 

@@ -5,7 +5,11 @@ export enum WarningStyle {
 }
 
 interface WarningBase {
-  id: string
+  /**
+   * Regular expression controlling where the warning is shown.
+   * It's matched against a tab's URL.
+   */
+  pattern: string
 }
 
 export interface BorderWarning extends WarningBase {
@@ -21,3 +25,5 @@ export interface BannerWarning extends WarningBase {
 }
 
 export type Warning = BorderWarning | BannerWarning
+
+export type WarningWithId = { id: string } & Warning

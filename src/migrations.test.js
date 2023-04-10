@@ -1,6 +1,6 @@
 import { migrations, migrateStorageData } from './migrations'
 import { v4 as uuidV4 } from 'uuid'
-import { range } from 'lodash'
+import { range } from 'lodash-es'
 
 const _uuid = jest.requireActual('uuid')
 
