@@ -1,6 +1,6 @@
 import browser, { type Tabs } from 'webextension-polyfill'
-import { migrateStorageData, migrations } from '../migrations'
-import { State } from '../state'
+import { migrateStorageData, migrations } from './migrations'
+import { State } from './state'
 import { type ApiCall } from '../api'
 
 export async function setupService(): Promise<void> {

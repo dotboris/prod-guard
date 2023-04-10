@@ -60,7 +60,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   entry: {
     'content-script': './content-script',
-    background: './background/main',
+    background: './background',
     popup: './popup',
   },
 
