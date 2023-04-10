@@ -31,7 +31,10 @@ export async function setupService(): Promise<void> {
 }
 
 export class Service {
-  constructor(private readonly state: State) {}
+  constructor(private readonly state: State) {
+    this.onMessage = this.onMessage.bind(this)
+    this.onTabChange = this.onTabChange.bind(this)
+  }
 
   start(): void {
     console.log('registering event listeners')
@@ -52,23 +55,35 @@ export class Service {
   }
 
   async onMessage(message: any): Promise<any> {
-    switch (message.type) {
-      case 'getAllWarnings':
-        return this.state.getAllWarnings()
-      case 'getWarning':
-        return this.state.getWarning(message.id)
-      case 'addWarning':
-        this.state.addWarning(message.warning)
-        await this.saveWarnings()
-        break
-      case 'updateWarning':
-        this.state.updateWarning(message.id, message.warning)
-        await this.saveWarnings()
-        break
-      case 'removeWarning':
-        this.state.removeWarning(message.id)
-        await this.saveWarnings()
-        break
+    try {
+      switch (message.type) {
+        case 'getAllWarnings':
+          console.debug('Handling message', message)
+          return this.state.getAllWarnings()
+        case 'getWarning':
+          console.debug('Handling message', message)
+          return this.state.getWarning(message.id)
+        case 'addWarning':
+          console.debug('Handling message', message)
+          this.state.addWarning(message.warning)
+          await this.saveWarnings()
+          break
+        case 'updateWarning':
+          console.debug('Handling message', message)
+          this.state.updateWarning(message.id, message.warning)
+          await this.saveWarnings()
+          break
+        case 'removeWarning':
+          console.debug('Handling message', message)
+          this.state.removeWarning(message.id)
+          await this.saveWarnings()
+          break
+        default:
+          console.warn('Unhandled message', message)
+          break
+      }
+    } catch (error) {
+      console.error('Failed to handle message', message, error)
     }
   }
 
