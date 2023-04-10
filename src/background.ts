@@ -1,12 +1,15 @@
-import browser from 'webextension-polyfill'
+import browser, { type Tabs } from 'webextension-polyfill'
 import { migrateStorageData, migrations } from './migrations'
 import * as WarningsDB from './warnings-db'
+import { type ApiCall } from './api'
 
-let warningsDb
+let warningsDb: any
 
-setup()
+setup().catch((error) => {
+  console.error('ProdGuard background script failed to start', error)
+})
 
-async function setup() {
+async function setup(): Promise<void> {
   console.log('starting setup')
 
   const rawStorageData = (await browser.storage.sync.get()) ?? {}
@@ -31,53 +34,57 @@ async function setup() {
 
   console.log('registering event listeners')
   browser.runtime.onMessage.addListener(onMessage)
-  browser.tabs.onUpdated.addListener(onTabChange)
+  browser.tabs.onUpdated.addListener((...args) => {
+    onTabChange(...args).catch((error) => {
+      console.error('onTabChange failed with error', error)
+    })
+  })
 
   console.log('setup is done')
 }
 
-async function saveWarnings() {
+async function saveWarnings(): Promise<void> {
   console.log('saving warnings to storage')
   const warnings = WarningsDB.getAll(warningsDb)
   await browser.storage.sync.set({ warnings })
 }
 
-/** @type {import('./warnings-api').WarningsApi} */
-const api = {
-  async getAllWarnings() {
-    return WarningsDB.getAll(warningsDb)
-  },
-
-  async getWarning({ id }) {
-    return WarningsDB.get(warningsDb, id)
-  },
-
-  async addWarning({ warning }) {
-    WarningsDB.add(warningsDb, warning)
-    await saveWarnings()
-  },
-
-  async updateWarning({ id, warning }) {
-    WarningsDB.update(warningsDb, id, warning)
-    await saveWarnings()
-  },
-
-  async removeWarning({ id }) {
-    WarningsDB.remove(warningsDb, id)
-    await saveWarnings()
-  },
-}
-
-function onMessage(message, sender) {
-  const type = message.type
-
-  if (Object.hasOwnProperty.call(api, type)) {
-    return api[type](message, sender)
+const onMessage: ApiCall = async (message) => {
+  switch (message.type) {
+    case 'getAllWarnings': {
+      return WarningsDB.getAll(warningsDb)
+    }
+    case 'getWarning': {
+      return WarningsDB.get(warningsDb, message.id)
+    }
+    case 'addWarning': {
+      WarningsDB.add(warningsDb, message.warning)
+      await saveWarnings()
+      break
+    }
+    case 'updateWarning': {
+      WarningsDB.update(warningsDb, message.id, message.warning)
+      await saveWarnings()
+      break
+    }
+    case 'removeWarning': {
+      WarningsDB.remove(warningsDb, message.id)
+      await saveWarnings()
+      break
+    }
   }
 }
 
-async function onTabChange(tabId, { status }, tab) {
+async function onTabChange(
+  tabId: number,
+  { status }: Tabs.OnUpdatedChangeInfoType,
+  tab: Tabs.Tab
+): Promise<void> {
   if (status !== 'complete') {
+    return
+  }
+
+  if (tab.url === undefined) {
     return
   }
 

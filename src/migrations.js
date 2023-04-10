@@ -1,5 +1,6 @@
 import { v4 as uuidV4 } from 'uuid'
 
+/** @returns {Promise<[boolean, any]>} */
 export async function migrateStorageData(migrations, storageData) {
   let hasMigrated = false
   let res = storageData

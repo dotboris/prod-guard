@@ -5,34 +5,36 @@ import {
   type UseQueryResult,
   type UseMutationResult,
 } from 'react-query'
-import {
-  addWarning,
-  getAllWarnings,
-  getWarning,
-  removeWarning,
-  updateWarning,
-} from './warnings-client'
 import { type Warning } from '../../warnings'
-import { type WarningsApi } from '../../warnings-api'
+import { type ApiCall } from '../../api'
+import browser from 'webextension-polyfill'
+
+const sendMessage: ApiCall = browser.runtime.sendMessage
 
 export function useAllWarnings(): UseQueryResult<Warning[]> {
-  return useQuery('warnings', async () => await getAllWarnings())
+  return useQuery(
+    'warnings',
+    async () => await sendMessage({ type: 'getAllWarnings' })
+  )
 }
 
 export function useWarning(id: string): UseQueryResult<Warning> {
-  return useQuery(['warnings', id], async () => await getWarning({ id }))
+  return useQuery(
+    ['warnings', id],
+    async () => await sendMessage({ type: 'getWarning', id })
+  )
 }
 
 export function useAddWarningMutation(): UseMutationResult<
   void,
   Error,
-  Parameters<WarningsApi['addWarning']>[0]
+  { warning: Warning }
 > {
   const queryClient = useQueryClient()
 
   return useMutation(
     async (req) => {
-      await addWarning(req)
+      await sendMessage({ type: 'addWarning', warning: req.warning })
     },
     {
       async onSuccess() {
@@ -45,13 +47,17 @@ export function useAddWarningMutation(): UseMutationResult<
 export function useUpdateWarningMutation(): UseMutationResult<
   void,
   Error,
-  Parameters<WarningsApi['updateWarning']>[0]
+  { id: string; warning: Warning }
 > {
   const queryClient = useQueryClient()
 
   return useMutation(
     async (req) => {
-      await updateWarning(req)
+      await sendMessage({
+        type: 'updateWarning',
+        id: req.id,
+        warning: req.warning,
+      })
     },
     {
       async onSuccess() {
@@ -64,13 +70,13 @@ export function useUpdateWarningMutation(): UseMutationResult<
 export function useRemoveWarningMutation(): UseMutationResult<
   void,
   Error,
-  Parameters<WarningsApi['removeWarning']>[0]
+  { id: string }
 > {
   const queryClient = useQueryClient()
 
   return useMutation(
     async (req) => {
-      await removeWarning(req)
+      await sendMessage({ type: 'removeWarning', id: req.id })
     },
     {
       async onSuccess() {
