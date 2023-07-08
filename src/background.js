@@ -12,7 +12,7 @@ async function setup() {
   const rawStorageData = (await browser.storage.sync.get()) ?? {}
   const [hasMigrated, storageData] = await migrateStorageData(
     migrations,
-    rawStorageData
+    rawStorageData,
   )
 
   if (hasMigrated) {

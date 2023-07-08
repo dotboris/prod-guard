@@ -6,14 +6,14 @@ import { warningStyles } from './friendly-names'
 export default function WarningForm({ onSave, value, disabled = false }) {
   const [pattern, setPattern] = useState(value?.pattern ?? '')
   const [warningStyle, setWarningStyle] = useState(
-    value?.warningStyle ?? Object.keys(warningStyles)[0]
+    value?.warningStyle ?? Object.keys(warningStyles)[0],
   )
   const [text, setText] = useState(
-    value?.text ?? 'Warning! This is Production!'
+    value?.text ?? 'Warning! This is Production!',
   )
   const [borderColor, setBorderColor] = useState(value?.borderColor ?? 'FF0000')
   const [backgroundColor, setBackgroundColor] = useState(
-    value?.backgroundColor ?? 'FF0000'
+    value?.backgroundColor ?? 'FF0000',
   )
   const [textColor, setTextColor] = useState(value?.textColor ?? 'FFFFFF')
 
@@ -48,7 +48,7 @@ export default function WarningForm({ onSave, value, disabled = false }) {
       text,
       textColor,
       warningStyle,
-    ]
+    ],
   )
 
   return (

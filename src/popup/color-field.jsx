@@ -12,7 +12,7 @@ export default function ColorField({ value, disabled, onChange }) {
         onChange(newValue)
       }
     },
-    [setRawValue, onChange]
+    [setRawValue, onChange],
   )
 
   return (
