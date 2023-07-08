@@ -48,7 +48,7 @@ function copyPluginIconPatterns() {
           return sharp(content).resize(size).png().toBuffer()
         },
       }
-    })
+    }),
   )
 
   return res

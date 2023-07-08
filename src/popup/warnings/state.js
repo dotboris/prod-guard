@@ -4,14 +4,14 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 export function useAllWarnings() {
   return useQuery(
     'warnings',
-    async () => await browser.runtime.sendMessage({ type: 'getAllWarnings' })
+    async () => await browser.runtime.sendMessage({ type: 'getAllWarnings' }),
   )
 }
 
 export function useWarning(id) {
   return useQuery(
     ['warnings', id],
-    async () => await browser.runtime.sendMessage({ type: 'getWarning', id })
+    async () => await browser.runtime.sendMessage({ type: 'getWarning', id }),
   )
 }
 
@@ -29,7 +29,7 @@ export function useAddWarningMutation() {
       onSuccess() {
         queryClient.invalidateQueries('warnings')
       },
-    }
+    },
   )
 }
 
@@ -48,7 +48,7 @@ export function useUpdateWarningMutation() {
       onSuccess() {
         queryClient.invalidateQueries('warnings')
       },
-    }
+    },
   )
 }
 
@@ -66,6 +66,6 @@ export function useRemoveWarningMutation() {
       onSuccess() {
         queryClient.invalidateQueries('warnings')
       },
-    }
+    },
   )
 }

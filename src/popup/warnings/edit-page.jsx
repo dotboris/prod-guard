@@ -15,7 +15,7 @@ export default function EditWarningPage() {
       await updateWarningMutation.mutateAsync({ id, warning })
       navigate('/')
     },
-    [updateWarningMutation, id, navigate]
+    [updateWarningMutation, id, navigate],
   )
 
   return (

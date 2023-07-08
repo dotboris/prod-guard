@@ -38,23 +38,23 @@ export function makeBanner(type, { text, backgroundColor, textColor }) {
   window.addEventListener('resize', () =>
     update({
       bannerBox: banner.getClientRects(),
-    })
+    }),
   )
   document.addEventListener('mousemove', (event) =>
     update({
       mouseX: event.clientX,
       mouseY: event.clientY,
-    })
+    }),
   )
   document.documentElement.addEventListener('mouseenter', () =>
     update({
       mouseInWindow: true,
-    })
+    }),
   )
   document.documentElement.addEventListener('mouseleave', () =>
     update({
       mouseInWindow: false,
-    })
+    }),
   )
 
   return banner

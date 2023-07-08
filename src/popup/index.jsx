@@ -20,6 +20,6 @@ async function main() {
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>
-    </BrowserRouter>
+    </BrowserRouter>,
   )
 }
