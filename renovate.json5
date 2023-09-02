@@ -1,0 +1,22 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    ':dependencyDashboard',
+    ':ignoreModulesAndTests',
+    'workarounds:all',
+    'group:monorepos',
+    'group:recommended',
+    'group:allNonMajor',
+  ],
+
+  timezone: 'America/Toronto',
+  schedule: ['after 2pm on friday'],
+
+  rangeStrategy: 'bump',
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ['after 2pm on friday'],
+  },
+
+  nix: { enabled: true },
+}
