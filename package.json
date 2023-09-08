@@ -51,7 +51,7 @@
     "sharp": "^0.32.5",
     "style-loader": "^3.3.3",
     "stylelint": "^15.10.3",
-    "stylelint-config-standard-scss": "^10.0.0",
+    "stylelint-config-standard-scss": "^11.0.0",
     "typescript": "^5.2.2",
     "web-ext": "^7.6.2",
     "webpack": "^5.88.2",
