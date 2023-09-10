@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.3.1
+## 1.3.1
 
 ### Fixed
 
@@ -12,7 +12,7 @@
 - Rename the `master` branch to `main`. This should have 0 impact on end users
   but it's worth mentioning.
 
-## v1.3.0
+## 1.3.0
 
 ### Added
 
@@ -26,7 +26,7 @@
   internal change that should not have any effect on users. This change is in
   preparation for adding an import/export feature.
 
-## v1.2.0
+## 1.2.0
 
 ### Added
 
@@ -43,7 +43,7 @@
 - Migrate codebase from Vue.js to React. This should have no impact on end users
   but it's worth mentioning.
 
-## v1.1.1
+## 1.1.1
 
 ### Fixed
 
@@ -51,13 +51,13 @@
   work at all but only on the published version of the extension. It works in
   dev but it falls flat when it's published for real.
 
-## v1.1.0
+## 1.1.0
 
 ### Added
 
 - Added support for Chrome & Chromium
 
-## v1.0.0
+## 1.0.0
 
 ### Added
 
