@@ -14,6 +14,11 @@ jobs:
       - run: pnpm build:prod
       - run: pnpm package
       - run: pnpm lint:web-ext
+      - uses: actions/upload-artifact@v3
+        with:
+          path: web-ext-artifacts/*.zip
+          if-no-files-found: error
+          retention-days: 5
 
   test:
     runs-on: ubuntu-latest
