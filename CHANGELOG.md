@@ -1,23 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## Unreleased
-
-### Fixed
-
-- Fix bug where internal state migration process would replace already
-  configured settings for warnings with their default values.
-
-### Changed
-
-- Migrate a good chunk of the codebase to TypeScript. This should have no effect
-  on end users but should allow for easier changes and refactors.
-
-## v1.3.1 - 2022-03-26
+## v1.3.1
 
 ### Fixed
 
@@ -29,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename the `master` branch to `main`. This should have 0 impact on end users
   but it's worth mentioning.
 
-## v1.3.0 - 2022-03-02
+## v1.3.0
 
 ### Added
 
@@ -43,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   internal change that should not have any effect on users. This change is in
   preparation for adding an import/export feature.
 
-## v1.2.0 - 2021-05-22
+## v1.2.0
 
 ### Added
 
@@ -60,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrate codebase from Vue.js to React. This should have no impact on end users
   but it's worth mentioning.
 
-## v1.1.1 - 2020-08-18
+## v1.1.1
 
 ### Fixed
 
@@ -68,13 +51,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   work at all but only on the published version of the extension. It works in
   dev but it falls flat when it's published for real.
 
-## v1.1.0 - 2020-08-16
+## v1.1.0
 
 ### Added
 
 - Added support for Chrome & Chromium
 
-## v1.0.0 - 2020-08-16
+## v1.0.0
 
 ### Added
 
