@@ -85,6 +85,90 @@ describe('data migrations', () => {
     'starting from v0': {
       dataVersion: 0,
       sites: [
+        {
+          pattern: 'test1',
+          warningStyle: 'border',
+          borderColor: 'no touching',
+        },
+        {
+          pattern: 'test2',
+          warningStyle: 'bottomBanner',
+          text: 'no touching',
+          textColor: 'no touching',
+          backgroundColor: 'no touching',
+        },
+        {
+          pattern: 'test3',
+          warningStyle: 'topBanner',
+          text: 'no touching',
+          textColor: 'no touching',
+          backgroundColor: 'no touching',
+        },
+      ],
+    },
+    'starting from v1': {
+      dataVersion: 1,
+      warnings: [
+        {
+          pattern: 'test1',
+          warningStyle: 'border',
+          borderColor: 'no touching',
+        },
+        {
+          pattern: 'test2',
+          warningStyle: 'bottomBanner',
+          text: 'no touching',
+          textColor: 'no touching',
+          backgroundColor: 'no touching',
+        },
+        {
+          pattern: 'test3',
+          warningStyle: 'topBanner',
+          text: 'no touching',
+          textColor: 'no touching',
+          backgroundColor: 'no touching',
+        },
+      ],
+    },
+  })) {
+    it(`should leave existing options around (${label})`, async () => {
+      for (const i of range(0, 4)) {
+        uuidV4.mockImplementationOnce(() => `uuid-${i}`)
+      }
+
+      const [, res] = await migrateStorageData(data)
+
+      expect(res.warnings).toEqual([
+        {
+          id: 'uuid-0',
+          pattern: 'test1',
+          warningStyle: 'border',
+          borderColor: 'no touching',
+        },
+        {
+          id: 'uuid-1',
+          pattern: 'test2',
+          warningStyle: 'bottomBanner',
+          text: 'no touching',
+          backgroundColor: 'no touching',
+          textColor: 'no touching',
+        },
+        {
+          id: 'uuid-2',
+          pattern: 'test3',
+          warningStyle: 'topBanner',
+          text: 'no touching',
+          backgroundColor: 'no touching',
+          textColor: 'no touching',
+        },
+      ])
+    })
+  }
+
+  for (const [label, data] of Object.entries({
+    'starting from v0': {
+      dataVersion: 0,
+      sites: [
         { pattern: 'test1', warningStyle: 'border' },
         { pattern: 'test2', warningStyle: 'border' },
       ],
