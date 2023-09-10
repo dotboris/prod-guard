@@ -17,7 +17,7 @@ export default function NewWarningPage() {
       await addWarningMutation.mutateAsync({ warning })
       navigate('/')
     },
-    [addWarningMutation, navigate]
+    [addWarningMutation, navigate],
   )
 
   return (
@@ -54,6 +54,6 @@ function useSuggestedPattern() {
       // nothing. Having a wrong value in the cache is just going to cause
       // problems.
       cacheTime: 0,
-    }
+    },
   )
 }
