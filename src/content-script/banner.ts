@@ -1,11 +1,11 @@
 import './banner.scss'
 import rafThrottle from 'raf-throttle'
-import { type BannerWarning, WarningStyle } from '../warnings'
+import { type BannerWarning } from '../warnings'
 
 const BANNER_CLASS = {
-  [WarningStyle.BottomBanner]: 'bottom',
-  [WarningStyle.TopBanner]: 'top',
-}
+  bottomBanner: 'bottom',
+  topBanner: 'top',
+} as const
 
 interface BannerState {
   mouseInWindow: boolean

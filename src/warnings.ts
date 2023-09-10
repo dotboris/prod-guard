@@ -1,8 +1,12 @@
-export enum WarningStyle {
-  Border = 'border',
-  TopBanner = 'topBanner',
-  BottomBanner = 'bottomBanner',
-}
+/**
+ * Pseudo enum that represents that represents the various warning styles. This
+ * is means to avoid having to write strings all over the code.
+ */
+export const WarningStyle = {
+  Border: 'border',
+  TopBanner: 'topBanner',
+  BottomBanner: 'bottomBanner',
+} as const
 
 interface WarningBase {
   /**
@@ -13,12 +17,12 @@ interface WarningBase {
 }
 
 export interface BorderWarning extends WarningBase {
-  warningStyle: WarningStyle.Border
+  warningStyle: typeof WarningStyle.Border
   borderColor: string
 }
 
 export interface BannerWarning extends WarningBase {
-  warningStyle: WarningStyle.TopBanner | WarningStyle.BottomBanner
+  warningStyle: typeof WarningStyle.TopBanner | typeof WarningStyle.BottomBanner
   text: string
   backgroundColor: string
   textColor: string

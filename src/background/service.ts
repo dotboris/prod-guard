@@ -1,5 +1,5 @@
 import browser, { type Tabs } from 'webextension-polyfill'
-import { migrateStorageData, migrations } from './migrations'
+import { migrateStorageData } from './migrations'
 import { State } from './state'
 import { type ApiCall } from '../api'
 
@@ -7,10 +7,7 @@ export async function setupService(): Promise<void> {
   console.log('starting setup')
 
   const rawStorageData = (await browser.storage.sync.get()) ?? {}
-  const [hasMigrated, storageData] = await migrateStorageData(
-    migrations,
-    rawStorageData,
-  )
+  const [hasMigrated, storageData] = await migrateStorageData(rawStorageData)
 
   if (hasMigrated) {
     console.log('storage data was migrated')
