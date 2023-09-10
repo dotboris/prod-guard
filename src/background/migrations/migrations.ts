@@ -41,7 +41,11 @@ export const migrations: MigrationFuncs = [
               warningStyle: 'border',
             }
           default:
-            throw new Error(`Failed`)
+            // This is not required if the types are right but that's no
+            // guaranteed so this will at least blow up.
+            throw new TypeError(
+              `Unexpected warningStyle for warning with pattern ${warning.pattern}.`,
+            )
         }
       }),
     }
