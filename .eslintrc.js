@@ -1,10 +1,5 @@
 module.exports = {
-  extends: [
-    'standard',
-    'standard-jsx',
-    'plugin:react-hooks/recommended',
-    'prettier',
-  ],
+  root: true,
 
   env: {
     browser: true,
@@ -16,8 +11,29 @@ module.exports = {
 
   overrides: [
     {
-      files: ['**/*.test.js'],
+      files: ['*.ts', '*.tsx'],
+      extends: ['standard-with-typescript'],
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+    },
+    {
+      files: ['*.js', '*.jsx'],
+      extends: ['standard'],
+    },
+    {
+      files: ['**/*.test.ts', '**/*.test.js'],
       extends: ['plugin:jest/recommended'],
+    },
+    {
+      files: ['**/*.tsx', '**/*.jsx'],
+      extends: ['standard-jsx', 'plugin:react-hooks/recommended'],
+    },
+    {
+      // This on needs to be applied at the end because it disables stuff from
+      // the configs extended above.
+      files: ['**/*'],
+      extends: ['prettier'],
     },
   ],
 }

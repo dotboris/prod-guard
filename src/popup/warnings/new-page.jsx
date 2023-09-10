@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import browser from 'webextension-polyfill'
 import WarningForm from './form'
 import Layout from '../layout'
-import { useAddWarningMutation } from './state'
+import { useAddWarningMutation } from './api-hooks'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router'
 

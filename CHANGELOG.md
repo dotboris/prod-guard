@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+
+- Fix bug where internal state migration process would replace already
+  configured settings for warnings with their default values.
+
+### Changed
+
+- Migrate a good chunk of the codebase to TypeScript. This should have no effect
+  on end users but should allow for easier changes and refactors.
+
 ## v1.3.1 - 2022-03-26
 
 ### Fixed
