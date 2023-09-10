@@ -19,7 +19,7 @@ jobs:
         id: read-version
         run: |
           version="$(jq < package.json -r '.version')"
-          echo "version=$verion" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v3
         with:
           name: prod-guard-${{ steps.read-version.outputs.version }}.zip
