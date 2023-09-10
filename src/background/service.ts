@@ -9,7 +9,7 @@ export async function setupService(): Promise<void> {
   const rawStorageData = (await browser.storage.sync.get()) ?? {}
   const [hasMigrated, storageData] = await migrateStorageData(
     migrations,
-    rawStorageData
+    rawStorageData,
   )
 
   if (hasMigrated) {
@@ -56,7 +56,7 @@ export class Service {
   }
 
   async onMessage(
-    message: Parameters<ApiCall>[0]
+    message: Parameters<ApiCall>[0],
   ): Promise<ReturnType<ApiCall>> {
     try {
       switch (message.type) {
@@ -93,7 +93,7 @@ export class Service {
   async onTabChange(
     tabId: number,
     { status }: Tabs.OnUpdatedChangeInfoType,
-    tab: Tabs.Tab
+    tab: Tabs.Tab,
   ): Promise<void> {
     if (status !== 'complete') {
       return

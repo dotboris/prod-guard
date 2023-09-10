@@ -56,8 +56,8 @@ describe('state.ts', () => {
             id2: {
               ...STUB_WARNING,
             },
-          })
-        )
+          }),
+        ),
       )
     })
 

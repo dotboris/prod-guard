@@ -3609,6 +3609,22 @@ packages:
       typescript: 5.2.2
     dev: true
 
+  /cosmiconfig@8.3.5(typescript@5.2.2):
+    resolution: {integrity: sha512-A5Xry3xfS96wy2qbiLkQLAg4JUrR2wvfybxj6yqLmrUfMAvhS3MZxIP2oQn0grgYIvJqzpeTEWu4vK0t+12NNw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      typescript: '>=4.9.5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      import-fresh: 3.3.0
+      js-yaml: 4.1.0
+      parse-json: 5.2.0
+      path-type: 4.0.0
+      typescript: 5.2.2
+    dev: true
+
   /cross-env@7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
     engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
@@ -7470,11 +7486,11 @@ packages:
       postcss: 8.4.29
     dev: true
 
-  /postcss-scss@4.0.7(postcss@8.4.29):
-    resolution: {integrity: sha512-xPv2GseoyXPa58Nro7M73ZntttusuCmZdeOojUFR5PZDz2BR62vfYx1w9TyOnp1+nYFowgOMipsCBhxzVkAEPw==}
+  /postcss-scss@4.0.8(postcss@8.4.29):
+    resolution: {integrity: sha512-Cr0X8Eu7xMhE96PJck6ses/uVVXDtE5ghUTKNUYgm8ozgP2TkgV3LWs3WgLV1xaSSLq8ZFiXaUrj0LVgG1fGEA==}
     engines: {node: '>=12.0'}
     peerDependencies:
-      postcss: ^8.4.19
+      postcss: ^8.4.29
     dependencies:
       postcss: 8.4.29
     dev: true
@@ -8642,7 +8658,7 @@ packages:
         optional: true
     dependencies:
       postcss: 8.4.29
-      postcss-scss: 4.0.7(postcss@8.4.29)
+      postcss-scss: 4.0.8(postcss@8.4.29)
       stylelint: 15.10.3(typescript@5.2.2)
       stylelint-config-recommended: 13.0.0(stylelint@15.10.3)
       stylelint-scss: 5.1.0(stylelint@15.10.3)
@@ -8705,7 +8721,7 @@ packages:
       '@csstools/selector-specificity': 3.0.0(postcss-selector-parser@6.0.13)
       balanced-match: 2.0.0
       colord: 2.9.3
-      cosmiconfig: 8.3.0(typescript@5.2.2)
+      cosmiconfig: 8.3.5(typescript@5.2.2)
       css-functions-list: 3.2.0
       css-tree: 2.3.1
       debug: 4.3.4

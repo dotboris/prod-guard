@@ -14,7 +14,7 @@ export class State {
 
   constructor(initialWarnings: WarningWithId[] = []) {
     this.warnings = new Map(
-      initialWarnings.map((w) => [w.id, omit(w, 'id') as Warning])
+      initialWarnings.map((w) => [w.id, omit(w, 'id') as Warning]),
     )
   }
 

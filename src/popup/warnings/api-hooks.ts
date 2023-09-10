@@ -21,7 +21,7 @@ export function useAllWarnings(): UseQueryResult<Warning[]> {
     async () =>
       await (browser.runtime.sendMessage as GetAllWarningsApiCall)({
         type: 'getAllWarnings',
-      })
+      }),
   )
 }
 
@@ -32,7 +32,7 @@ export function useWarning(id: string): UseQueryResult<Warning> {
       await (browser.runtime.sendMessage as GetWarningApiCall)({
         type: 'getWarning',
         id,
-      })
+      }),
   )
 }
 
@@ -54,7 +54,7 @@ export function useAddWarningMutation(): UseMutationResult<
       async onSuccess() {
         await queryClient.invalidateQueries('warnings')
       },
-    }
+    },
   )
 }
 
@@ -77,7 +77,7 @@ export function useUpdateWarningMutation(): UseMutationResult<
       async onSuccess() {
         await queryClient.invalidateQueries('warnings')
       },
-    }
+    },
   )
 }
 
@@ -99,6 +99,6 @@ export function useRemoveWarningMutation(): UseMutationResult<
       async onSuccess() {
         await queryClient.invalidateQueries('warnings')
       },
-    }
+    },
   )
 }
