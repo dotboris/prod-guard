@@ -65,36 +65,13 @@ pnpm package
 
 ## Release
 
-1.  Checkout `main` and make sure that you have a clean environment.
-1.  Update the [changelog](CHANGELOG.md)
+Versioning & the changelog are handled by [changesets](https://github.com/changesets/changesets).
 
-    You'll need to change the `Unreleased` section to the version you're about
-    to release and create a new empty `Unreleased` section.
-
-    Once that's done, commit this change directly to `main`.
-
-1.  Bump the version.
-
-    ```sh
-    pnpm version
-    ```
-
-1.  Push your version bump and changelog update.
-
-    ```sh
-    git push --tags origin main
-    ```
-
-1.  Build & package the extension.
-
-    ```sh
-    pnpm build:prod
-    pnpm package
-    ```
-
-    This step creates a fully packaged extension in `web-ext-artifacts/`. You
-    may have old versions from previous builds. Be sure to use the right version
-    when publishing.
-
-1.  Publish to the Firefox add-ons site.
+1.  Look for a PR named "Prepare Release (changsets automation)"
+1.  Make sure the changes are good / what you expect and the CI passes
+1.  Merge the PR
+1.  This will automatically bump a version for you
+1.  On the tag that was just created, wait for the `CI / build` job to run and finish
+1.  Find the artifact for this job and download it
+1.  Publish to the Firefox add-ons site
 1.  Publish to the Chrome web store
