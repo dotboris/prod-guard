@@ -15,6 +15,18 @@ jobs:
       - run: pnpm package
       - run: pnpm lint:web-ext
 
+      - name: Read current version
+        id: read-version
+        run: |
+          version="$(jq < package.json -r '.version')"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: prod-guard-${{ steps.read-version.outputs.version }}.zip
+          path: web-ext-artifacts/*.zip
+          if-no-files-found: error
+          retention-days: 5
+
   test:
     runs-on: ubuntu-latest
     steps:
