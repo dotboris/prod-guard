@@ -16,6 +16,7 @@ jobs:
       - run: pnpm lint:web-ext
       - uses: actions/upload-artifact@v3
         with:
+          name: prod-guard.zip
           path: web-ext-artifacts/*.zip
           if-no-files-found: error
           retention-days: 5
