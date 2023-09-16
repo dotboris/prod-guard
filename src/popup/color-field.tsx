@@ -2,13 +2,14 @@ import { type ChangeEventHandler, useCallback, useState } from 'react'
 import './color-field.scss'
 
 export interface ColorFieldProps {
+  id?: string
   value: string
   disabled: boolean
   onChange: (value: string) => void
 }
 
 export default function ColorField(props: ColorFieldProps): JSX.Element {
-  const { value, disabled, onChange } = props
+  const { id, value, disabled, onChange } = props
   const [rawValue, setRawValue] = useState(value)
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -29,6 +30,7 @@ export default function ColorField(props: ColorFieldProps): JSX.Element {
       </div>
 
       <input
+        id={id}
         type='text'
         pattern='^[0-9a-fA-F]{3}|[0-9a-fA-F]{6}$'
         value={rawValue}

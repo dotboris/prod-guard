@@ -1,20 +1,31 @@
 import './form.scss'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useId, useState } from 'react'
 import ColorField from '../color-field'
 import { warningStyles } from './friendly-names'
 
 export default function WarningForm({ onSave, value, disabled = false }) {
+  const patternId = useId()
   const [pattern, setPattern] = useState(value?.pattern ?? '')
+
+  const warningStyleId = useId()
   const [warningStyle, setWarningStyle] = useState(
     value?.warningStyle ?? Object.keys(warningStyles)[0],
   )
+
+  const textId = useId()
   const [text, setText] = useState(
     value?.text ?? 'Warning! This is Production!',
   )
+
+  const borderColorId = useId()
   const [borderColor, setBorderColor] = useState(value?.borderColor ?? 'FF0000')
+
+  const backgroundColorId = useId()
   const [backgroundColor, setBackgroundColor] = useState(
     value?.backgroundColor ?? 'FF0000',
   )
+
+  const textColorId = useId()
   const [textColor, setTextColor] = useState(value?.textColor ?? 'FFFFFF')
 
   const handleSubmit = useCallback(
@@ -53,8 +64,9 @@ export default function WarningForm({ onSave, value, disabled = false }) {
 
   return (
     <form className='warning-form' onSubmit={handleSubmit}>
-      <label>URL Regex:</label>
+      <label htmlFor={patternId}>URL Regex:</label>
       <input
+        id={patternId}
         type='text'
         required
         value={pattern}
@@ -62,8 +74,9 @@ export default function WarningForm({ onSave, value, disabled = false }) {
         disabled={disabled}
       />
 
-      <label>Style:</label>
+      <label htmlFor={warningStyleId}>Style:</label>
       <select
+        id={warningStyleId}
         required
         value={warningStyle}
         onChange={(e) => setWarningStyle(e.target.value)}
@@ -78,8 +91,9 @@ export default function WarningForm({ onSave, value, disabled = false }) {
 
       {warningStyle === 'border' ? (
         <>
-          <label>Border Color:</label>
+          <label htmlFor={borderColorId}>Border Color:</label>
           <ColorField
+            id={borderColorId}
             value={borderColor}
             onChange={setBorderColor}
             disabled={disabled}
@@ -89,8 +103,9 @@ export default function WarningForm({ onSave, value, disabled = false }) {
 
       {['topBanner', 'bottomBanner'].includes(warningStyle) ? (
         <>
-          <label>Message:</label>
+          <label htmlFor={textId}>Message:</label>
           <input
+            id={textId}
             type='text'
             required
             value={text}
@@ -98,15 +113,17 @@ export default function WarningForm({ onSave, value, disabled = false }) {
             disabled={disabled}
           />
 
-          <label>Text Color:</label>
+          <label htmlFor={textColorId}>Text Color:</label>
           <ColorField
+            id={textColorId}
             value={textColor}
             onChange={setTextColor}
             disabled={disabled}
           />
 
-          <label>Background Color:</label>
+          <label htmlFor={backgroundColorId}>Background Color:</label>
           <ColorField
+            id={backgroundColorId}
             value={backgroundColor}
             onChange={setBackgroundColor}
             disabled={disabled}
