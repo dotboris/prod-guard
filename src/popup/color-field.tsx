@@ -4,7 +4,7 @@ import './color-field.scss'
 export interface ColorFieldProps {
   id?: string
   value: string
-  disabled: boolean
+  disabled?: boolean
   onChange: (value: string) => void
 }
 

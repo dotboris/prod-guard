@@ -2,14 +2,15 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import WarningForm from './form'
+import { type Warning } from '../../warnings'
 
 describe('border form', () => {
   test('submit defaults', async () => {
-    let res: any
+    let res: Warning | undefined
 
     render(
       <WarningForm
-        onSave={(newValue: any) => {
+        onSave={(newValue) => {
           res = newValue
         }}
         value={undefined}
@@ -28,11 +29,11 @@ describe('border form', () => {
   })
 
   test('submit existing unchanged', async () => {
-    let res: any
+    let res: Warning | undefined
 
     render(
       <WarningForm
-        onSave={(newValue: any) => {
+        onSave={(newValue) => {
           res = newValue
         }}
         value={{
@@ -53,11 +54,11 @@ describe('border form', () => {
   })
 
   test('submit new fully changed', async () => {
-    let res: any
+    let res: Warning | undefined
 
     render(
       <WarningForm
-        onSave={(newValue: any) => {
+        onSave={(newValue) => {
           res = newValue
         }}
         value={undefined}
@@ -81,14 +82,14 @@ describe('border form', () => {
 for (const [title, style] of Object.entries({
   'top banner form': 'topBanner',
   'bottom banner form': 'bottomBanner',
-})) {
+} as const)) {
   describe(title, () => {
     test('submit defaults', async () => {
-      let res: any
+      let res: Warning | undefined
 
       render(
         <WarningForm
-          onSave={(newValue: any) => {
+          onSave={(newValue) => {
             res = newValue
           }}
           value={undefined}
@@ -109,11 +110,11 @@ for (const [title, style] of Object.entries({
     })
 
     test('submit existing unchanged', async () => {
-      let res: any
+      let res: Warning | undefined
 
       render(
         <WarningForm
-          onSave={(newValue: any) => {
+          onSave={(newValue) => {
             res = newValue
           }}
           value={{
@@ -138,11 +139,11 @@ for (const [title, style] of Object.entries({
     })
 
     test('submit new fully filled', async () => {
-      let res: any
+      let res: Warning | undefined
 
       render(
         <WarningForm
-          onSave={(newValue: any) => {
+          onSave={(newValue) => {
             res = newValue
           }}
           value={undefined}
