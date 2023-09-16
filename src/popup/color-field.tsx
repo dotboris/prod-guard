@@ -1,10 +1,17 @@
-import React, { useCallback, useState } from 'react'
+import { type ChangeEventHandler, useCallback, useState } from 'react'
 import './color-field.scss'
 
-export default function ColorField({ value, disabled, onChange }) {
+export interface ColorFieldProps {
+  value: string
+  disabled: boolean
+  onChange: (value: string) => void
+}
+
+export default function ColorField(props: ColorFieldProps): JSX.Element {
+  const { value, disabled, onChange } = props
   const [rawValue, setRawValue] = useState(value)
 
-  const handleChange = useCallback(
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
       const newValue = event.target.value
       setRawValue(newValue)
