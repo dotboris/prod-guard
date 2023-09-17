@@ -11,7 +11,7 @@ import {
 } from '../../warnings'
 
 export interface WarningFormProps {
-  onSave: (warning: Warning) => void
+  onSave?: (warning: Warning) => void
   value?: Warning
   disabled?: boolean
 }
@@ -78,7 +78,9 @@ export default function WarningForm({
         break
     }
 
-    onSave(res)
+    if (onSave != null) {
+      onSave(res)
+    }
   }
 
   return (

@@ -1,14 +1,46 @@
 import React from 'react'
+import browser from 'webextension-polyfill'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import WarningForm from './form'
-import { type Warning } from '../../warnings'
+import { WarningStyle, type Warning } from '../../warnings'
 
+const browserMock = jest.mocked(browser)
 jest.mock('webextension-polyfill', () => ({
   tabs: {
-    query: jest.fn(() => []),
+    query: jest.fn(),
   },
 }))
+
+beforeEach(() => {
+  browserMock.tabs.query.mockImplementation(async () => [])
+})
+
+describe('suggested pattern', () => {
+  for (const style of Object.values(WarningStyle)) {
+    describe(`when style=${style}`, () => {
+      test('suggests pattern based on the current tab', async () => {
+        browserMock.tabs.query.mockImplementation(async () => [
+          {
+            url: 'https://dotboris.io/stuff',
+            index: 0,
+            active: true,
+            highlighted: false,
+            incognito: false,
+            pinned: false,
+          },
+        ])
+
+        render(<WarningForm />)
+        await userEvent.selectOptions(screen.getByLabelText('Style:'), [style])
+
+        expect(
+          screen.getByLabelText<HTMLInputElement>('URL Regex:').value,
+        ).toBe('dotboris\\.io')
+      })
+    })
+  }
+})
 
 describe('border form', () => {
   test('submit defaults', async () => {
