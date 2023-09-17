@@ -1,5 +1,10 @@
-import { CURRENT_STATE_VERSION, State } from './state'
-import { type Warning, WarningStyle, type WarningWithId } from '../warnings'
+import { State } from './state'
+import {
+  type Warning,
+  WarningStyle,
+  type WarningWithId,
+  CURRENT_DATA_VERSION,
+} from '../api'
 
 const _uuid = jest.requireActual('uuid')
 const uuidV4 = jest.requireMock('uuid').v4
@@ -25,7 +30,7 @@ describe('state.ts', () => {
   describe('State', () => {
     it('should construct with the latest version', () => {
       const state = new State()
-      expect(state.dataVersion).toBe(CURRENT_STATE_VERSION)
+      expect(state.dataVersion).toBe(CURRENT_DATA_VERSION)
     })
 
     it('should construct with empty warnings', () => {
@@ -258,6 +263,42 @@ describe('state.ts', () => {
       const matches = state.findMatchingWarnings('https://something-else.com')
 
       expect(matches).toEqual([])
+    })
+  })
+
+  describe('exportAllData()', () => {
+    it('should split back all the internal data', () => {
+      const state = new State([
+        { ...STUB_WARNING, id: 'uuid-1', pattern: 'foo' },
+        { ...STUB_WARNING, id: 'uuid-2', pattern: 'bar' },
+        { ...STUB_WARNING, id: 'uuid-3', pattern: 'baz' },
+      ])
+
+      const res = state.exportAllData()
+
+      expect(res).toEqual({
+        dataVersion: CURRENT_DATA_VERSION,
+        warnings: [
+          {
+            borderColor: 'fff',
+            id: 'uuid-1',
+            pattern: 'foo',
+            warningStyle: 'border',
+          },
+          {
+            borderColor: 'fff',
+            id: 'uuid-2',
+            pattern: 'bar',
+            warningStyle: 'border',
+          },
+          {
+            borderColor: 'fff',
+            id: 'uuid-3',
+            pattern: 'baz',
+            warningStyle: 'border',
+          },
+        ],
+      })
     })
   })
 })

@@ -5,17 +5,20 @@ import {
   type UseQueryResult,
   type UseMutationResult,
 } from 'react-query'
-import { type WarningWithId, type Warning } from '../../warnings'
 import {
   type GetAllWarningsApiCall,
   type GetWarningApiCall,
   type AddWarningApiCall,
   type UpdateWarningApiCall,
   type RemoveWarningApiCall,
-} from '../../api'
+  type WarningWithId,
+  type Warning,
+  type AllData,
+  type ExportAllDataApiCall,
+} from '../api'
 import browser from 'webextension-polyfill'
 
-export function useAllWarnings(): UseQueryResult<WarningWithId[]> {
+export function useAllWarnings(): UseQueryResult<WarningWithId[], Error> {
   return useQuery(
     'warnings',
     async () =>
@@ -25,13 +28,23 @@ export function useAllWarnings(): UseQueryResult<WarningWithId[]> {
   )
 }
 
-export function useWarning(id: string): UseQueryResult<WarningWithId> {
+export function useWarning(id: string): UseQueryResult<WarningWithId, Error> {
   return useQuery(
     ['warnings', id],
     async () =>
       await (browser.runtime.sendMessage as GetWarningApiCall)({
         type: 'getWarning',
         id,
+      }),
+  )
+}
+
+export function useAllData(): UseQueryResult<AllData, Error> {
+  return useQuery(
+    ['allData'],
+    async () =>
+      await (browser.runtime.sendMessage as ExportAllDataApiCall)({
+        type: 'exportAllData',
       }),
   )
 }
@@ -53,6 +66,7 @@ export function useAddWarningMutation(): UseMutationResult<
     {
       async onSuccess() {
         await queryClient.invalidateQueries('warnings')
+        await queryClient.invalidateQueries('allData')
       },
     },
   )
@@ -76,6 +90,7 @@ export function useUpdateWarningMutation(): UseMutationResult<
     {
       async onSuccess() {
         await queryClient.invalidateQueries('warnings')
+        await queryClient.invalidateQueries('allData')
       },
     },
   )
@@ -98,6 +113,7 @@ export function useRemoveWarningMutation(): UseMutationResult<
     {
       async onSuccess() {
         await queryClient.invalidateQueries('warnings')
+        await queryClient.invalidateQueries('allData')
       },
     },
   )

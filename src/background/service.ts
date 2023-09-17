@@ -78,6 +78,9 @@ export class Service {
           this.state.removeWarning(message.id)
           await this.saveWarnings()
           break
+        case 'exportAllData':
+          console.debug('Handling message', message)
+          return this.state.exportAllData()
         default:
           console.warn('Unhandled message', message)
           break

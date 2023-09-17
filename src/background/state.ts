@@ -1,15 +1,14 @@
-import { type WarningWithId, type Warning } from '../warnings'
+import {
+  type WarningWithId,
+  type Warning,
+  CURRENT_DATA_VERSION,
+  type AllData,
+} from '../api'
 import { v4 as uuidV4 } from 'uuid'
 import { omit } from 'lodash-es'
 
-/**
- * Current state version. The state is versioned using a number. The first
- * version is `0` and gets incremented with every upgrade.
- */
-export const CURRENT_STATE_VERSION = 3
-
 export class State {
-  dataVersion = CURRENT_STATE_VERSION
+  dataVersion = CURRENT_DATA_VERSION
   warnings = new Map<string, Warning>()
 
   constructor(initialWarnings: WarningWithId[] = []) {
@@ -63,5 +62,12 @@ export class State {
 
   findMatchingWarnings(url: string): WarningWithId[] {
     return this.getAllWarnings().filter((warning) => url.match(warning.pattern))
+  }
+
+  exportAllData(): AllData {
+    return {
+      dataVersion: CURRENT_DATA_VERSION,
+      warnings: this.getAllWarnings(),
+    }
   }
 }

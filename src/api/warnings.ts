@@ -31,3 +31,28 @@ export interface BannerWarning extends WarningBase {
 export type Warning = BorderWarning | BannerWarning
 
 export type WarningWithId = { id: string } & Warning
+
+export type GetAllWarningsApiCall = (req: {
+  type: 'getAllWarnings'
+}) => Promise<WarningWithId[]>
+
+export type GetWarningApiCall = (req: {
+  type: 'getWarning'
+  id: string
+}) => Promise<WarningWithId | undefined>
+
+export type AddWarningApiCall = (req: {
+  type: 'addWarning'
+  warning: Warning
+}) => Promise<undefined>
+
+export type UpdateWarningApiCall = (req: {
+  type: 'updateWarning'
+  id: string
+  warning: Warning
+}) => Promise<undefined>
+
+export type RemoveWarningApiCall = (req: {
+  type: 'removeWarning'
+  id: string
+}) => Promise<undefined>
