@@ -1,5 +1,10 @@
-import { CURRENT_STATE_VERSION, State } from './state'
-import { type Warning, WarningStyle, type WarningWithId } from '../api'
+import { State } from './state'
+import {
+  type Warning,
+  WarningStyle,
+  type WarningWithId,
+  CURRENT_DATA_VERSION,
+} from '../api'
 
 const _uuid = jest.requireActual('uuid')
 const uuidV4 = jest.requireMock('uuid').v4
@@ -25,7 +30,7 @@ describe('state.ts', () => {
   describe('State', () => {
     it('should construct with the latest version', () => {
       const state = new State()
-      expect(state.dataVersion).toBe(CURRENT_STATE_VERSION)
+      expect(state.dataVersion).toBe(CURRENT_DATA_VERSION)
     })
 
     it('should construct with empty warnings', () => {
