@@ -265,4 +265,40 @@ describe('state.ts', () => {
       expect(matches).toEqual([])
     })
   })
+
+  describe('exportAllData()', () => {
+    it('should split back all the internal data', () => {
+      const state = new State([
+        { ...STUB_WARNING, id: 'uuid-1', pattern: 'foo' },
+        { ...STUB_WARNING, id: 'uuid-2', pattern: 'bar' },
+        { ...STUB_WARNING, id: 'uuid-3', pattern: 'baz' },
+      ])
+
+      const res = state.exportAllData()
+
+      expect(res).toEqual({
+        dataVersion: 3,
+        warnings: [
+          {
+            borderColor: 'fff',
+            id: 'uuid-1',
+            pattern: 'foo',
+            warningStyle: 'border',
+          },
+          {
+            borderColor: 'fff',
+            id: 'uuid-2',
+            pattern: 'bar',
+            warningStyle: 'border',
+          },
+          {
+            borderColor: 'fff',
+            id: 'uuid-3',
+            pattern: 'baz',
+            warningStyle: 'border',
+          },
+        ],
+      })
+    })
+  })
 })
