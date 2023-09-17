@@ -1,5 +1,4 @@
 import './list-page.scss'
-import React from 'react'
 import { warningStyles } from './friendly-names'
 import Icon from '../icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
@@ -7,8 +6,10 @@ import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import Layout from '../layout'
 import { useAllWarnings, useRemoveWarningMutation } from './api-hooks'
 import { Link } from 'react-router-dom'
+import { type WarningWithId } from '../../warnings'
+import { type CSSProperties } from 'react'
 
-export default function WarningsListPage() {
+export default function WarningsListPage(): JSX.Element {
   return (
     <Layout title='Prod Guard'>
       <div className='warning-list'>
@@ -25,11 +26,11 @@ export default function WarningsListPage() {
   )
 }
 
-function WarningList() {
+function WarningList(): JSX.Element | undefined {
   const { isLoading, data: warnings } = useAllWarnings()
 
-  if (isLoading) {
-    return null
+  if (isLoading || warnings == null) {
+    return undefined
   }
 
   if (warnings.length > 0) {
@@ -53,55 +54,46 @@ function WarningList() {
   }
 }
 
-function WarningItem({ warning }) {
+function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
   const removeWarningMutation = useRemoveWarningMutation()
-
-  const {
-    id,
-    pattern,
-    warningStyle,
-
-    borderColor,
-
-    text,
-    textColor,
-    backgroundColor,
-  } = warning
 
   return (
     <>
       <div className='header'>
-        <div className='pattern'>{pattern}</div>
-        <Link className='action' to={`/edit/${id}`}>
+        <div className='pattern'>{warning.pattern}</div>
+        <Link className='action' to={`/edit/${warning.id}`}>
           <Icon svg={EditIcon} title='Edit Warning' />
         </Link>
         <div
           className='action'
-          onClick={() => removeWarningMutation.mutate({ id })}
+          onClick={() => {
+            removeWarningMutation.mutate({ id: warning.id })
+          }}
         >
           <Icon svg={TrashIcon} title='Delete Warning' />
         </div>
       </div>
       <dl>
         <dt>Style:</dt>
-        <dd>{warningStyles[warningStyle]}</dd>
-        {warningStyle === 'border' ? (
+        <dd>{warningStyles[warning.warningStyle]}</dd>
+        {warning.warningStyle === 'border' ? (
           <>
             <dt>Color:</dt>
             <dd>
-              <Color colorHex={borderColor} />
+              <Color colorHex={warning.borderColor} />
             </dd>
           </>
         ) : null}
-        {['topBanner', 'bottomBanner'].includes(warningStyle) ? (
+        {warning.warningStyle === 'topBanner' ||
+        warning.warningStyle === 'bottomBanner' ? (
           <>
             <dt>Text:</dt>
-            <dd>{text}</dd>
+            <dd>{warning.text}</dd>
             <dt>Color:</dt>
             <dd>
-              <Color colorHex={textColor} />
+              <Color colorHex={warning.textColor} />
               {' on '}
-              <Color colorHex={backgroundColor} />
+              <Color colorHex={warning.backgroundColor} />
             </dd>
           </>
         ) : null}
@@ -110,9 +102,17 @@ function WarningItem({ warning }) {
   )
 }
 
-function Color({ colorHex }) {
+interface ColorCSSProperties extends CSSProperties {
+  '--color': string
+}
+
+function Color({ colorHex }: { colorHex: string }): JSX.Element {
+  const style: ColorCSSProperties = {
+    '--color': `#${colorHex}`,
+  }
+
   return (
-    <span className='color' style={{ '--color': `#${colorHex}` }}>
+    <span className='color' style={style}>
       #{colorHex.toUpperCase()}
     </span>
   )

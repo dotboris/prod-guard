@@ -4,6 +4,12 @@ import userEvent from '@testing-library/user-event'
 import WarningForm from './form'
 import { type Warning } from '../../warnings'
 
+jest.mock('webextension-polyfill', () => ({
+  tabs: {
+    query: jest.fn(() => []),
+  },
+}))
+
 describe('border form', () => {
   test('submit defaults', async () => {
     let res: Warning | undefined

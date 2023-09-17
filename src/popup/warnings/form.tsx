@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill'
 import './form.scss'
 import { type FormEventHandler, useId } from 'react'
 import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
@@ -24,24 +25,26 @@ interface FormData {
   backgroundColor: BannerWarning['backgroundColor']
 }
 
-const defaultValues: FormData = {
-  warningStyle: 'topBanner',
-  pattern: '',
-  borderColor: 'FF0000',
-  text: 'Warning! This is Production!',
-  textColor: 'FFFFFF',
-  backgroundColor: 'FF0000',
-}
-
 export default function WarningForm({
   onSave,
   value,
   disabled = false,
 }: WarningFormProps): JSX.Element {
   const { register, handleSubmit, control, watch } = useForm<FormData>({
-    defaultValues: {
-      ...defaultValues,
-      ...(value ?? {}),
+    defaultValues: async () => {
+      const defaults: FormData = {
+        warningStyle: 'topBanner',
+        pattern: (await guessPattern()) ?? '',
+        borderColor: 'FF0000',
+        text: 'Warning! This is Production!',
+        textColor: 'FFFFFF',
+        backgroundColor: 'FF0000',
+      }
+
+      return {
+        ...defaults,
+        ...(value ?? {}),
+      }
     },
   })
 
@@ -170,4 +173,20 @@ export default function WarningForm({
       </div>
     </form>
   )
+}
+
+/**
+ * Guess the pattern using the browser API. We able to, we'll generate a pattern
+ * based on the current tab's URL.
+ */
+async function guessPattern(): Promise<string | undefined> {
+  const tabs = await browser.tabs.query({
+    currentWindow: true,
+    active: true,
+  })
+
+  if (tabs.length > 0 && tabs[0].url != null) {
+    const url = new URL(tabs[0].url)
+    return url.host.replace(/\./g, '\\.')
+  }
 }

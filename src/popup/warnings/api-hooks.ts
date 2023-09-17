@@ -5,7 +5,7 @@ import {
   type UseQueryResult,
   type UseMutationResult,
 } from 'react-query'
-import { type Warning } from '../../warnings'
+import { type WarningWithId, type Warning } from '../../warnings'
 import {
   type GetAllWarningsApiCall,
   type GetWarningApiCall,
@@ -15,7 +15,7 @@ import {
 } from '../../api'
 import browser from 'webextension-polyfill'
 
-export function useAllWarnings(): UseQueryResult<Warning[]> {
+export function useAllWarnings(): UseQueryResult<WarningWithId[]> {
   return useQuery(
     'warnings',
     async () =>
@@ -25,7 +25,7 @@ export function useAllWarnings(): UseQueryResult<Warning[]> {
   )
 }
 
-export function useWarning(id: string): UseQueryResult<Warning> {
+export function useWarning(id: string): UseQueryResult<WarningWithId> {
   return useQuery(
     ['warnings', id],
     async () =>
