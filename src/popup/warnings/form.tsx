@@ -117,6 +117,7 @@ export default function WarningForm({
                 id={borderColorId}
                 value={value}
                 onChange={onChange}
+                required
               />
             )}
           />
@@ -137,7 +138,12 @@ export default function WarningForm({
             name='textColor'
             control={control}
             render={({ field: { value, onChange } }) => (
-              <ColorField id={textColorId} value={value} onChange={onChange} />
+              <ColorField
+                id={textColorId}
+                value={value}
+                onChange={onChange}
+                required
+              />
             )}
           />
 
@@ -150,6 +156,7 @@ export default function WarningForm({
                 id={backgroundColorId}
                 value={value}
                 onChange={onChange}
+                required
               />
             )}
           />
