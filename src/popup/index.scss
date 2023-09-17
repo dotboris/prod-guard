@@ -68,3 +68,17 @@ select {
     border-color: $color-dark-accent;
   }
 }
+
+h1,
+h2 {
+  font-weight: 700;
+  margin: 0.25em 0 0.5em;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+h2 {
+  font-size: 1.3em;
+}
