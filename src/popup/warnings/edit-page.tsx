@@ -27,7 +27,6 @@ export default function EditWarningPage(): JSX.Element {
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSave={handleSave}
           value={warning}
-          disabled={isLoading}
         />
       ) : null}
     </Layout>

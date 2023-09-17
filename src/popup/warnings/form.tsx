@@ -13,7 +13,6 @@ import {
 export interface WarningFormProps {
   onSave?: (warning: Warning) => void
   value?: Warning
-  disabled?: boolean
 }
 
 interface FormData {
@@ -28,7 +27,6 @@ interface FormData {
 export default function WarningForm({
   onSave,
   value,
-  disabled = false,
 }: WarningFormProps): JSX.Element {
   const { register, handleSubmit, control, watch } = useForm<FormData>({
     defaultValues: async () => {
@@ -93,13 +91,13 @@ export default function WarningForm({
       <input
         id={patternId}
         type='text'
-        {...register('pattern', { required: true, disabled })}
+        {...register('pattern', { required: true })}
       />
 
       <label htmlFor={warningStyleId}>Style:</label>
       <select
         id={warningStyleId}
-        {...register('warningStyle', { required: true, disabled })}
+        {...register('warningStyle', { required: true })}
       >
         {Object.entries(warningStyles).map(([key, name]) => (
           <option key={key} value={key}>
@@ -114,13 +112,11 @@ export default function WarningForm({
           <Controller
             name='borderColor'
             control={control}
-            disabled={disabled}
-            render={({ field: { value, onChange, disabled } }) => (
+            render={({ field: { value, onChange } }) => (
               <ColorField
                 id={borderColorId}
                 value={value}
                 onChange={onChange}
-                disabled={disabled}
               />
             )}
           />
@@ -133,21 +129,15 @@ export default function WarningForm({
           <input
             id={textId}
             type='text'
-            {...register('text', { required: true, disabled })}
+            {...register('text', { required: true })}
           />
 
           <label htmlFor={textColorId}>Text Color:</label>
           <Controller
             name='textColor'
             control={control}
-            disabled={disabled}
-            render={({ field: { value, onChange, disabled } }) => (
-              <ColorField
-                id={textColorId}
-                value={value}
-                onChange={onChange}
-                disabled={disabled}
-              />
+            render={({ field: { value, onChange } }) => (
+              <ColorField id={textColorId} value={value} onChange={onChange} />
             )}
           />
 
@@ -155,13 +145,11 @@ export default function WarningForm({
           <Controller
             name='backgroundColor'
             control={control}
-            disabled={disabled}
-            render={({ field: { value, onChange, disabled } }) => (
+            render={({ field: { value, onChange } }) => (
               <ColorField
                 id={backgroundColorId}
                 value={value}
                 onChange={onChange}
-                disabled={disabled}
               />
             )}
           />
@@ -169,9 +157,7 @@ export default function WarningForm({
       ) : null}
 
       <div className='controls'>
-        <button type='submit' disabled={disabled}>
-          Save
-        </button>
+        <button type='submit'>Save</button>
       </div>
     </form>
   )
