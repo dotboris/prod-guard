@@ -29,6 +29,7 @@ button {
   background-color: $color-dark-shade;
   padding: 0.5rem 1rem;
   color: $color-light-shade;
+  cursor: pointer;
 
   &:hover,
   &:focus,
