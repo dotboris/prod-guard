@@ -277,7 +277,7 @@ describe('state.ts', () => {
       const res = state.exportAllData()
 
       expect(res).toEqual({
-        dataVersion: 3,
+        dataVersion: CURRENT_DATA_VERSION,
         warnings: [
           {
             borderColor: 'fff',
