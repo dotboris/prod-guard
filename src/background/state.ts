@@ -1,4 +1,9 @@
-import { type WarningWithId, type Warning, CURRENT_DATA_VERSION } from '../api'
+import {
+  type WarningWithId,
+  type Warning,
+  CURRENT_DATA_VERSION,
+  type AllData,
+} from '../api'
 import { v4 as uuidV4 } from 'uuid'
 import { omit } from 'lodash-es'
 
@@ -57,5 +62,12 @@ export class State {
 
   findMatchingWarnings(url: string): WarningWithId[] {
     return this.getAllWarnings().filter((warning) => url.match(warning.pattern))
+  }
+
+  exportAllData(): AllData {
+    return {
+      dataVersion: CURRENT_DATA_VERSION,
+      warnings: this.getAllWarnings(),
+    }
   }
 }

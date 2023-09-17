@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import { useState, type JSX, useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
+import { useAllData } from '../api-hooks'
 
 const styles = {
   root: css({
@@ -12,12 +13,15 @@ const styles = {
   }),
 }
 
-export default function ExportBox(): JSX.Element {
-  const data = { foo: 'bar' } // TODO: real data
+export default function ExportBox(): JSX.Element | undefined {
+  const { error, data } = useAllData()
   const formattedData = JSON.stringify(data, null, 2)
 
   return (
     <div css={styles.root}>
+      {error != null ? (
+        <p>Failed to load data export: {error.message}</p>
+      ) : null}
       <textarea css={styles.textBox} readOnly value={formattedData} />
       <CopyToClipboardButton text={formattedData} />
     </div>
