@@ -1,6 +1,6 @@
 import WarningForm from './form'
 import Layout from '../layout'
-import { useAddWarningMutation } from './api-hooks'
+import { useAddWarningMutation } from '../api-hooks'
 import { useNavigate } from 'react-router'
 import { type Warning } from '../../api'
 

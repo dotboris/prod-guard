@@ -13,7 +13,7 @@ import {
   type RemoveWarningApiCall,
   type WarningWithId,
   type Warning,
-} from '../../api'
+} from '../api'
 import browser from 'webextension-polyfill'
 
 export function useAllWarnings(): UseQueryResult<WarningWithId[]> {
