@@ -1,4 +1,4 @@
-import { type WarningWithId, type Warning } from '../warnings'
+import { type WarningWithId, type Warning } from '../api'
 import { v4 as uuidV4 } from 'uuid'
 import { omit } from 'lodash-es'
 

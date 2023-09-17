@@ -3,7 +3,7 @@ import browser from 'webextension-polyfill'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import WarningForm from './form'
-import { WarningStyle, type Warning } from '../../warnings'
+import { WarningStyle, type Warning } from '../../api'
 
 const browserMock = jest.mocked(browser)
 jest.mock('webextension-polyfill', () => ({

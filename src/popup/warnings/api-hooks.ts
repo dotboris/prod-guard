@@ -5,13 +5,14 @@ import {
   type UseQueryResult,
   type UseMutationResult,
 } from 'react-query'
-import { type WarningWithId, type Warning } from '../../warnings'
 import {
   type GetAllWarningsApiCall,
   type GetWarningApiCall,
   type AddWarningApiCall,
   type UpdateWarningApiCall,
   type RemoveWarningApiCall,
+  type WarningWithId,
+  type Warning,
 } from '../../api'
 import browser from 'webextension-polyfill'
 

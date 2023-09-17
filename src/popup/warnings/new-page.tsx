@@ -2,7 +2,7 @@ import WarningForm from './form'
 import Layout from '../layout'
 import { useAddWarningMutation } from './api-hooks'
 import { useNavigate } from 'react-router'
-import { type Warning } from '../../warnings'
+import { type Warning } from '../../api'
 
 export default function NewWarningPage(): JSX.Element {
   const addWarningMutation = useAddWarningMutation()

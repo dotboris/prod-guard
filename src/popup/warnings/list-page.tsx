@@ -6,7 +6,7 @@ import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import Layout from '../layout'
 import { useAllWarnings, useRemoveWarningMutation } from './api-hooks'
 import { Link } from 'react-router-dom'
-import { type WarningWithId } from '../../warnings'
+import { type WarningWithId } from '../../api'
 import { type CSSProperties } from 'react'
 
 export default function WarningsListPage(): JSX.Element {

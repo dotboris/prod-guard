@@ -1,4 +1,4 @@
-import { type Warning, WarningStyle } from '../warnings'
+import { type Warning, WarningStyle } from '../api'
 import { makeBanner } from './banner'
 
 main().catch((error) => {

@@ -1,5 +1,5 @@
 import { CURRENT_STATE_VERSION, State } from './state'
-import { type Warning, WarningStyle, type WarningWithId } from '../warnings'
+import { type Warning, WarningStyle, type WarningWithId } from '../api'
 
 const _uuid = jest.requireActual('uuid')
 const uuidV4 = jest.requireMock('uuid').v4
