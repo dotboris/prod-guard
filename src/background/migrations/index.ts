@@ -1,10 +1,10 @@
-import { type CURRENT_STATE_VERSION } from '../state'
+import { type CURRENT_DATA_VERSION } from '../../api'
 import { applyMigrations } from './apply-migrations'
 import { migrations } from './migrations'
 import { type StateVersions } from './state-versions'
 
 export async function migrateStorageData(
   storageData: any,
-): Promise<[boolean, StateVersions[typeof CURRENT_STATE_VERSION]]> {
+): Promise<[boolean, StateVersions[typeof CURRENT_DATA_VERSION]]> {
   return await applyMigrations(migrations, storageData)
 }
