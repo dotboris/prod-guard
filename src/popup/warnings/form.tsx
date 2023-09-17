@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill'
 import './form.scss'
-import { type FormEventHandler, useId } from 'react'
+import { useId } from 'react'
 import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
 import ColorField from '../color-field'
 import { warningStyles } from './friendly-names'
@@ -84,8 +84,8 @@ export default function WarningForm({
   return (
     <form
       className='warning-form'
-      // handleSubmit returns a promise but that's how the doc says to use this.
-      onSubmit={handleSubmit(onSubmit) as FormEventHandler}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onSubmit={handleSubmit(onSubmit)}
     >
       <label htmlFor={patternId}>URL Regex:</label>
       <input
