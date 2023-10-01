@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Prod Guard",
   "description": "Warns you when you are connected to production. Never accidentally make changes to production.",
 
@@ -7,13 +7,15 @@
     "scripts": ["background.js"]
   },
 
-  "browser_action": {
-    "default_popup": "popup.html"
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Configure Prod Guard"
   },
 
-  "permissions": ["storage", "tabs", "<all_urls>"],
+  "permissions": ["storage", "scripting", "tabs"],
+  "host_permissions": ["*://*/*"],
 
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "dev-prog-guard-extension@example.com"
     }
