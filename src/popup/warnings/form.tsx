@@ -4,7 +4,11 @@ import { useId } from 'react'
 import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
 import ColorField from '../color-field'
 import { warningStyles } from './friendly-names'
-import { type BannerWarning, type BorderWarning, type Warning } from '../../api'
+import {
+  type BannerWarning,
+  type BorderWarning,
+  type Warning,
+} from '../../schema'
 
 export interface WarningFormProps {
   onSave?: (warning: Warning) => void

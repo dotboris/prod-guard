@@ -4,10 +4,10 @@ import Icon from '../icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import Layout from '../layout'
-import { useAllWarnings, useRemoveWarningMutation } from '../api-hooks'
 import { Link } from 'react-router-dom'
-import { type WarningWithId } from '../../api'
+import { type WarningWithId } from '../../schema'
 import { type CSSProperties } from 'react'
+import { trpc } from '../trpc'
 
 export default function WarningsListPage(): JSX.Element {
   return (
@@ -27,7 +27,7 @@ export default function WarningsListPage(): JSX.Element {
 }
 
 function WarningList(): JSX.Element | undefined {
-  const { isLoading, data: warnings } = useAllWarnings()
+  const { isLoading, data: warnings } = trpc.warnings.list.useQuery()
 
   if (isLoading || warnings == null) {
     return undefined
@@ -55,7 +55,7 @@ function WarningList(): JSX.Element | undefined {
 }
 
 function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
-  const removeWarningMutation = useRemoveWarningMutation()
+  const removeWarningMutation = trpc.warnings.remove.useMutation()
 
   return (
     <>

@@ -3,7 +3,7 @@ import {
   type Warning,
   CURRENT_DATA_VERSION,
   type AllData,
-} from '../api'
+} from '../schema'
 import { v4 as uuidV4 } from 'uuid'
 import { omit } from 'lodash-es'
 

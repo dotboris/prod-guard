@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import { useState, type JSX, useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
-import { useAllData } from '../api-hooks'
+import { trpc } from '../trpc'
 
 const styles = {
   root: css({
@@ -14,7 +14,7 @@ const styles = {
 }
 
 export default function ExportBox(): JSX.Element | undefined {
-  const { error, data } = useAllData()
+  const { error, data } = trpc.exportAllData.useQuery()
   const formattedData = JSON.stringify(data, null, 2)
 
   return (

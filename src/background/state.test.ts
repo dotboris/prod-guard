@@ -4,7 +4,7 @@ import {
   WarningStyle,
   type WarningWithId,
   CURRENT_DATA_VERSION,
-} from '../api'
+} from '../schema'
 
 const _uuid = jest.requireActual('uuid')
 const uuidV4 = jest.requireMock('uuid').v4
