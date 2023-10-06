@@ -11,10 +11,21 @@ export class State {
   dataVersion = CURRENT_DATA_VERSION
   warnings = new Map<string, Warning>()
 
-  constructor(initialWarnings: WarningWithId[] = []) {
+  constructor(allData: AllData) {
+    this.importAllData(allData)
+  }
+
+  importAllData(allData: AllData): void {
     this.warnings = new Map(
-      initialWarnings.map((w) => [w.id, omit(w, 'id') as Warning]),
+      allData.warnings.map((w) => [w.id, omit(w, 'id') as Warning]),
     )
+  }
+
+  exportAllData(): AllData {
+    return {
+      dataVersion: CURRENT_DATA_VERSION,
+      warnings: this.getAllWarnings(),
+    }
   }
 
   private uniqueWarningId(): string {
@@ -62,12 +73,5 @@ export class State {
 
   findMatchingWarnings(url: string): WarningWithId[] {
     return this.getAllWarnings().filter((warning) => url.match(warning.pattern))
-  }
-
-  exportAllData(): AllData {
-    return {
-      dataVersion: CURRENT_DATA_VERSION,
-      warnings: this.getAllWarnings(),
-    }
   }
 }

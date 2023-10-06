@@ -1,7 +1,8 @@
 import { css } from '@emotion/react'
-import { useState, type JSX, useEffect } from 'react'
+import { type JSX } from 'react'
 import { useAsyncFn } from 'react-use'
 import { trpc } from '../trpc'
+import { useExpiringState } from './useExpiringState'
 
 const styles = {
   root: css({
@@ -60,22 +61,4 @@ function CopyToClipboardButton({ text }: { text: string }): JSX.Element {
       {state.error != null ? <p>{state.error.message}</p> : null}
     </>
   )
-}
-
-function useExpiringState<T>(
-  defaultValue: T,
-  timeout: number,
-): [T, (value: T) => void] {
-  const [value, setValue] = useState(defaultValue)
-  useEffect(() => {
-    if (value !== defaultValue) {
-      const handle = setTimeout(() => {
-        setValue(defaultValue)
-      }, timeout)
-      return () => {
-        clearTimeout(handle)
-      }
-    }
-  }, [defaultValue, timeout, value, setValue])
-  return [value, setValue]
 }

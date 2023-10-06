@@ -94,7 +94,8 @@
     "trpc-chrome": "^1.0.0",
     "uuid": "^9.0.1",
     "webextension-polyfill": "^0.10.0",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zod-validation-error": "^1.5.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,scss}": [

@@ -1,7 +1,7 @@
 @import '../palette';
 
 .app {
-  min-width: 25rem;
+  width: 25rem;
 
   .page-content {
     padding: 1rem;
@@ -10,6 +10,8 @@
   .title-bar {
     $height: 1.5rem;
 
+    top: 0;
+    position: sticky;
     display: flex;
     flex-direction: row;
     align-items: center;

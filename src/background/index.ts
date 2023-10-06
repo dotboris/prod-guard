@@ -4,7 +4,7 @@ import { publicProcedure, router } from './trpc'
 import { createChromeHandler } from 'trpc-chrome/adapter'
 import { migrateStorageData } from './migrations'
 import { z } from 'zod'
-import { warningSchema } from '../schema'
+import { allDataSchema, warningSchema } from '../schema'
 
 export async function setupState(): Promise<State> {
   console.log('starting setup')
@@ -25,7 +25,7 @@ export async function setupState(): Promise<State> {
   console.log('initializing state from storage data')
 
   console.log('setup is done')
-  return new State(storageData.warnings)
+  return new State(storageData)
 }
 
 async function saveAllData(state: State): Promise<void> {
@@ -73,6 +73,12 @@ const appRouter = router({
       }),
   }),
   exportAllData: publicProcedure.query(({ ctx }) => ctx.state.exportAllData()),
+  importAllData: publicProcedure
+    .input(z.object({ allData: allDataSchema }))
+    .mutation(async ({ ctx, input }) => {
+      ctx.state.importAllData(input.allData)
+      await saveAllData(ctx.state)
+    }),
 })
 export type AppRouter = typeof appRouter
 
@@ -80,7 +86,7 @@ createChromeHandler({
   router: appRouter,
   createContext: () => ({ state }),
   onError: (error: any) => {
-    console.error('tRPC failed to start', error)
+    console.error('tRPC error', error)
   },
 })
 

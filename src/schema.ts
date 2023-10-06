@@ -49,10 +49,12 @@ export const warningSchema = z.discriminatedUnion('warningStyle', [
   borderWarningSchema,
 ])
 export type Warning = z.infer<typeof warningSchema>
-export type WarningWithId = { id: string } & Warning
+
+const warningWithIdSchema = warningSchema.and(z.object({ id: z.string() }))
+export type WarningWithId = z.infer<typeof warningWithIdSchema>
 
 export const allDataSchema = z.object({
   dataVersion: z.literal(CURRENT_DATA_VERSION),
-  warnings: z.array(warningSchema),
+  warnings: z.array(warningWithIdSchema),
 })
 export type AllData = z.infer<typeof allDataSchema>
