@@ -12,6 +12,12 @@ const styles = {
   textBox: css({
     height: '8rem',
   }),
+  errors: css({
+    ul: {
+      margin: 0,
+      paddingLeft: '1rem',
+    },
+  }),
 }
 
 export function ImportBox(): JSX.Element {
@@ -85,7 +91,7 @@ function Errors({ errors }: { errors: string[] }): JSX.Element | undefined {
   }
 
   return (
-    <div>
+    <div css={styles.errors}>
       Failed to import because of the following errors:
       <ul>
         {errors.map((error) => (
