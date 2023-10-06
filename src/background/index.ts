@@ -86,7 +86,7 @@ createChromeHandler({
   router: appRouter,
   createContext: () => ({ state }),
   onError: (error: any) => {
-    console.error('tRPC failed to start', error)
+    console.error('tRPC error', error)
   },
 })
 
