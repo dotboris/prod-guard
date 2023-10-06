@@ -21,8 +21,42 @@ const styles = {
 }
 
 export function ImportBox(): JSX.Element {
-  const [importedRecently, setImportedRecently] = useExpiringState(false, 2000)
   const [data, setData] = useState('')
+  const { doImport, isLoading, errors, importedRecently } = useImport()
+
+  return (
+    <form
+      css={styles.root}
+      onSubmit={(e) => {
+        e.preventDefault()
+        doImport(data)
+      }}
+    >
+      <textarea
+        disabled={isLoading}
+        css={styles.textBox}
+        onChange={(e) => {
+          setData(e.target.value)
+        }}
+        value={data}
+      />
+      <button type='submit' disabled={isLoading}>
+        {importedRecently ? 'Imported!' : 'Import'}
+      </button>
+      <Errors errors={errors} />
+    </form>
+  )
+}
+
+interface UseImport {
+  doImport: (data: string) => void
+  isLoading: boolean
+  errors: string[]
+  importedRecently: boolean
+}
+
+function useImport(): UseImport {
+  const [importedRecently, setImportedRecently] = useExpiringState(false, 2000)
   const importMutation = trpc.importAllData.useMutation()
 
   const zodIssues = importMutation.error?.shape?.data.zodIssues ?? []
@@ -40,49 +74,35 @@ export function ImportBox(): JSX.Element {
     errors.push(parseError)
   }
 
-  return (
-    <form
-      css={styles.root}
-      onSubmit={(e) => {
-        e.preventDefault()
-        let allData
-        try {
-          allData = JSON.parse(data)
-        } catch (error) {
-          if (error instanceof Error) {
-            setParseError(error.message)
-          }
-          return
+  return {
+    doImport: (data: string) => {
+      let allData
+      try {
+        allData = JSON.parse(data)
+      } catch (error) {
+        importMutation.reset()
+        if (error instanceof Error) {
+          setParseError(error.message)
         }
+        return
+      }
 
-        importMutation.mutate(
-          { allData },
-          {
-            onSuccess: () => {
-              setImportedRecently(true)
-              setData('')
-            },
-            onSettled: () => {
-              setParseError(null)
-            },
+      importMutation.mutate(
+        { allData },
+        {
+          onSuccess: () => {
+            setImportedRecently(true)
           },
-        )
-      }}
-    >
-      <textarea
-        disabled={importMutation.isLoading}
-        css={styles.textBox}
-        onChange={(e) => {
-          setData(e.target.value)
-        }}
-        value={data}
-      />
-      <button type='submit' disabled={importMutation.isLoading}>
-        {importedRecently ? 'Imported!' : 'Import'}
-      </button>
-      <Errors errors={errors} />
-    </form>
-  )
+          onSettled: () => {
+            setParseError(null)
+          },
+        },
+      )
+    },
+    isLoading: importMutation.isLoading,
+    errors,
+    importedRecently,
+  }
 }
 
 function Errors({ errors }: { errors: string[] }): JSX.Element | undefined {
