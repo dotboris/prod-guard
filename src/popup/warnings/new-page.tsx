@@ -1,15 +1,15 @@
 import WarningForm from './form'
 import Layout from '../layout'
-import { useAddWarningMutation } from '../api-hooks'
 import { useNavigate } from 'react-router'
-import { type Warning } from '../../api'
+import { type Warning } from '../../schema'
+import { trpc } from '../trpc'
 
 export default function NewWarningPage(): JSX.Element {
-  const addWarningMutation = useAddWarningMutation()
+  const addMutation = trpc.warnings.add.useMutation()
 
   const navigate = useNavigate()
   const handleSave = async (warning: Warning): Promise<void> => {
-    await addWarningMutation.mutateAsync({ warning })
+    await addMutation.mutateAsync({ warning })
     navigate('/')
   }
 

@@ -1,6 +1,6 @@
 import './banner.scss'
 import rafThrottle from 'raf-throttle'
-import { type BannerWarning } from '../api'
+import { type BannerWarning } from '../schema'
 
 const BANNER_CLASS = {
   bottomBanner: 'bottom',

@@ -1,4 +1,4 @@
-import { type CURRENT_DATA_VERSION } from '../../api'
+import { type CURRENT_DATA_VERSION } from '../../schema'
 import { applyMigrations } from './apply-migrations'
 import { migrations } from './migrations'
 import { type StateVersions } from './state-versions'
