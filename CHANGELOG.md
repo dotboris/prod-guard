@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.4.0
+
+### Minor Changes
+
+- [#1008](https://github.com/dotboris/prod-guard/pull/1008) [`bbbe2ad`](https://github.com/dotboris/prod-guard/commit/bbbe2adb425a5936b397f9ba5ad57435691d163d) Thanks [@dotboris](https://github.com/dotboris)! - Allow users to import data into Prod Guard. This can be done through the new settings menu. Settings are accessible in the popup by clicking the cog icon on the top right.
+
+- [#999](https://github.com/dotboris/prod-guard/pull/999) [`fcfde78`](https://github.com/dotboris/prod-guard/commit/fcfde78e7b69a37d90444b52ddac4b6e68ed70e9) Thanks [@dotboris](https://github.com/dotboris)! - Allow users to export all of Prod Guard's data. This can be done through the new settings menu. Settings are accessible in the popup by clicking the cog icon on the top right.
+
+### Patch Changes
+
+- [#988](https://github.com/dotboris/prod-guard/pull/988) [`cd4a8c0`](https://github.com/dotboris/prod-guard/commit/cd4a8c0199901e83f621f6ade6c91b783bf0db49) Thanks [@dotboris](https://github.com/dotboris)! - Fix bug where internal state migration process would replace already configured settings for warnings with their default values.
+
+- [#991](https://github.com/dotboris/prod-guard/pull/991) [`16566e9`](https://github.com/dotboris/prod-guard/commit/16566e97e66ea92e1652f11569c90a853bec1d17) Thanks [@renovate](https://github.com/apps/renovate)! - Update all non-major dependencies
+
+- [#998](https://github.com/dotboris/prod-guard/pull/998) [`3d1f781`](https://github.com/dotboris/prod-guard/commit/3d1f7819c80bd8cc4cc6ec9b267583402948f7ac) Thanks [@dotboris](https://github.com/dotboris)! - Fix a bug where the color fields of a warning could be set to a blank value. The color fields are now all required when creating / editing a warning.
+
 ## 1.3.1
 
 ### Fixed
