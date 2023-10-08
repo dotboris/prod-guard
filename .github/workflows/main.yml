@@ -13,7 +13,7 @@ jobs:
     needs: ci
 
     outputs:
-      result: ${{ steps.tag-exists.outputs.result }}
+      tag-exists: ${{ steps.tag-exists.outputs.result }}
 
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +41,7 @@ jobs:
   release:
     needs: [ci, should-release]
 
-    if: ${{ needs.should-release.outputs.result == 'true' }}
+    if: ${{ needs.should-release.outputs.tag-exists == 'false' }}
 
     runs-on: ubuntu-latest
     env:
