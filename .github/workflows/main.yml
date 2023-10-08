@@ -48,10 +48,13 @@ jobs:
       VERSION: ${{ needs.ci.outputs.version }}
     steps:
       - uses: actions/download-artifact@v3
+        id: download
         with:
           name: prod-guard-${{ env.VERSION }}.zip
+      - run: ls -lhR
       - name: Create Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "v$VERSION" prod-guard-$VERSION.zip
+          ARTIFACT: ${{ steps.download.outputs.download-path }}
+        run: gh release create "v$VERSION" "$ARTIFACT"
 
