@@ -21,6 +21,7 @@ jobs:
         id: tag-exists
         env:
           VERSION: ${{ needs.ci.outputs.version }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           tag_exists="$(
             gh api graphql \
@@ -50,5 +51,7 @@ jobs:
         with:
           name: prod-guard-${{ env.VERSION }}.zip
       - name: Create Release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: gh release create "v$VERSION" prod-guard-$VERSION.zip
 
