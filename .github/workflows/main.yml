@@ -35,7 +35,7 @@ jobs:
               }' \
               -q '.data.repository.ref.id != null'
           )"
-          echo "result=${tag_exists}"
+          echo "result=${tag_exists}" >> "$GITHUB_OUTPUT"
 
   release:
     needs: [ci, should-release]
