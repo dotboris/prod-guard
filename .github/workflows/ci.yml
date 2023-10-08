@@ -28,8 +28,8 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v3
         with:
-          name: prod-guard-${{ steps.read-version.outputs.version }}.zip
-          path: web-ext-artifacts/*.zip
+          name: prod_guard-${{ steps.read-version.outputs.version }}.zip
+          path: web-ext-artifacts/prod_guard-*.zip
           if-no-files-found: error
           retention-days: 5
 
