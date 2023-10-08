@@ -1,12 +1,18 @@
 name: CI
 on:
-  pull_request: {}
-  push:
-    branches:
-      - main
+  workflow_call:
+    outputs:
+      version:
+        description: >
+          Version of the package that was built. This is just the contents of
+          `version` in `package.json`.
+        value: ${{ jobs.build.outputs.version }}
 
 jobs:
   build:
+    outputs:
+      version: ${{ steps.read-version.outputs.version }}
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

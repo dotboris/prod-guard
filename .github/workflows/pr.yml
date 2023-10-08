@@ -7,3 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/dependency-review-action@v3
+
+  ci:
+    uses: ./.github/workflows/ci.yml
