@@ -1,0 +1,54 @@
+name: main branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  should-release:
+    needs: ci
+
+    outputs:
+      result: ${{ steps.tag-exists.outputs.result }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if built tag exists
+        id: tag-exists
+        env:
+          VERSION: ${{ needs.ci.outputs.version }}
+        run: |
+          tag_exists="$(
+            gh api graphql \
+              -F "ref=refs/tags/v$VERSION" \
+              -f query='
+              query ($ref: String!) {
+                repository(owner: "dotboris", name: "prod-guard") {
+                  ref(qualifiedName: $ref) {
+                    id
+                  }
+                }
+              }' \
+              -q '.data.repository.ref.id != null'
+          )"
+          echo "result=${tag_exists}"
+
+  release:
+    needs: [ci, should-release]
+
+    if: ${{ needs.should-release.outputs.result == 'true' }}
+
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.ci.outputs.version }}
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: prod-guard-${{ env.VERSION }}.zip
+      - name: Create Release
+        run: gh release create "v$VERSION" prod-guard-$VERSION.zip
+
