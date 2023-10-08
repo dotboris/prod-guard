@@ -1,6 +1,10 @@
-name: Release
+name: Prepare Release
 
 on:
+  # Manual trigger: useful to force the CI to run in the PR
+  workflow_dispatch: {}
+
+  # Update the branch on main
   push:
     branches:
       - main
@@ -8,7 +12,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
+  prepare-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
