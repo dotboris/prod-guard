@@ -3,8 +3,8 @@ import { warningStyles } from './friendly-names'
 import { Icon, IconButton } from '../icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
-import EyeIcon from '@fortawesome/fontawesome-free/svgs/solid/eye.svg'
-import EyeSlashIcon from '@fortawesome/fontawesome-free/svgs/solid/eye-slash.svg'
+import ToggleOnIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg'
+import ToggleOffIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-off.svg'
 import Layout from '../layout'
 import { Link } from 'react-router-dom'
 import { type WarningWithId } from '../../schema'
@@ -65,8 +65,8 @@ function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
       <div className='header'>
         <div className='pattern'>{warning.pattern}</div>
         <IconButton
-          svg={warning.enabled ? EyeSlashIcon : EyeIcon}
-          title={warning.enabled ? 'Hide warning' : 'Show warning'}
+          svg={warning.enabled ? ToggleOnIcon : ToggleOffIcon}
+          title={warning.enabled ? 'Disable warning' : 'Enable warning'}
           onClick={() => {
             toggleWarningMutation.mutate({ id: warning.id })
           }}
