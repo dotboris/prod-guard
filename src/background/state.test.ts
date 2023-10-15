@@ -18,6 +18,7 @@ function resetUuidV4(): void {
 }
 
 const STUB_WARNING: Warning = {
+  enabled: true,
   pattern: 'stub pattern',
   warningStyle: WarningStyle.Border,
   borderColor: 'fff',

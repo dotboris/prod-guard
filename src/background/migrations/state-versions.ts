@@ -60,4 +60,26 @@ export interface StateVersions {
         }
     >
   }
+  /** Add enabled flag */
+  4: {
+    dataVersion: 4
+    warnings: Array<
+      | {
+          enabled: boolean
+          warningStyle: 'topBanner' | 'bottomBanner'
+          pattern: string
+          id: string
+          text: string
+          backgroundColor: string
+          textColor: string
+        }
+      | {
+          enabled: boolean
+          warningStyle: 'border'
+          pattern: string
+          id: string
+          borderColor: string
+        }
+    >
+  }
 }

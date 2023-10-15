@@ -71,6 +71,12 @@ const appRouter = router({
         await saveAllData(ctx.state)
         return res
       }),
+    toggleEnabled: publicProcedure
+      .input(z.object({ id: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        ctx.state.toggleWarningEnabled(input.id)
+        await saveAllData(ctx.state)
+      }),
   }),
   exportAllData: publicProcedure.query(({ ctx }) => ctx.state.exportAllData()),
   importAllData: publicProcedure

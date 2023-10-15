@@ -59,6 +59,7 @@ export default function WarningForm({
       case 'bottomBanner':
       case 'topBanner':
         res = {
+          enabled: true,
           warningStyle: data.warningStyle,
           pattern: data.pattern,
           text: data.text,
@@ -69,6 +70,7 @@ export default function WarningForm({
 
       case 'border':
         res = {
+          enabled: true,
           warningStyle: data.warningStyle,
           pattern: data.pattern,
           borderColor: data.borderColor,

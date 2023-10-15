@@ -1,8 +1,10 @@
 import './list-page.scss'
 import { warningStyles } from './friendly-names'
-import Icon from '../icon'
+import { Icon, IconButton } from '../icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
+import EyeIcon from '@fortawesome/fontawesome-free/svgs/solid/eye.svg'
+import EyeSlashIcon from '@fortawesome/fontawesome-free/svgs/solid/eye-slash.svg'
 import Layout from '../layout'
 import { Link } from 'react-router-dom'
 import { type WarningWithId } from '../../schema'
@@ -56,11 +58,19 @@ function WarningList(): JSX.Element | undefined {
 
 function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
   const removeWarningMutation = trpc.warnings.remove.useMutation()
+  const toggleWarningMutation = trpc.warnings.toggleEnabled.useMutation()
 
   return (
     <>
       <div className='header'>
         <div className='pattern'>{warning.pattern}</div>
+        <IconButton
+          svg={warning.enabled ? EyeSlashIcon : EyeIcon}
+          title={warning.enabled ? 'Hide warning' : 'Show warning'}
+          onClick={() => {
+            toggleWarningMutation.mutate({ id: warning.id })
+          }}
+        />
         <Link className='action' to={`/edit/${warning.id}`}>
           <Icon svg={EditIcon} title='Edit Warning' />
         </Link>

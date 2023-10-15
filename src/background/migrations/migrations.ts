@@ -14,6 +14,7 @@ export type MigrationFuncs = [
   MigrateFunc<0, 1>,
   MigrateFunc<1, 2>,
   MigrateFunc<2, 3>,
+  MigrateFunc<3, 4>,
 ]
 
 export const migrations: MigrationFuncs = [
@@ -68,6 +69,15 @@ export const migrations: MigrationFuncs = [
       warnings: data.warnings.map((warning) => ({
         ...warning,
         id: generateId(),
+      })),
+    }
+  },
+  async (data) => {
+    return {
+      ...data,
+      warnings: data.warnings.map((warning) => ({
+        ...warning,
+        enabled: true,
       })),
     }
   },

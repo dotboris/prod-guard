@@ -75,6 +75,7 @@ describe('border form', () => {
           res = newValue
         }}
         value={{
+          enabled: true,
           warningStyle: 'border',
           pattern: 'existing pattern',
           borderColor: '012',
@@ -156,6 +157,7 @@ for (const [title, style] of Object.entries({
             res = newValue
           }}
           value={{
+            enabled: true,
             warningStyle: style,
             pattern: 'existing pattern',
             text: 'existing text',
