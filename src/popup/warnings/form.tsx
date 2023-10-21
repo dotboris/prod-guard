@@ -1,5 +1,4 @@
 import browser from 'webextension-polyfill'
-import './form.scss'
 import { useId } from 'react'
 import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
 import ColorField from '../color-field'
@@ -10,6 +9,27 @@ import {
   type Warning,
 } from '../../schema'
 import { Button } from '../components/button'
+import { css } from '@emotion/react'
+
+const styles = {
+  root: css({
+    display: 'grid',
+    gridTemplateColumns: 'max-content 1fr',
+    alignItems: 'center',
+    gap: '1rem',
+
+    label: {
+      textAlign: 'right',
+    },
+  }),
+
+  buttons: css({
+    gridColumn: 'span 2',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  }),
+}
 
 export interface WarningFormProps {
   onSave?: (warning: Warning) => void
@@ -86,9 +106,10 @@ export default function WarningForm({
 
   return (
     <form
-      className='warning-form'
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onSubmit={handleSubmit(onSubmit)}
+      css={styles.root}
+      onSubmit={() => {
+        void handleSubmit(onSubmit)
+      }}
     >
       <label htmlFor={patternId}>URL Regex:</label>
       <input
@@ -166,7 +187,7 @@ export default function WarningForm({
         </>
       ) : null}
 
-      <div className='controls'>
+      <div css={styles.buttons}>
         <Button type='submit'>Save</Button>
       </div>
     </form>
