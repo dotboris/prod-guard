@@ -1,5 +1,5 @@
 import { warningStyles } from './friendly-names'
-import { Icon, IconButton } from '../icon'
+import { Icon, IconButton } from '../components/icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import ToggleOnIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg'

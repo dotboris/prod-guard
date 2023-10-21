@@ -1,6 +1,6 @@
 import './layout.scss'
 import { Link } from 'react-router-dom'
-import { Icon } from './icon'
+import { Icon } from './components/icon'
 import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg'
 import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
 import { type PropsWithChildren } from 'react'

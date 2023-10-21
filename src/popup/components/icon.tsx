@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { Button } from './components/button'
+import { Button } from './button'
 
 const styles = {
   button: css({
