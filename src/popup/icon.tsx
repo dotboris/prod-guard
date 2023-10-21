@@ -28,13 +28,20 @@ export function IconButton({
   title,
   svg,
   onClick,
+  className,
 }: {
   title: string
   svg: string
   onClick: () => void
+  className?: string
 }): JSX.Element {
   return (
-    <button css={styles.button} type='button' onClick={onClick}>
+    <button
+      css={styles.button}
+      className={className}
+      type='button'
+      onClick={onClick}
+    >
       <Icon title={title} svg={svg} />
     </button>
   )

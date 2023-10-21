@@ -1,4 +1,3 @@
-import './list-page.scss'
 import { warningStyles } from './friendly-names'
 import { Icon, IconButton } from '../icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
@@ -10,12 +9,28 @@ import { Link } from 'react-router-dom'
 import { type WarningWithId } from '../../schema'
 import { type CSSProperties } from 'react'
 import { trpc } from '../trpc'
+import { css } from '@emotion/react'
+import { palette } from '../../theme'
+
+const pageStyles = {
+  title: css({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '0.5rem',
+
+    h2: {
+      flexGrow: 1,
+      margin: 0,
+    },
+  }),
+}
 
 export default function WarningsListPage(): JSX.Element {
   return (
     <Layout title='Prod Guard'>
-      <div className='warning-list'>
-        <div className='title'>
+      <div>
+        <div css={pageStyles.title}>
           <h2>Warnings</h2>
           <Link className='button' to='/new'>
             New Warning
@@ -28,6 +43,33 @@ export default function WarningsListPage(): JSX.Element {
   )
 }
 
+const listStyles = {
+  root: css({
+    margin: 0,
+    padding: 0,
+    listStyle: 'none',
+  }),
+
+  item: css({
+    padding: '1rem',
+    borderBottom: '1px solid #ddd',
+
+    '&:last-child': {
+      marginBottom: 0,
+      borderBottom: 'none',
+    },
+
+    '&:hover': {
+      backgroundColor: palette.lightShade,
+    },
+  }),
+
+  emptyState: css({
+    padding: '3rem 0',
+    textAlign: 'center',
+  }),
+}
+
 function WarningList(): JSX.Element | undefined {
   const { isLoading, data: warnings } = trpc.warnings.list.useQuery()
 
@@ -37,9 +79,9 @@ function WarningList(): JSX.Element | undefined {
 
   if (warnings.length > 0) {
     return (
-      <ul className='items'>
+      <ul css={listStyles.root}>
         {warnings.map((warning) => (
-          <li key={warning.id}>
+          <li key={warning.id} css={listStyles.item}>
             <WarningItem warning={warning} />
           </li>
         ))}
@@ -47,7 +89,7 @@ function WarningList(): JSX.Element | undefined {
     )
   } else {
     return (
-      <p className='nothing-here'>
+      <p css={listStyles.emptyState}>
         There's nothing here.
         <br />
         Click on "New Warning" to get started.
@@ -56,34 +98,77 @@ function WarningList(): JSX.Element | undefined {
   }
 }
 
+const itemStyles = {
+  header: css({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '1rem',
+    fontSize: '1.1rem',
+    gap: '1rem',
+  }),
+
+  pattern: css({
+    fontFamily: `'Lucida Console', Monaco, monospace`,
+    flexGrow: 1,
+  }),
+
+  action: css({
+    color: 'black',
+    textDecoration: 'none',
+    cursor: 'pointer',
+
+    svg: {
+      width: '1.5rem',
+      height: '1.5rem',
+    },
+
+    '&:hover, &:active': {
+      color: palette.darkAccent,
+    },
+  }),
+
+  properties: css({
+    display: 'grid',
+    gridTemplateColumns: 'min-content 1fr',
+    gap: '0.5em',
+    margin: 0,
+
+    '> *': {
+      margin: 0,
+    },
+  }),
+}
+
 function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
   const removeWarningMutation = trpc.warnings.remove.useMutation()
   const toggleWarningMutation = trpc.warnings.toggleEnabled.useMutation()
 
   return (
     <>
-      <div className='header'>
-        <div className='pattern'>{warning.pattern}</div>
+      <div css={itemStyles.header}>
+        <div css={itemStyles.pattern}>{warning.pattern}</div>
         <IconButton
+          css={itemStyles.action}
           svg={warning.enabled ? ToggleOnIcon : ToggleOffIcon}
           title={warning.enabled ? 'Disable warning' : 'Enable warning'}
           onClick={() => {
             toggleWarningMutation.mutate({ id: warning.id })
           }}
         />
-        <Link className='action' to={`/edit/${warning.id}`}>
+        <Link css={itemStyles.action} to={`/edit/${warning.id}`}>
           <Icon svg={EditIcon} title='Edit Warning' />
         </Link>
-        <div
-          className='action'
+        <IconButton
+          css={itemStyles.action}
+          svg={TrashIcon}
+          title='Delete Warning'
           onClick={() => {
             removeWarningMutation.mutate({ id: warning.id })
           }}
-        >
-          <Icon svg={TrashIcon} title='Delete Warning' />
-        </div>
+        />
       </div>
-      <dl>
+      <dl css={itemStyles.properties}>
         <dt>Style:</dt>
         <dd>{warningStyles[warning.warningStyle]}</dd>
         {warning.warningStyle === 'border' ? (
@@ -112,6 +197,22 @@ function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
   )
 }
 
+const colorStyles = {
+  root: css({
+    whiteSpace: 'nowrap',
+    '&::before': {
+      display: 'inline-block',
+      verticalAlign: 'baseline',
+      marginRight: '0.25em',
+      content: "''",
+      width: '0.6em',
+      height: '0.6em',
+      border: '1px solid black',
+      backgroundColor: 'var(--color)',
+    },
+  }),
+}
+
 interface ColorCSSProperties extends CSSProperties {
   '--color': string
 }
@@ -122,7 +223,7 @@ function Color({ colorHex }: { colorHex: string }): JSX.Element {
   }
 
   return (
-    <span className='color' style={style}>
+    <span css={colorStyles.root} style={style}>
       #{colorHex.toUpperCase()}
     </span>
   )
