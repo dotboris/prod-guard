@@ -1,6 +1,6 @@
 import { SerializedStyles, css } from '@emotion/react'
 import { Button } from './button'
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes, CSSProperties } from 'react'
 import { Link, LinkProps } from 'react-router-dom'
 import { omit, pick } from 'lodash-es'
 import { palette } from '../theme'
@@ -12,6 +12,7 @@ const styles = {
     svg: {
       fill: 'currentcolor',
       display: 'inline-block',
+      width: 'var(--size)',
     },
   }),
 
@@ -42,6 +43,10 @@ interface IconProps {
   size?: string
 }
 
+interface IconRawStyle extends CSSProperties {
+  '--size': string
+}
+
 export function Icon({ title, svg, size, theme }: IconProps): JSX.Element {
   let themeCss: SerializedStyles
   switch (theme) {
@@ -53,13 +58,14 @@ export function Icon({ title, svg, size, theme }: IconProps): JSX.Element {
       break
   }
 
+  const style: IconRawStyle = {
+    '--size': size ?? '1rem',
+  }
+
   return (
     <span
       css={css(styles.icon, themeCss)}
-      style={{
-        width: size ?? '1rem',
-        height: size ?? '1rem',
-      }}
+      style={style}
       title={title}
       dangerouslySetInnerHTML={{ __html: svg }}
     />

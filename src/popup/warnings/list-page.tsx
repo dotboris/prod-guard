@@ -101,15 +101,16 @@ const itemStyles = {
   header: css({
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: '1rem',
     fontSize: '1.1rem',
     gap: '1rem',
+    alignItems: 'start',
   }),
 
   pattern: css({
     fontFamily: `'Lucida Console', Monaco, monospace`,
     flexGrow: 1,
+    alignSelf: 'center',
   }),
 
   properties: css({
