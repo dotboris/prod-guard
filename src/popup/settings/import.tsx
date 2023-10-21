@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { trpc } from '../trpc'
 import { fromZodIssue } from 'zod-validation-error'
 import { useExpiringState } from './useExpiringState'
+import { Button } from '../components/button'
 
 const styles = {
   root: css({
@@ -40,9 +41,9 @@ export function ImportBox(): JSX.Element {
         }}
         value={data}
       />
-      <button type='submit' disabled={isLoading}>
+      <Button type='submit' disabled={isLoading}>
         {importedRecently ? 'Imported!' : 'Import'}
-      </button>
+      </Button>
       <Errors errors={errors} />
     </form>
   )

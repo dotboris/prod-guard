@@ -11,6 +11,7 @@ import { type CSSProperties } from 'react'
 import { trpc } from '../trpc'
 import { css } from '@emotion/react'
 import { palette } from '../../theme'
+import { LinkButton } from '../components/button'
 
 const pageStyles = {
   title: css({
@@ -32,9 +33,7 @@ export default function WarningsListPage(): JSX.Element {
       <div>
         <div css={pageStyles.title}>
           <h2>Warnings</h2>
-          <Link className='button' to='/new'>
-            New Warning
-          </Link>
+          <LinkButton to='/new'>New Warning</LinkButton>
         </div>
 
         <WarningList />

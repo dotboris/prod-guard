@@ -1,4 +1,5 @@
 import { css } from '@emotion/react'
+import { Button } from './components/button'
 
 const styles = {
   button: css({
@@ -36,13 +37,13 @@ export function IconButton({
   className?: string
 }): JSX.Element {
   return (
-    <button
+    <Button
       css={styles.button}
       className={className}
       type='button'
       onClick={onClick}
     >
       <Icon title={title} svg={svg} />
-    </button>
+    </Button>
   )
 }

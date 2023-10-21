@@ -9,6 +9,7 @@ import {
   type BorderWarning,
   type Warning,
 } from '../../schema'
+import { Button } from '../components/button'
 
 export interface WarningFormProps {
   onSave?: (warning: Warning) => void
@@ -166,7 +167,7 @@ export default function WarningForm({
       ) : null}
 
       <div className='controls'>
-        <button type='submit'>Save</button>
+        <Button type='submit'>Save</Button>
       </div>
     </form>
   )

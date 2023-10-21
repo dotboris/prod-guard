@@ -18,26 +18,6 @@ html {
   display: inline-block;
 }
 
-a.button {
-  text-decoration: none;
-}
-
-.button,
-button {
-  appearance: none;
-  border: none;
-  background-color: $color-dark-shade;
-  padding: 0.5rem 1rem;
-  color: $color-light-shade;
-  cursor: pointer;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: $color-main;
-  }
-}
-
 input[type='text'] {
   appearance: none;
   border: 1px solid $color-dark-shade;
