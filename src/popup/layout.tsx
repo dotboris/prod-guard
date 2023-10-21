@@ -1,6 +1,5 @@
 import './layout.scss'
-import { Link } from 'react-router-dom'
-import { Icon } from './components/icon'
+import { IconLink } from './components/icon'
 import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg'
 import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
 import { type PropsWithChildren } from 'react'
@@ -16,15 +15,23 @@ export default function Layout({
   return (
     <div className='app'>
       <div className='title-bar'>
-        <Link to='/'>
-          <Icon svg={HomeIcon} title='Home' />
-        </Link>
+        <IconLink
+          to='/'
+          svg={HomeIcon}
+          title='Home'
+          size='1.5rem'
+          theme='light'
+        />
 
         <h1>{title}</h1>
 
-        <Link to='/settings'>
-          <Icon svg={GearIcon} title='Settings' />
-        </Link>
+        <IconLink
+          to='/settings'
+          svg={GearIcon}
+          title='Settings'
+          size='1.5rem'
+          theme='light'
+        />
       </div>
 
       <div className='page-content'>{children}</div>

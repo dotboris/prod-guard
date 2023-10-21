@@ -1,5 +1,5 @@
 import { warningStyles } from './friendly-names'
-import { Icon, IconButton } from '../components/icon'
+import { Icon, IconButton, IconLink } from '../components/icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import ToggleOnIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg'
@@ -112,21 +112,6 @@ const itemStyles = {
     flexGrow: 1,
   }),
 
-  action: css({
-    color: 'black',
-    textDecoration: 'none',
-    cursor: 'pointer',
-
-    svg: {
-      width: '1.5rem',
-      height: '1.5rem',
-    },
-
-    '&:hover, &:active': {
-      color: palette.darkAccent,
-    },
-  }),
-
   properties: css({
     display: 'grid',
     gridTemplateColumns: 'min-content 1fr',
@@ -148,23 +133,29 @@ function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
       <div css={itemStyles.header}>
         <div css={itemStyles.pattern}>{warning.pattern}</div>
         <IconButton
-          css={itemStyles.action}
           svg={warning.enabled ? ToggleOnIcon : ToggleOffIcon}
           title={warning.enabled ? 'Disable warning' : 'Enable warning'}
           onClick={() => {
             toggleWarningMutation.mutate({ id: warning.id })
           }}
+          theme='dark'
+          size='1.5rem'
         />
-        <Link css={itemStyles.action} to={`/edit/${warning.id}`}>
-          <Icon svg={EditIcon} title='Edit Warning' />
-        </Link>
+        <IconLink
+          to={`/edit/${warning.id}`}
+          svg={EditIcon}
+          title='Edit Warning'
+          theme='dark'
+          size='1.5rem'
+        />
         <IconButton
-          css={itemStyles.action}
           svg={TrashIcon}
           title='Delete Warning'
           onClick={() => {
             removeWarningMutation.mutate({ id: warning.id })
           }}
+          theme='dark'
+          size='1.5rem'
         />
       </div>
       <dl css={itemStyles.properties}>

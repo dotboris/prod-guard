@@ -22,24 +22,6 @@
       padding: 0.75rem 1rem;
     }
 
-    a {
-      outline: none;
-      color: white;
-      display: block;
-
-      &:hover,
-      &:active {
-        color: $color-main;
-      }
-    }
-
-    .icon,
-    .icon svg {
-      display: block;
-      width: $height;
-      height: $height;
-    }
-
     h1 {
       flex-grow: 1;
       font-size: $height;
