@@ -4,7 +4,7 @@ import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
 import ToggleOnIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg'
 import ToggleOffIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-off.svg'
-import Layout from '../layout'
+import Layout from '../components/layout'
 import { Link } from 'react-router-dom'
 import { type WarningWithId } from '../../schema'
 import { type CSSProperties } from 'react'

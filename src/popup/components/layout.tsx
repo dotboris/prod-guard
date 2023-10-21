@@ -1,9 +1,9 @@
-import { IconLink } from './components/icon'
+import { IconLink } from './icon'
 import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg'
 import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
 import { type PropsWithChildren } from 'react'
 import { css } from '@emotion/react'
-import { palette } from './theme'
+import { palette } from '../theme'
 
 const styles = {
   root: css({
