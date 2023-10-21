@@ -1,8 +1,41 @@
-import './layout.scss'
 import { IconLink } from './components/icon'
 import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg'
 import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
 import { type PropsWithChildren } from 'react'
+import { css } from '@emotion/react'
+import { palette } from './theme'
+
+const styles = {
+  root: css({
+    width: '25rem',
+  }),
+
+  titleBar: css({
+    top: 0,
+    position: 'sticky',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: 'white',
+    backgroundColor: palette.darkShade,
+
+    '> *': {
+      padding: '0.75rem 1rem',
+    },
+
+    h1: {
+      flexGrow: 1,
+      fontSize: '1.5rem',
+      lineHeight: 1,
+      margin: 0,
+      padding: 0,
+    },
+  }),
+
+  content: css({
+    padding: '1rem',
+  }),
+}
 
 export interface LayoutProps {
   title: string
@@ -13,8 +46,8 @@ export default function Layout({
   children,
 }: PropsWithChildren<LayoutProps>): JSX.Element {
   return (
-    <div className='app'>
-      <div className='title-bar'>
+    <div css={styles.root}>
+      <div css={styles.titleBar}>
         <IconLink
           to='/'
           svg={HomeIcon}
@@ -34,7 +67,7 @@ export default function Layout({
         />
       </div>
 
-      <div className='page-content'>{children}</div>
+      <div css={styles.content}>{children}</div>
     </div>
   )
 }
