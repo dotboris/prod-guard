@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { palette } from '../../theme'
+import { palette } from '../theme'
 import { Link } from 'react-router-dom'
 
 export const buttonStyle = css({

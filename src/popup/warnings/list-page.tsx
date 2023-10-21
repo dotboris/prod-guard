@@ -10,7 +10,7 @@ import { type WarningWithId } from '../../schema'
 import { type CSSProperties } from 'react'
 import { trpc } from '../trpc'
 import { css } from '@emotion/react'
-import { palette } from '../../theme'
+import { palette } from '../theme'
 import { LinkButton } from '../components/button'
 
 const pageStyles = {

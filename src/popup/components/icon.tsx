@@ -3,7 +3,7 @@ import { Button } from './button'
 import { ButtonHTMLAttributes } from 'react'
 import { Link, LinkProps } from 'react-router-dom'
 import { omit, pick } from 'lodash-es'
-import { palette } from '../../theme'
+import { palette } from '../theme'
 
 const styles = {
   icon: css({
