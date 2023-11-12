@@ -4,6 +4,7 @@ import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
 import ColorField from '../color-field'
 import { warningStyles } from './friendly-names'
 import {
+  warningSchema,
   type BannerWarning,
   type BorderWarning,
   type Warning,
@@ -40,10 +41,10 @@ interface FormData {
   warningStyle: Warning['warningStyle']
   pattern: Warning['pattern']
   enabled: Warning['enabled']
-  borderColor: BorderWarning['borderColor']
-  text: BannerWarning['text']
-  textColor: BannerWarning['textColor']
-  backgroundColor: BannerWarning['backgroundColor']
+  borderColor?: BorderWarning['borderColor']
+  text?: BannerWarning['text']
+  textColor?: BannerWarning['textColor']
+  backgroundColor?: BannerWarning['backgroundColor']
 }
 
 export default function WarningForm({
@@ -51,22 +52,16 @@ export default function WarningForm({
   value,
 }: WarningFormProps): JSX.Element {
   const { register, handleSubmit, control, watch } = useForm<FormData>({
-    defaultValues: async () => {
-      const defaults: FormData = {
-        warningStyle: 'topBanner',
-        pattern: (await guessPattern()) ?? '',
-        enabled: true,
-        borderColor: 'FF0000',
-        text: 'Warning! This is Production!',
-        textColor: 'FFFFFF',
-        backgroundColor: 'FF0000',
-      }
-
-      return {
-        ...defaults,
-        ...(value ?? {}),
-      }
-    },
+    values: value,
+    defaultValues: async () => ({
+      warningStyle: 'topBanner',
+      pattern: (await guessPattern()) ?? '',
+      enabled: true,
+      borderColor: 'FF0000',
+      text: 'Warning! This is Production!',
+      textColor: 'FFFFFF',
+      backgroundColor: 'FF0000',
+    }),
   })
 
   const patternId = useId()
@@ -78,31 +73,8 @@ export default function WarningForm({
   const textColorId = useId()
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    let res: Warning
-    switch (data.warningStyle) {
-      case 'bottomBanner':
-      case 'topBanner':
-        res = {
-          enabled: data.enabled,
-          warningStyle: data.warningStyle,
-          pattern: data.pattern,
-          text: data.text,
-          textColor: data.textColor,
-          backgroundColor: data.backgroundColor,
-        }
-        break
-
-      case 'border':
-        res = {
-          enabled: data.enabled,
-          warningStyle: data.warningStyle,
-          pattern: data.pattern,
-          borderColor: data.borderColor,
-        }
-        break
-    }
-
     if (onSave != null) {
+      const res = warningSchema.parse(data)
       onSave(res)
     }
   }
@@ -161,7 +133,7 @@ export default function WarningForm({
             render={({ field: { value, onChange } }) => (
               <ColorField
                 id={borderColorId}
-                value={value}
+                value={value ?? ''}
                 onChange={onChange}
                 required
               />
@@ -186,7 +158,7 @@ export default function WarningForm({
             render={({ field: { value, onChange } }) => (
               <ColorField
                 id={textColorId}
-                value={value}
+                value={value ?? ''}
                 onChange={onChange}
                 required
               />
@@ -200,7 +172,7 @@ export default function WarningForm({
             render={({ field: { value, onChange } }) => (
               <ColorField
                 id={backgroundColorId}
-                value={value}
+                value={value ?? ''}
                 onChange={onChange}
                 required
               />
