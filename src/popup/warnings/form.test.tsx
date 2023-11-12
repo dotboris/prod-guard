@@ -62,6 +62,7 @@ describe('border form', () => {
     expect(res).toEqual({
       warningStyle: 'border',
       pattern: 'url pattern',
+      enabled: true,
       borderColor: 'FF0000',
     })
   })
@@ -75,7 +76,7 @@ describe('border form', () => {
           res = newValue
         }}
         value={{
-          enabled: true,
+          enabled: false,
           warningStyle: 'border',
           pattern: 'existing pattern',
           borderColor: '012',
@@ -88,6 +89,7 @@ describe('border form', () => {
     expect(res).toEqual({
       warningStyle: 'border',
       pattern: 'existing pattern',
+      enabled: false,
       borderColor: '012',
     })
   })
@@ -104,6 +106,7 @@ describe('border form', () => {
       />,
     )
 
+    await userEvent.selectOptions(screen.getByLabelText('Enabled:'), 'false')
     await userEvent.type(screen.getByLabelText('URL Regex:'), 'url pattern')
     await userEvent.selectOptions(screen.getByLabelText('Style:'), ['border'])
     await userEvent.clear(screen.getByLabelText('Border Color:'))
@@ -113,6 +116,7 @@ describe('border form', () => {
     expect(res).toEqual({
       warningStyle: 'border',
       pattern: 'url pattern',
+      enabled: false,
       borderColor: '00FF00',
     })
   })
@@ -142,6 +146,7 @@ for (const [title, style] of Object.entries({
       expect(res).toEqual({
         warningStyle: style,
         pattern: 'url pattern',
+        enabled: true,
         backgroundColor: 'FF0000',
         text: 'Warning! This is Production!',
         textColor: 'FFFFFF',
@@ -157,7 +162,7 @@ for (const [title, style] of Object.entries({
             res = newValue
           }}
           value={{
-            enabled: true,
+            enabled: false,
             warningStyle: style,
             pattern: 'existing pattern',
             text: 'existing text',
@@ -172,6 +177,7 @@ for (const [title, style] of Object.entries({
       expect(res).toEqual({
         warningStyle: style,
         pattern: 'existing pattern',
+        enabled: false,
         text: 'existing text',
         backgroundColor: '001',
         textColor: '002',
@@ -190,6 +196,7 @@ for (const [title, style] of Object.entries({
         />,
       )
 
+      await userEvent.selectOptions(screen.getByLabelText('Enabled:'), 'false')
       await userEvent.type(screen.getByLabelText('URL Regex:'), 'url pattern')
       await userEvent.selectOptions(screen.getByLabelText('Style:'), [style])
 
@@ -207,6 +214,7 @@ for (const [title, style] of Object.entries({
       expect(res).toEqual({
         warningStyle: style,
         pattern: 'url pattern',
+        enabled: false,
         text: 'message',
         textColor: '001',
         backgroundColor: '002',
