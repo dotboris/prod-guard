@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0
+
+### Minor Changes
+
+- [#1016](https://github.com/dotboris/prod-guard/pull/1016) [`435bdc7`](https://github.com/dotboris/prod-guard/commit/435bdc7190a54e9f9e38822a18b0e5e0d5f795f3) Thanks [@dotboris](https://github.com/dotboris)! - Warning can now be toggled on & off. Warnings that are toggled off don't get injected into pages.
+
 ## 1.4.0
 
 ### Minor Changes
