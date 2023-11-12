@@ -39,6 +39,7 @@ export interface WarningFormProps {
 interface FormData {
   warningStyle: Warning['warningStyle']
   pattern: Warning['pattern']
+  enabled: boolean
   borderColor: BorderWarning['borderColor']
   text: BannerWarning['text']
   textColor: BannerWarning['textColor']
@@ -54,6 +55,7 @@ export default function WarningForm({
       const defaults: FormData = {
         warningStyle: 'topBanner',
         pattern: (await guessPattern()) ?? '',
+        enabled: true,
         borderColor: 'FF0000',
         text: 'Warning! This is Production!',
         textColor: 'FFFFFF',
@@ -69,6 +71,7 @@ export default function WarningForm({
 
   const patternId = useId()
   const warningStyleId = useId()
+  const enabledId = useId()
   const textId = useId()
   const borderColorId = useId()
   const backgroundColorId = useId()
@@ -80,7 +83,7 @@ export default function WarningForm({
       case 'bottomBanner':
       case 'topBanner':
         res = {
-          enabled: true,
+          enabled: data.enabled,
           warningStyle: data.warningStyle,
           pattern: data.pattern,
           text: data.text,
@@ -91,7 +94,7 @@ export default function WarningForm({
 
       case 'border':
         res = {
-          enabled: true,
+          enabled: data.enabled,
           warningStyle: data.warningStyle,
           pattern: data.pattern,
           borderColor: data.borderColor,
@@ -111,6 +114,26 @@ export default function WarningForm({
         void handleSubmit(onSubmit)(e)
       }}
     >
+      <label htmlFor={enabledId}>Enabled:</label>
+      <select
+        id={enabledId}
+        {...register('enabled', {
+          setValueAs: (value) => {
+            // When the form is fresh and this field wasn't touched the value is
+            // actually the boolean one from `defaultValues`. We need to handle
+            // that case as well.
+            if (typeof value === 'boolean') {
+              return value
+            }
+
+            return value === 'true'
+          },
+        })}
+      >
+        <option value='true'>Yes</option>
+        <option value='false'>No</option>
+      </select>
+
       <label htmlFor={patternId}>URL Regex:</label>
       <input
         id={patternId}
