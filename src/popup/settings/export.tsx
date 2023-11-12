@@ -3,6 +3,7 @@ import { type JSX } from 'react'
 import { useAsyncFn } from 'react-use'
 import { trpc } from '../trpc'
 import { useExpiringState } from './useExpiringState'
+import { Button } from '../components/button'
 
 const styles = {
   root: css({
@@ -50,14 +51,14 @@ function CopyToClipboardButton({ text }: { text: string }): JSX.Element {
 
   return (
     <>
-      <button
+      <Button
         type='button'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onClick={state.loading ? undefined : doCopy}
         disabled={state.loading}
       >
         {buttonText}
-      </button>
+      </Button>
       {state.error != null ? <p>{state.error.message}</p> : null}
     </>
   )

@@ -4,7 +4,7 @@ import { z } from 'zod'
  * Current data version. The state is versioned using a number. The first
  * version is `0` and gets incremented with every upgrade.
  */
-export const CURRENT_DATA_VERSION = 3
+export const CURRENT_DATA_VERSION = 4
 
 /**
  * Pseudo enum that represents that represents the various warning styles. This
@@ -17,6 +17,7 @@ export const WarningStyle = {
 } as const
 
 export const topBannerWarningSchema = z.object({
+  enabled: z.boolean(),
   warningStyle: z.literal(WarningStyle.TopBanner),
   pattern: z.string(),
   text: z.string(),
@@ -26,6 +27,7 @@ export const topBannerWarningSchema = z.object({
 export type TopBannerWarning = z.infer<typeof topBannerWarningSchema>
 
 export const BottomBannerWarningSchema = z.object({
+  enabled: z.boolean(),
   warningStyle: z.literal(WarningStyle.BottomBanner),
   pattern: z.string(),
   text: z.string(),
@@ -37,6 +39,7 @@ export type BottomBannerWarning = z.infer<typeof BottomBannerWarningSchema>
 export type BannerWarning = TopBannerWarning | BottomBannerWarning
 
 export const borderWarningSchema = z.object({
+  enabled: z.boolean(),
   warningStyle: z.literal(WarningStyle.Border),
   pattern: z.string(),
   borderColor: z.string(),

@@ -18,6 +18,7 @@ function resetUuidV4(): void {
 }
 
 const STUB_WARNING: Warning = {
+  enabled: true,
   pattern: 'stub pattern',
   warningStyle: WarningStyle.Border,
   borderColor: 'fff',
@@ -286,6 +287,15 @@ describe('state.ts', () => {
 
       expect(matches).toEqual([])
     })
+
+    it('should ignore disabled warnings', () => {
+      const state = new State(makeAllData())
+      state.addWarning({ ...STUB_WARNING, pattern: 'foobar', enabled: false })
+
+      const matches = state.findMatchingWarnings('https://something-else.com')
+
+      expect(matches).toEqual([])
+    })
   })
 
   describe('exportAllData()', () => {
@@ -304,18 +314,21 @@ describe('state.ts', () => {
         dataVersion: CURRENT_DATA_VERSION,
         warnings: [
           {
+            enabled: true,
             borderColor: 'fff',
             id: 'uuid-1',
             pattern: 'foo',
             warningStyle: 'border',
           },
           {
+            enabled: true,
             borderColor: 'fff',
             id: 'uuid-2',
             pattern: 'bar',
             warningStyle: 'border',
           },
           {
+            enabled: true,
             borderColor: 'fff',
             id: 'uuid-3',
             pattern: 'baz',

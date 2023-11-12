@@ -23,5 +23,23 @@ const t = initTRPC.context<Context>().create({
   },
 })
 
+export const middleware = t.middleware
+
+const logMiddleware = middleware(async (opts) => {
+  const start = Date.now()
+
+  const res = await opts.next()
+
+  console.debug('TRPC request:', {
+    type: opts.type,
+    path: opts.path,
+    input: opts.input,
+    ok: res.ok,
+    durationMs: Date.now() - start,
+  })
+
+  return res
+})
+
 export const router = t.router
-export const publicProcedure = t.procedure
+export const publicProcedure = t.procedure.use(logMiddleware)

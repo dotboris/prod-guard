@@ -1,4 +1,4 @@
-import Layout from '../layout'
+import Layout from '../components/layout'
 import ExportBox from './export'
 import { ImportBox } from './import'
 

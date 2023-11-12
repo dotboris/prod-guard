@@ -71,7 +71,17 @@ export class State {
     }
   }
 
+  toggleWarningEnabled(id: string): void {
+    const warning = this.getWarning(id)
+    if (warning != null) {
+      warning.enabled = !warning.enabled
+      this.updateWarning(id, warning)
+    }
+  }
+
   findMatchingWarnings(url: string): WarningWithId[] {
-    return this.getAllWarnings().filter((warning) => url.match(warning.pattern))
+    return this.getAllWarnings().filter(
+      (warning) => warning.enabled && url.match(warning.pattern),
+    )
   }
 }

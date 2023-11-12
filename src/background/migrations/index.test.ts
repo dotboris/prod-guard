@@ -56,12 +56,14 @@ describe('data migrations', () => {
 
       expect(res.warnings).toEqual([
         {
+          enabled: true,
           id: 'uuid-0',
           pattern: 'test1',
           warningStyle: 'border',
           borderColor: 'FF0000',
         },
         {
+          enabled: true,
           id: 'uuid-1',
           pattern: 'test2',
           warningStyle: 'bottomBanner',
@@ -70,6 +72,7 @@ describe('data migrations', () => {
           textColor: 'FFFFFF',
         },
         {
+          enabled: true,
           id: 'uuid-2',
           pattern: 'test3',
           warningStyle: 'topBanner',
@@ -140,12 +143,14 @@ describe('data migrations', () => {
 
       expect(res.warnings).toEqual([
         {
+          enabled: true,
           id: 'uuid-0',
           pattern: 'test1',
           warningStyle: 'border',
           borderColor: 'no touching',
         },
         {
+          enabled: true,
           id: 'uuid-1',
           pattern: 'test2',
           warningStyle: 'bottomBanner',
@@ -154,6 +159,7 @@ describe('data migrations', () => {
           textColor: 'no touching',
         },
         {
+          enabled: true,
           id: 'uuid-2',
           pattern: 'test3',
           warningStyle: 'topBanner',
