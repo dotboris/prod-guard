@@ -107,8 +107,8 @@ export default function WarningForm({
   return (
     <form
       css={styles.root}
-      onSubmit={() => {
-        void handleSubmit(onSubmit)
+      onSubmit={(e) => {
+        void handleSubmit(onSubmit)(e)
       }}
     >
       <label htmlFor={patternId}>URL Regex:</label>
