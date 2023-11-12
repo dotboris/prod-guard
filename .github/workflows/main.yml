@@ -65,5 +65,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           NOTES: ${{ steps.extract-notes.outputs.markdown }}
-        run: gh release create --notes "$NOTES" "v$VERSION" "prod_guard-$VERSION.zip"
+        run: |
+          gh release create \
+            --title "v$VERSION" \
+            --notes "$NOTES" \
+            "v$VERSION" \
+            "prod_guard-$VERSION.zip"
 
