@@ -39,7 +39,7 @@ export interface WarningFormProps {
 interface FormData {
   warningStyle: Warning['warningStyle']
   pattern: Warning['pattern']
-  enabled: boolean
+  enabled: Warning['enabled']
   borderColor: BorderWarning['borderColor']
   text: BannerWarning['text']
   textColor: BannerWarning['textColor']
@@ -115,24 +115,23 @@ export default function WarningForm({
       }}
     >
       <label htmlFor={enabledId}>Enabled:</label>
-      <select
-        id={enabledId}
-        {...register('enabled', {
-          setValueAs: (value) => {
-            // When the form is fresh and this field wasn't touched the value is
-            // actually the boolean one from `defaultValues`. We need to handle
-            // that case as well.
-            if (typeof value === 'boolean') {
-              return value
-            }
-
-            return value === 'true'
-          },
-        })}
-      >
-        <option value='true'>Yes</option>
-        <option value='false'>No</option>
-      </select>
+      <Controller
+        name='enabled'
+        control={control}
+        render={({ field }) => (
+          <select
+            {...field}
+            id={enabledId}
+            value={field.value ? 'true' : 'false'}
+            onChange={(e) => {
+              field.onChange(e.target.value === 'true')
+            }}
+          >
+            <option value='true'>Yes</option>
+            <option value='false'>No</option>
+          </select>
+        )}
+      />
 
       <label htmlFor={patternId}>URL Regex:</label>
       <input
