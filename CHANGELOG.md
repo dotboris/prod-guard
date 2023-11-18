@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.1
+
+### Patch Changes
+
+- [#1036](https://github.com/dotboris/prod-guard/pull/1036) [`3ad8c34`](https://github.com/dotboris/prod-guard/commit/3ad8c34b62cfee6eb6fcf5fed1bfc7e3b607ee84) Thanks [@dotboris](https://github.com/dotboris)! - Fix issue where long URL patterns would overflow off the popup. This lead to the icons next to the pattern being hidden.
+
 ## 1.5.0
 
 ### Minor Changes
