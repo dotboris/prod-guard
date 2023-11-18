@@ -109,6 +109,7 @@ const itemStyles = {
   pattern: css({
     fontFamily: `'Lucida Console', Monaco, monospace`,
     flexGrow: 1,
+    overflowWrap: 'anywhere',
     alignSelf: 'center',
   }),
 
