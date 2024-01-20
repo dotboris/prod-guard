@@ -9,12 +9,12 @@
     "noEmit": true,
     "strict": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react"
+    "jsxImportSource": "@emotion/react",
   },
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/**/*.js",
-    "./src/**/*.jsx"
-  ]
+    "./src/**/*.jsx",
+  ],
 }
