@@ -17,7 +17,7 @@
     "test": "jest",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,scss}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json,scss}'",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "packageManager": "pnpm@8.14.1",
   "devDependencies": {
