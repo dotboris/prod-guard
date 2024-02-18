@@ -1,11 +1,22 @@
-import './banner.scss'
 import rafThrottle from 'raf-throttle'
 import { type BannerWarning } from '../schema'
+import { css, cx } from '@emotion/css'
 
-const BANNER_CLASS = {
-  bottomBanner: 'bottom',
-  topBanner: 'top',
-} as const
+const styles = {
+  root: css({
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    zIndex: 9999999,
+    pointerEvents: 'none',
+    fontSize: '1.25rem',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: '0.5rem 0',
+  }),
+  top: css({ top: 0 }),
+  bottom: css({ bottom: 0 }),
+}
 
 interface BannerState {
   mouseInWindow: boolean
@@ -21,7 +32,13 @@ export function makeBanner({
   textColor,
 }: BannerWarning): void {
   const banner = document.createElement('div')
-  banner.classList.add('prod-guard', 'banner', BANNER_CLASS[warningStyle])
+  banner.classList.add(
+    cx(
+      styles.root,
+      warningStyle === 'topBanner' && styles.top,
+      warningStyle === 'bottomBanner' && styles.bottom,
+    ),
+  )
   banner.textContent = text
   banner.style.color = `#${textColor}`
   banner.style.backgroundColor = `#${backgroundColor}`
