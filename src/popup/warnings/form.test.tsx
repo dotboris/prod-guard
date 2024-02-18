@@ -1,6 +1,6 @@
 import { vi, test, describe, beforeEach, expect } from 'vitest'
 import browser from 'webextension-polyfill'
-import { render, screen, cleanup } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import WarningForm from './form'
 import { WarningStyle, type Warning } from '../../schema'
@@ -15,7 +15,6 @@ vi.mock('webextension-polyfill', () => ({
 }))
 
 beforeEach(() => {
-  cleanup()
   browserMock.tabs.query.mockImplementation(async () => [])
 })
 
