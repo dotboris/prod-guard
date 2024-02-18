@@ -11,12 +11,11 @@
     "package": "web-ext build -s dist -o",
     "lint": "run-p 'lint:**' 'format:check'",
     "lint:js": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
-    "lint:css": "stylelint 'src/**/*.scss'",
     "lint:web-ext": "web-ext lint -s dist",
     "lint:typecheck": "tsc --noEmit",
     "test": "jest",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,scss}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json,scss}'",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json}'",
     "prepare": "husky"
   },
   "packageManager": "pnpm@8.15.3",
@@ -91,7 +90,7 @@
     "zod-validation-error": "^3.0.2"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,scss}": [
+    "*.{ts,tsx,js,jsx,json}": [
       "prettier --write"
     ]
   }
