@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import { palette } from './theme'
+import CarretDownIcon from '@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri'
 
 export const GLOBAL_STYLES = css({
   'html, body': {
@@ -31,9 +32,7 @@ export const GLOBAL_STYLES = css({
   select: {
     appearance: 'none',
     border: `1px solid ${palette.darkShade}`,
-    background: `
-      url('@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri')
-      right 0.5rem top 50%/0.5rem no-repeat white`,
+    background: `url(${CarretDownIcon}) right 0.5rem top 50%/0.5rem no-repeat white`,
     padding: '0.5rem 1.5rem 0.5rem 0.5rem',
 
     '&:hover, &:focus, &:active': {
