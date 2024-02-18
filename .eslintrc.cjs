@@ -22,10 +22,6 @@ module.exports = {
       extends: ['standard'],
     },
     {
-      files: ['**/*.test.ts', '**/*.test.js'],
-      extends: ['plugin:jest/recommended'],
-    },
-    {
       files: ['**/*.tsx', '**/*.jsx'],
       extends: ['standard-jsx', 'plugin:react-hooks/recommended'],
     },

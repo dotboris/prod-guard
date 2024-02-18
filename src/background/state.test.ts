@@ -7,12 +7,11 @@ import {
   type AllData,
 } from '../schema'
 import { vi, describe, it, expect, beforeEach } from 'vitest'
-import { v4 as _uuidV4 } from 'uuid'
-
-const _uuid = await vi.importActual<typeof import('uuid')>('uuid')
-const uuidV4 = vi.mocked(_uuidV4)
+import * as uuid from 'uuid'
 
 vi.mock('uuid', () => ({ v4: vi.fn() }))
+const uuidV4 = vi.mocked(uuid.v4)
+const _uuid = await vi.importActual<typeof uuid>('uuid')
 
 function resetUuidV4(): void {
   uuidV4.mockReset()

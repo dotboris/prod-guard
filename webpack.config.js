@@ -1,4 +1,4 @@
-import packageJson from './package.json' with { type: 'json' }
+import { readFile } from 'node:fs/promises'
 import path from 'path'
 import sharp from 'sharp'
 import CopyPlugin from 'copy-webpack-plugin'
@@ -11,7 +11,11 @@ function isProd() {
   return process.env.NODE_ENV === 'production'
 }
 
-function patchManifest(manifestContent) {
+async function patchManifest(manifestContent) {
+  const packageJson = JSON.parse(
+    await readFile(path.join(import.meta.dirname, 'package.json')),
+  )
+
   const manifest = JSON.parse(manifestContent)
 
   let darkIcons = ICON_SIZES.map((size) => [
@@ -54,7 +58,7 @@ function copyPluginIconPatterns() {
   return res
 }
 
-export default {
+export default async () => ({
   mode: isProd() ? 'production' : 'development',
 
   context: path.resolve(import.meta.dirname, 'src'),
@@ -71,8 +75,8 @@ export default {
         {
           from: 'manifest.json',
           to: 'manifest.json',
-          transform(content) {
-            return patchManifest(content)
+          async transform(content) {
+            return await patchManifest(content)
           },
         },
         ...copyPluginIconPatterns(),
@@ -109,4 +113,4 @@ export default {
   },
 
   devtool: 'source-map',
-}
+})
