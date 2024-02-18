@@ -1,5 +1,33 @@
 import { type ChangeEventHandler, useCallback, useState } from 'react'
-import './color-field.scss'
+import { css } from '@emotion/react'
+import { palette } from './theme'
+
+const styles = {
+  root: css({
+    position: 'relative',
+    display: 'flex',
+
+    input: {
+      paddingRight: '2rem',
+      flexGrow: 1,
+    },
+  }),
+  previewWrapper: css({
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 0,
+    bottom: 0,
+    right: '0.5rem',
+  }),
+  preview: css({
+    width: '1rem',
+    height: '1rem',
+    borderRadius: '50%',
+    border: `1px solid ${palette.darkShade}`,
+  }),
+}
 
 export interface ColorFieldProps {
   id?: string
@@ -25,9 +53,9 @@ export default function ColorField(props: ColorFieldProps): JSX.Element {
   )
 
   return (
-    <div className='color-field'>
-      <div className='preview-wrapper'>
-        <div className='preview' style={{ backgroundColor: `#${rawValue}` }} />
+    <div css={styles.root}>
+      <div css={styles.previewWrapper}>
+        <div css={styles.preview} style={{ backgroundColor: `#${rawValue}` }} />
       </div>
 
       <input

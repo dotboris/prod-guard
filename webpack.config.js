@@ -93,10 +93,6 @@ module.exports = {
         use: 'babel-loader',
       },
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
-      },
-      {
         test: /\.svg$/,
         type: 'asset/source',
       },
