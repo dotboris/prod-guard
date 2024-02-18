@@ -1,10 +1,11 @@
+import { vi, describe, beforeEach, it, expect } from 'vitest'
 import { migrateStorageData } from '.'
 import * as uuid from 'uuid'
 import { range } from 'lodash-es'
 
-jest.mock('uuid', () => ({ v4: jest.fn() }))
-const uuidV4 = jest.mocked(uuid.v4)
-const _uuid = jest.requireActual<typeof uuid>('uuid')
+vi.mock('uuid', () => ({ v4: vi.fn() }))
+const uuidV4 = vi.mocked(uuid.v4)
+const _uuid = await vi.importActual<typeof uuid>('uuid')
 
 function resetUuidV4(): void {
   uuidV4.mockReset()

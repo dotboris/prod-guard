@@ -1,9 +1,9 @@
-const { version } = require('./package.json')
-const path = require('path')
-const sharp = require('sharp')
-const CopyPlugin = require('copy-webpack-plugin')
-const CleanPlugin = require('webpack-clean-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+import { readFile } from 'node:fs/promises'
+import path from 'path'
+import sharp from 'sharp'
+import CopyPlugin from 'copy-webpack-plugin'
+import CleanPlugin from 'webpack-clean-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 const ICON_SIZES = [16, 24, 32, 48, 64, 96, 128]
 
@@ -11,7 +11,11 @@ function isProd() {
   return process.env.NODE_ENV === 'production'
 }
 
-function patchManifest(manifestContent) {
+async function patchManifest(manifestContent) {
+  const packageJson = JSON.parse(
+    await readFile(path.join(import.meta.dirname, 'package.json')),
+  )
+
   const manifest = JSON.parse(manifestContent)
 
   let darkIcons = ICON_SIZES.map((size) => [
@@ -26,7 +30,7 @@ function patchManifest(manifestContent) {
     dark: pngIconPath('dark', size),
   }))
 
-  manifest.version = version
+  manifest.version = packageJson.version
   manifest.icons = darkIcons
   manifest.browser_action.default_icon = darkIcons
   manifest.browser_action.theme_icons = themeIcons
@@ -54,10 +58,10 @@ function copyPluginIconPatterns() {
   return res
 }
 
-module.exports = {
+export default async () => ({
   mode: isProd() ? 'production' : 'development',
 
-  context: path.resolve(__dirname, 'src'),
+  context: path.resolve(import.meta.dirname, 'src'),
   entry: {
     'content-script': './content-script',
     background: './background',
@@ -71,8 +75,8 @@ module.exports = {
         {
           from: 'manifest.json',
           to: 'manifest.json',
-          transform(content) {
-            return patchManifest(content)
+          async transform(content) {
+            return await patchManifest(content)
           },
         },
         ...copyPluginIconPatterns(),
@@ -109,4 +113,4 @@ module.exports = {
   },
 
   devtool: 'source-map',
-}
+})
