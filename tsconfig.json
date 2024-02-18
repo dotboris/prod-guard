@@ -12,6 +12,7 @@
     "jsxImportSource": "@emotion/react"
   },
   "include": [
+    "./vitest.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/**/*.js",

@@ -1,18 +1,21 @@
-import React from 'react'
+import { vi, test, describe, beforeEach, expect } from 'vitest'
 import browser from 'webextension-polyfill'
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import WarningForm from './form'
 import { WarningStyle, type Warning } from '../../schema'
 
-const browserMock = jest.mocked(browser)
-jest.mock('webextension-polyfill', () => ({
-  tabs: {
-    query: jest.fn(),
+const browserMock = vi.mocked(browser, { deep: true })
+vi.mock('webextension-polyfill', () => ({
+  default: {
+    tabs: {
+      query: vi.fn(),
+    },
   },
 }))
 
 beforeEach(() => {
+  cleanup()
   browserMock.tabs.query.mockImplementation(async () => [])
 })
 

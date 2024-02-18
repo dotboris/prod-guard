@@ -6,11 +6,13 @@ import {
   CURRENT_DATA_VERSION,
   type AllData,
 } from '../schema'
+import { vi, describe, it, expect, beforeEach } from 'vitest'
+import { v4 as _uuidV4 } from 'uuid'
 
-const _uuid = jest.requireActual('uuid')
-const uuidV4 = jest.requireMock('uuid').v4
+const _uuid = await vi.importActual<typeof import('uuid')>('uuid')
+const uuidV4 = vi.mocked(_uuidV4)
 
-jest.mock('uuid', () => ({ v4: jest.fn() }))
+vi.mock('uuid', () => ({ v4: vi.fn() }))
 
 function resetUuidV4(): void {
   uuidV4.mockReset()

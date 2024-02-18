@@ -1,9 +1,9 @@
-const { version } = require('./package.json')
-const path = require('path')
-const sharp = require('sharp')
-const CopyPlugin = require('copy-webpack-plugin')
-const CleanPlugin = require('webpack-clean-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+import packageJson from './package.json' with { type: 'json' }
+import path from 'path'
+import sharp from 'sharp'
+import CopyPlugin from 'copy-webpack-plugin'
+import CleanPlugin from 'webpack-clean-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 const ICON_SIZES = [16, 24, 32, 48, 64, 96, 128]
 
@@ -26,7 +26,7 @@ function patchManifest(manifestContent) {
     dark: pngIconPath('dark', size),
   }))
 
-  manifest.version = version
+  manifest.version = packageJson.version
   manifest.icons = darkIcons
   manifest.browser_action.default_icon = darkIcons
   manifest.browser_action.theme_icons = themeIcons
@@ -54,10 +54,10 @@ function copyPluginIconPatterns() {
   return res
 }
 
-module.exports = {
+export default {
   mode: isProd() ? 'production' : 'development',
 
-  context: path.resolve(__dirname, 'src'),
+  context: path.resolve(import.meta.dirname, 'src'),
   entry: {
     'content-script': './content-script',
     background: './background',
