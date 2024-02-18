@@ -4,7 +4,8 @@ import {
   WarningStyle,
   type WarningWithId,
   CURRENT_DATA_VERSION,
-} from '../api'
+  type AllData,
+} from '../schema'
 
 const _uuid = jest.requireActual('uuid')
 const uuidV4 = jest.requireMock('uuid').v4
@@ -17,9 +18,17 @@ function resetUuidV4(): void {
 }
 
 const STUB_WARNING: Warning = {
+  enabled: true,
   pattern: 'stub pattern',
   warningStyle: WarningStyle.Border,
   borderColor: 'fff',
+}
+
+function makeAllData(warnings: WarningWithId[] = []): AllData {
+  return {
+    dataVersion: CURRENT_DATA_VERSION,
+    warnings,
+  }
 }
 
 describe('state.ts', () => {
@@ -29,12 +38,12 @@ describe('state.ts', () => {
 
   describe('State', () => {
     it('should construct with the latest version', () => {
-      const state = new State()
+      const state = new State(makeAllData())
       expect(state.dataVersion).toBe(CURRENT_DATA_VERSION)
     })
 
     it('should construct with empty warnings', () => {
-      const state = new State()
+      const state = new State(makeAllData())
       expect(state.warnings.size).toBe(0)
     })
 
@@ -50,7 +59,7 @@ describe('state.ts', () => {
         },
       ]
 
-      const state = new State(warnings)
+      const state = new State(makeAllData(warnings))
 
       expect(state.warnings).toEqual(
         new Map(
@@ -68,7 +77,7 @@ describe('state.ts', () => {
 
     describe('addWarning()', () => {
       it('should add to the warnings', () => {
-        const state = new State()
+        const state = new State(makeAllData())
 
         const createdWarning = state.addWarning({
           ...STUB_WARNING,
@@ -91,7 +100,7 @@ describe('state.ts', () => {
         uuidV4.mockImplementationOnce(() => 'uuid-3')
         uuidV4.mockImplementationOnce(() => 'uuid-4')
 
-        const state = new State()
+        const state = new State(makeAllData())
 
         state.addWarning(STUB_WARNING)
         state.addWarning(STUB_WARNING)
@@ -105,7 +114,9 @@ describe('state.ts', () => {
 
     describe('getWarning()', () => {
       it('should get by id', () => {
-        const state = new State([{ ...STUB_WARNING, id: 'uuid-the-one' }])
+        const state = new State(
+          makeAllData([{ ...STUB_WARNING, id: 'uuid-the-one' }]),
+        )
 
         const res = state.getWarning('uuid-the-one')
 
@@ -113,7 +124,9 @@ describe('state.ts', () => {
       })
 
       it('should return null if nothing is found', () => {
-        const state = new State([{ ...STUB_WARNING, id: 'uuid-the-one' }])
+        const state = new State(
+          makeAllData([{ ...STUB_WARNING, id: 'uuid-the-one' }]),
+        )
 
         const res = state.getWarning('uuid-not-there')
 
@@ -123,23 +136,25 @@ describe('state.ts', () => {
 
     describe('getAllWarnings()', () => {
       it('should return an empty list with no warnings', () => {
-        const state = new State()
+        const state = new State(makeAllData())
         expect(state.getAllWarnings()).toEqual([])
       })
 
       it('should return all warnings with their ids', () => {
-        const state = new State([
-          {
-            ...STUB_WARNING,
-            pattern: 'pattern 1',
-            id: 'id1',
-          },
-          {
-            ...STUB_WARNING,
-            pattern: 'pattern 2',
-            id: 'id2',
-          },
-        ])
+        const state = new State(
+          makeAllData([
+            {
+              ...STUB_WARNING,
+              pattern: 'pattern 1',
+              id: 'id1',
+            },
+            {
+              ...STUB_WARNING,
+              pattern: 'pattern 2',
+              id: 'id2',
+            },
+          ]),
+        )
 
         const res = state.getAllWarnings()
 
@@ -160,7 +175,9 @@ describe('state.ts', () => {
 
     describe('removeWarning()', () => {
       it('should remove by id', () => {
-        const state = new State([{ ...STUB_WARNING, id: 'uuid-the-one' }])
+        const state = new State(
+          makeAllData([{ ...STUB_WARNING, id: 'uuid-the-one' }]),
+        )
 
         const res = state.removeWarning('uuid-the-one')
 
@@ -172,7 +189,9 @@ describe('state.ts', () => {
       })
 
       it('should not remove when id does not match', () => {
-        const state = new State([{ ...STUB_WARNING, id: 'uuid-the-one' }])
+        const state = new State(
+          makeAllData([{ ...STUB_WARNING, id: 'uuid-the-one' }]),
+        )
 
         const res = state.removeWarning('uuid-not-the-one')
 
@@ -183,10 +202,12 @@ describe('state.ts', () => {
 
     describe('updateWarning()', () => {
       it('should replace the value when id matches', () => {
-        const state = new State([
-          { ...STUB_WARNING, pattern: 'first', id: 'uuid-first' },
-          { ...STUB_WARNING, pattern: 'second', id: 'uuid-second' },
-        ])
+        const state = new State(
+          makeAllData([
+            { ...STUB_WARNING, pattern: 'first', id: 'uuid-first' },
+            { ...STUB_WARNING, pattern: 'second', id: 'uuid-second' },
+          ]),
+        )
 
         state.updateWarning('uuid-first', {
           ...STUB_WARNING,
@@ -206,10 +227,12 @@ describe('state.ts', () => {
       })
 
       it('should do nothing when id does not exist', () => {
-        const state = new State([
-          { ...STUB_WARNING, pattern: 'first', id: 'uuid-first' },
-          { ...STUB_WARNING, pattern: 'second', id: 'uuid-second' },
-        ])
+        const state = new State(
+          makeAllData([
+            { ...STUB_WARNING, pattern: 'first', id: 'uuid-first' },
+            { ...STUB_WARNING, pattern: 'second', id: 'uuid-second' },
+          ]),
+        )
 
         state.updateWarning('uuid-not-there', {
           ...STUB_WARNING,
@@ -232,7 +255,7 @@ describe('state.ts', () => {
 
   describe('findMatchingWarnings()', () => {
     it('should return warnings where pattern matches url', () => {
-      const state = new State()
+      const state = new State(makeAllData())
       state.addWarning({ ...STUB_WARNING, pattern: 'fo' })
       state.addWarning({ ...STUB_WARNING, pattern: 'foo' })
       state.addWarning({ ...STUB_WARNING, pattern: 'bar' })
@@ -245,7 +268,7 @@ describe('state.ts', () => {
     })
 
     it('should return empty array with no matches', () => {
-      const state = new State()
+      const state = new State(makeAllData())
       state.addWarning({ ...STUB_WARNING, pattern: 'fo' })
       state.addWarning({ ...STUB_WARNING, pattern: 'foo' })
       state.addWarning({ ...STUB_WARNING, pattern: 'bar' })
@@ -258,7 +281,16 @@ describe('state.ts', () => {
     })
 
     it('should return empty array with no warnings', () => {
-      const state = new State()
+      const state = new State(makeAllData())
+
+      const matches = state.findMatchingWarnings('https://something-else.com')
+
+      expect(matches).toEqual([])
+    })
+
+    it('should ignore disabled warnings', () => {
+      const state = new State(makeAllData())
+      state.addWarning({ ...STUB_WARNING, pattern: 'foobar', enabled: false })
 
       const matches = state.findMatchingWarnings('https://something-else.com')
 
@@ -268,11 +300,13 @@ describe('state.ts', () => {
 
   describe('exportAllData()', () => {
     it('should split back all the internal data', () => {
-      const state = new State([
-        { ...STUB_WARNING, id: 'uuid-1', pattern: 'foo' },
-        { ...STUB_WARNING, id: 'uuid-2', pattern: 'bar' },
-        { ...STUB_WARNING, id: 'uuid-3', pattern: 'baz' },
-      ])
+      const state = new State(
+        makeAllData([
+          { ...STUB_WARNING, id: 'uuid-1', pattern: 'foo' },
+          { ...STUB_WARNING, id: 'uuid-2', pattern: 'bar' },
+          { ...STUB_WARNING, id: 'uuid-3', pattern: 'baz' },
+        ]),
+      )
 
       const res = state.exportAllData()
 
@@ -280,18 +314,21 @@ describe('state.ts', () => {
         dataVersion: CURRENT_DATA_VERSION,
         warnings: [
           {
+            enabled: true,
             borderColor: 'fff',
             id: 'uuid-1',
             pattern: 'foo',
             warningStyle: 'border',
           },
           {
+            enabled: true,
             borderColor: 'fff',
             id: 'uuid-2',
             pattern: 'bar',
             warningStyle: 'border',
           },
           {
+            enabled: true,
             borderColor: 'fff',
             id: 'uuid-3',
             pattern: 'baz',

@@ -1,7 +1,9 @@
 import { css } from '@emotion/react'
-import { useState, type JSX, useEffect } from 'react'
+import { type JSX } from 'react'
 import { useAsyncFn } from 'react-use'
-import { useAllData } from '../api-hooks'
+import { trpc } from '../trpc'
+import { useExpiringState } from './useExpiringState'
+import { Button } from '../components/button'
 
 const styles = {
   root: css({
@@ -14,7 +16,7 @@ const styles = {
 }
 
 export default function ExportBox(): JSX.Element | undefined {
-  const { error, data } = useAllData()
+  const { error, data } = trpc.exportAllData.useQuery()
   const formattedData = JSON.stringify(data, null, 2)
 
   return (
@@ -49,33 +51,15 @@ function CopyToClipboardButton({ text }: { text: string }): JSX.Element {
 
   return (
     <>
-      <button
+      <Button
         type='button'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onClick={state.loading ? undefined : doCopy}
         disabled={state.loading}
       >
         {buttonText}
-      </button>
+      </Button>
       {state.error != null ? <p>{state.error.message}</p> : null}
     </>
   )
-}
-
-function useExpiringState<T>(
-  defaultValue: T,
-  timeout: number,
-): [T, (value: T) => void] {
-  const [value, setValue] = useState(defaultValue)
-  useEffect(() => {
-    if (value !== defaultValue) {
-      const handle = setTimeout(() => {
-        setValue(defaultValue)
-      }, timeout)
-      return () => {
-        clearTimeout(handle)
-      }
-    }
-  }, [defaultValue, timeout, value, setValue])
-  return [value, setValue]
 }

@@ -3,7 +3,7 @@ import {
   type Warning,
   CURRENT_DATA_VERSION,
   type AllData,
-} from '../api'
+} from '../schema'
 import { v4 as uuidV4 } from 'uuid'
 import { omit } from 'lodash-es'
 
@@ -11,10 +11,21 @@ export class State {
   dataVersion = CURRENT_DATA_VERSION
   warnings = new Map<string, Warning>()
 
-  constructor(initialWarnings: WarningWithId[] = []) {
+  constructor(allData: AllData) {
+    this.importAllData(allData)
+  }
+
+  importAllData(allData: AllData): void {
     this.warnings = new Map(
-      initialWarnings.map((w) => [w.id, omit(w, 'id') as Warning]),
+      allData.warnings.map((w) => [w.id, omit(w, 'id') as Warning]),
     )
+  }
+
+  exportAllData(): AllData {
+    return {
+      dataVersion: CURRENT_DATA_VERSION,
+      warnings: this.getAllWarnings(),
+    }
   }
 
   private uniqueWarningId(): string {
@@ -60,14 +71,17 @@ export class State {
     }
   }
 
-  findMatchingWarnings(url: string): WarningWithId[] {
-    return this.getAllWarnings().filter((warning) => url.match(warning.pattern))
+  toggleWarningEnabled(id: string): void {
+    const warning = this.getWarning(id)
+    if (warning != null) {
+      warning.enabled = !warning.enabled
+      this.updateWarning(id, warning)
+    }
   }
 
-  exportAllData(): AllData {
-    return {
-      dataVersion: CURRENT_DATA_VERSION,
-      warnings: this.getAllWarnings(),
-    }
+  findMatchingWarnings(url: string): WarningWithId[] {
+    return this.getAllWarnings().filter(
+      (warning) => warning.enabled && url.match(warning.pattern),
+    )
   }
 }

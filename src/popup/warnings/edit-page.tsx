@@ -1,18 +1,18 @@
-import Layout from '../layout'
-import { useWarning, useUpdateWarningMutation } from '../api-hooks'
+import Layout from '../components/layout'
 import WarningForm from './form'
 import { useParams, useNavigate } from 'react-router'
-import { type Warning } from '../../api'
+import { type Warning } from '../../schema'
+import { trpc } from '../trpc'
 
 export default function EditWarningPage(): JSX.Element {
-  const updateWarningMutation = useUpdateWarningMutation()
+  const updateWarningMutation = trpc.warnings.update.useMutation()
 
   const { id } = useParams()
   if (id == null) {
     throw new TypeError('Parameter id is required')
   }
 
-  const { isLoading, data: warning } = useWarning(id)
+  const { isLoading, data: warning } = trpc.warnings.get.useQuery({ id })
 
   const navigate = useNavigate()
   const handleSave = async (warning: Warning): Promise<void> => {

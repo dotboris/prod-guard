@@ -1,0 +1,74 @@
+name: main branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  should-release:
+    needs: ci
+
+    outputs:
+      tag-exists: ${{ steps.tag-exists.outputs.result }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if built tag exists
+        id: tag-exists
+        env:
+          VERSION: ${{ needs.ci.outputs.version }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag_exists="$(
+            gh api graphql \
+              -F "ref=refs/tags/v$VERSION" \
+              -f query='
+              query ($ref: String!) {
+                repository(owner: "dotboris", name: "prod-guard") {
+                  ref(qualifiedName: $ref) {
+                    id
+                  }
+                }
+              }' \
+              -q '.data.repository.ref.id != null'
+          )"
+          echo "result=${tag_exists}" >> "$GITHUB_OUTPUT"
+
+  release:
+    needs: [ci, should-release]
+
+    if: ${{ needs.should-release.outputs.tag-exists == 'false' }}
+
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.ci.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: sean0x42/markdown-extract@v2
+        id: extract-notes
+        with:
+          file: CHANGELOG.md
+          pattern: ${{ env.VERSION }}
+          no-print-matched-heading: 'true'
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: prod_guard-${{ env.VERSION }}.zip
+      - run: ls -lhR
+
+      - name: Create Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NOTES: ${{ steps.extract-notes.outputs.markdown }}
+        run: |
+          gh release create \
+            --title "v$VERSION" \
+            --notes "$NOTES" \
+            "v$VERSION" \
+            "prod_guard-$VERSION.zip"
+

@@ -1,23 +1,38 @@
-import './list-page.scss'
 import { warningStyles } from './friendly-names'
-import Icon from '../icon'
+import { IconButton, IconLink } from '../components/icon'
 import EditIcon from '@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg'
 import TrashIcon from '@fortawesome/fontawesome-free/svgs/solid/trash.svg'
-import Layout from '../layout'
-import { useAllWarnings, useRemoveWarningMutation } from '../api-hooks'
-import { Link } from 'react-router-dom'
-import { type WarningWithId } from '../../api'
+import ToggleOnIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg'
+import ToggleOffIcon from '@fortawesome/fontawesome-free/svgs/solid/toggle-off.svg'
+import Layout from '../components/layout'
+import { type WarningWithId } from '../../schema'
 import { type CSSProperties } from 'react'
+import { trpc } from '../trpc'
+import { css } from '@emotion/react'
+import { palette } from '../theme'
+import { LinkButton } from '../components/button'
+
+const pageStyles = {
+  title: css({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '0.5rem',
+
+    h2: {
+      flexGrow: 1,
+      margin: 0,
+    },
+  }),
+}
 
 export default function WarningsListPage(): JSX.Element {
   return (
     <Layout title='Prod Guard'>
-      <div className='warning-list'>
-        <div className='title'>
+      <div>
+        <div css={pageStyles.title}>
           <h2>Warnings</h2>
-          <Link className='button' to='/new'>
-            New Warning
-          </Link>
+          <LinkButton to='/new'>New Warning</LinkButton>
         </div>
 
         <WarningList />
@@ -26,8 +41,35 @@ export default function WarningsListPage(): JSX.Element {
   )
 }
 
+const listStyles = {
+  root: css({
+    margin: 0,
+    padding: 0,
+    listStyle: 'none',
+  }),
+
+  item: css({
+    padding: '1rem',
+    borderBottom: '1px solid #ddd',
+
+    '&:last-child': {
+      marginBottom: 0,
+      borderBottom: 'none',
+    },
+
+    '&:hover': {
+      backgroundColor: palette.lightShade,
+    },
+  }),
+
+  emptyState: css({
+    padding: '3rem 0',
+    textAlign: 'center',
+  }),
+}
+
 function WarningList(): JSX.Element | undefined {
-  const { isLoading, data: warnings } = useAllWarnings()
+  const { isLoading, data: warnings } = trpc.warnings.list.useQuery()
 
   if (isLoading || warnings == null) {
     return undefined
@@ -35,9 +77,9 @@ function WarningList(): JSX.Element | undefined {
 
   if (warnings.length > 0) {
     return (
-      <ul className='items'>
+      <ul css={listStyles.root}>
         {warnings.map((warning) => (
-          <li key={warning.id}>
+          <li key={warning.id} css={listStyles.item}>
             <WarningItem warning={warning} />
           </li>
         ))}
@@ -45,7 +87,7 @@ function WarningList(): JSX.Element | undefined {
     )
   } else {
     return (
-      <p className='nothing-here'>
+      <p css={listStyles.emptyState}>
         There's nothing here.
         <br />
         Click on "New Warning" to get started.
@@ -54,26 +96,70 @@ function WarningList(): JSX.Element | undefined {
   }
 }
 
+const itemStyles = {
+  header: css({
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: '1rem',
+    fontSize: '1.1rem',
+    gap: '1rem',
+    alignItems: 'start',
+  }),
+
+  pattern: css({
+    fontFamily: `'Lucida Console', Monaco, monospace`,
+    flexGrow: 1,
+    overflowWrap: 'anywhere',
+    alignSelf: 'center',
+  }),
+
+  properties: css({
+    display: 'grid',
+    gridTemplateColumns: 'min-content 1fr',
+    gap: '0.5em',
+    margin: 0,
+
+    '> *': {
+      margin: 0,
+    },
+  }),
+}
+
 function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
-  const removeWarningMutation = useRemoveWarningMutation()
+  const removeWarningMutation = trpc.warnings.remove.useMutation()
+  const toggleWarningMutation = trpc.warnings.toggleEnabled.useMutation()
 
   return (
     <>
-      <div className='header'>
-        <div className='pattern'>{warning.pattern}</div>
-        <Link className='action' to={`/edit/${warning.id}`}>
-          <Icon svg={EditIcon} title='Edit Warning' />
-        </Link>
-        <div
-          className='action'
+      <div css={itemStyles.header}>
+        <div css={itemStyles.pattern}>{warning.pattern}</div>
+        <IconButton
+          svg={warning.enabled ? ToggleOnIcon : ToggleOffIcon}
+          title={warning.enabled ? 'Disable warning' : 'Enable warning'}
+          onClick={() => {
+            toggleWarningMutation.mutate({ id: warning.id })
+          }}
+          theme='dark'
+          size='1.5rem'
+        />
+        <IconLink
+          to={`/edit/${warning.id}`}
+          svg={EditIcon}
+          title='Edit Warning'
+          theme='dark'
+          size='1.5rem'
+        />
+        <IconButton
+          svg={TrashIcon}
+          title='Delete Warning'
           onClick={() => {
             removeWarningMutation.mutate({ id: warning.id })
           }}
-        >
-          <Icon svg={TrashIcon} title='Delete Warning' />
-        </div>
+          theme='dark'
+          size='1.5rem'
+        />
       </div>
-      <dl>
+      <dl css={itemStyles.properties}>
         <dt>Style:</dt>
         <dd>{warningStyles[warning.warningStyle]}</dd>
         {warning.warningStyle === 'border' ? (
@@ -102,6 +188,22 @@ function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
   )
 }
 
+const colorStyles = {
+  root: css({
+    whiteSpace: 'nowrap',
+    '&::before': {
+      display: 'inline-block',
+      verticalAlign: 'baseline',
+      marginRight: '0.25em',
+      content: "''",
+      width: '0.6em',
+      height: '0.6em',
+      border: '1px solid black',
+      backgroundColor: 'var(--color)',
+    },
+  }),
+}
+
 interface ColorCSSProperties extends CSSProperties {
   '--color': string
 }
@@ -112,7 +214,7 @@ function Color({ colorHex }: { colorHex: string }): JSX.Element {
   }
 
   return (
-    <span className='color' style={style}>
+    <span css={colorStyles.root} style={style}>
       #{colorHex.toUpperCase()}
     </span>
   )

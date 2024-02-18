@@ -68,10 +68,14 @@ pnpm package
 Versioning & the changelog are handled by [changesets](https://github.com/changesets/changesets).
 
 1.  Look for a PR named "Prepare Release (changsets automation)"
-1.  Make sure the changes are good / what you expect and the CI passes
+1.  Make sure the changes are good / what you expect
+1.  The CI doesn't run automatically because of limitations wit GHA. You can
+    force it to run by manually starting the
+    [Prepare Release](./.github/workflows/prepare-release.yml) workflow
+    (targeting `main`).
 1.  Merge the PR
-1.  This will automatically bump a version for you
-1.  On the tag that was just created, wait for the `CI / build` job to run and finish
-1.  Find the artifact for this job and download it
+1.  The [main branch](./.github/workflows/main.yml) workflow will create a
+    release for you.
+1.  This release will hold the compiled version of the extension. Download it.
 1.  Publish to the Firefox add-ons site
 1.  Publish to the Chrome web store
