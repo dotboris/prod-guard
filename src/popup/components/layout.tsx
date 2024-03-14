@@ -46,7 +46,7 @@ export default function Layout({
   children,
 }: PropsWithChildren<LayoutProps>): JSX.Element {
   return (
-    <div css={styles.root}>
+    <div css={styles.root} data-testid='layout-root'>
       <div css={styles.titleBar}>
         <IconLink
           to='/'
