@@ -1,2 +1,1 @@
-echo "pre push!"
 git lfs pre-push "$@"
