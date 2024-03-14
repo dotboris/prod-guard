@@ -2,10 +2,11 @@ import { test, expect } from './fixtures'
 
 test('add top banner warning', async ({ page, extensionId }) => {
   await page.goto(`chrome-extension://${extensionId}/popup.html`)
-  await expect(page.locator('body')).toContainText('Prod Guard')
+  await page.waitForURL(`chrome-extension://${extensionId}/`)
 
   // Click on New Warning
   await page.getByRole('link', { name: 'New Warning' }).click()
+  await page.waitForURL(`chrome-extension://${extensionId}/new`)
   await expect(page.locator('body')).toContainText('New Warning')
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
@@ -19,7 +20,7 @@ test('add top banner warning', async ({ page, extensionId }) => {
   await page.getByRole('button', { name: 'Save' }).click()
 
   // Land on warnings list
-  await expect(page.locator('body')).toContainText('Prod Guard')
+  await page.waitForURL(`chrome-extension://${extensionId}/`)
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
@@ -30,10 +31,11 @@ test('add top banner warning', async ({ page, extensionId }) => {
 
 test('add bottom banner warning', async ({ page, extensionId }) => {
   await page.goto(`chrome-extension://${extensionId}/popup.html`)
-  await expect(page.locator('body')).toContainText('Prod Guard')
+  await page.waitForURL(`chrome-extension://${extensionId}/`)
 
   // Click on New Warning
   await page.getByRole('link', { name: 'New Warning' }).click()
+  await page.waitForURL(`chrome-extension://${extensionId}/new`)
   await expect(page.locator('body')).toContainText('New Warning')
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
@@ -47,7 +49,7 @@ test('add bottom banner warning', async ({ page, extensionId }) => {
   await page.getByRole('button', { name: 'Save' }).click()
 
   // Land on warnings list
-  await expect(page.locator('body')).toContainText('Prod Guard')
+  await page.waitForURL(`chrome-extension://${extensionId}/`)
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
@@ -58,10 +60,11 @@ test('add bottom banner warning', async ({ page, extensionId }) => {
 
 test('add border warning', async ({ page, extensionId }) => {
   await page.goto(`chrome-extension://${extensionId}/popup.html`)
-  await expect(page.locator('body')).toContainText('Prod Guard')
+  await page.waitForURL(`chrome-extension://${extensionId}/`)
 
   // Click on New Warning
   await page.getByRole('link', { name: 'New Warning' }).click()
+  await page.waitForURL(`chrome-extension://${extensionId}/new`)
   await expect(page.locator('body')).toContainText('New Warning')
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
@@ -73,7 +76,7 @@ test('add border warning', async ({ page, extensionId }) => {
   await page.getByRole('button', { name: 'Save' }).click()
 
   // Land on warnings list
-  await expect(page.locator('body')).toContainText('Prod Guard')
+  await page.waitForURL(`chrome-extension://${extensionId}/`)
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
