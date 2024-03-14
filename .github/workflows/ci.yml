@@ -12,6 +12,7 @@ jobs:
   build:
     outputs:
       version: ${{ steps.read-version.outputs.version }}
+      artifact: prod_guard-${{ steps.read-version.outputs.version }}.zip
 
     runs-on: ubuntu-latest
     steps:
@@ -41,9 +42,20 @@ jobs:
       - run: pnpm test
 
   e2e-tests:
+    needs: [build]
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+      - name: extract extension
+        run: |
+          mkdir -p dist
+          unzip -d dist ${{ needs.build.outputs.artifact }}
+
       - uses: ./.github/actions/setup-node
       - run: pnpm playwright install --with-deps
       - run: pnpm playwright test
