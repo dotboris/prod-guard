@@ -105,6 +105,14 @@ export default async () => ({
         resourceQuery: /data-uri/,
         type: 'asset/inline',
       },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.css$/i,
+        use: 'css-loader',
+      },
     ],
   },
 

@@ -1,3 +1,4 @@
+import '@fontsource-variable/open-sans'
 import { IconLink } from './icon'
 import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg'
 import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
@@ -8,6 +9,7 @@ import { palette } from '../theme'
 const styles = {
   root: css({
     width: '25rem',
+    fontFamily: "'Open Sans Variable', sans-serif",
   }),
 
   titleBar: css({
