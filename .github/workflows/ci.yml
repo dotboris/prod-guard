@@ -59,7 +59,7 @@ jobs:
           unzip -d dist ${{ needs.build.outputs.artifact }}
 
       - uses: ./.github/actions/setup-node
-      - run: pnpm playwright install --with-deps
+      - run: pnpm playwright install --with-deps chromium
       - run: pnpm playwright test
       - uses: actions/upload-artifact@v4
         if: always()
