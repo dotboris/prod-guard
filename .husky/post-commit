@@ -1,1 +1,2 @@
+echo "post commit!"
 git lfs post-commit "$@"

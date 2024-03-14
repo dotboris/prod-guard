@@ -1,1 +1,2 @@
+echo "post checkout!"
 git lfs post-checkout "$@"

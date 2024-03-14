@@ -1,1 +1,2 @@
+echo "post merge!"
 git lfs post-merge "$@"
