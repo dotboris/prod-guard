@@ -1,13 +1,16 @@
 import { test, expect } from './fixtures'
 
-test('add top banner warning', async ({ page, extensionId }) => {
+test.beforeEach(async ({ page, extensionId }) => {
   await page.goto(`chrome-extension://${extensionId}/popup.html`)
   await page.waitForURL(`chrome-extension://${extensionId}/`)
+})
 
+test('add top banner warning', async ({ page }) => {
   // Click on New Warning
   await page.getByRole('link', { name: 'New Warning' }).click()
-  await page.waitForURL(`chrome-extension://${extensionId}/new`)
   await expect(page.locator('body')).toContainText('New Warning')
+  await page.getByLabel('URL Regex:').fill('') // Generated URL is non deterministic
+  await page.getByTestId('layout-root').click() // unfocus any boxes for consistent screenshot
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Fill out the form & save
@@ -20,7 +23,8 @@ test('add top banner warning', async ({ page, extensionId }) => {
   await page.getByRole('button', { name: 'Save' }).click()
 
   // Land on warnings list
-  await page.waitForURL(`chrome-extension://${extensionId}/`)
+  await expect(page.locator('body')).toContainText('Prod Guard')
+  await expect(page.locator('body')).toContainText('Warning from E2E tests')
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
@@ -29,14 +33,12 @@ test('add top banner warning', async ({ page, extensionId }) => {
   await expect(page.locator('body')).toHaveScreenshot()
 })
 
-test('add bottom banner warning', async ({ page, extensionId }) => {
-  await page.goto(`chrome-extension://${extensionId}/popup.html`)
-  await page.waitForURL(`chrome-extension://${extensionId}/`)
-
+test('add bottom banner warning', async ({ page }) => {
   // Click on New Warning
   await page.getByRole('link', { name: 'New Warning' }).click()
-  await page.waitForURL(`chrome-extension://${extensionId}/new`)
   await expect(page.locator('body')).toContainText('New Warning')
+  await page.getByLabel('URL Regex:').fill('') // Generated URL is non deterministic
+  await page.getByTestId('layout-root').click() // unfocus any boxes for consistent screenshot
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Fill out the form & save
@@ -49,7 +51,8 @@ test('add bottom banner warning', async ({ page, extensionId }) => {
   await page.getByRole('button', { name: 'Save' }).click()
 
   // Land on warnings list
-  await page.waitForURL(`chrome-extension://${extensionId}/`)
+  await expect(page.locator('body')).toContainText('Prod Guard')
+  await expect(page.locator('body')).toContainText('Warning from E2E tests')
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
@@ -58,14 +61,12 @@ test('add bottom banner warning', async ({ page, extensionId }) => {
   await expect(page.locator('body')).toHaveScreenshot()
 })
 
-test('add border warning', async ({ page, extensionId }) => {
-  await page.goto(`chrome-extension://${extensionId}/popup.html`)
-  await page.waitForURL(`chrome-extension://${extensionId}/`)
-
+test('add border warning', async ({ page }) => {
   // Click on New Warning
   await page.getByRole('link', { name: 'New Warning' }).click()
-  await page.waitForURL(`chrome-extension://${extensionId}/new`)
   await expect(page.locator('body')).toContainText('New Warning')
+  await page.getByLabel('URL Regex:').fill('') // Generated URL is non deterministic
+  await page.getByTestId('layout-root').click() // unfocus any boxes for consistent screenshot
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Fill out the form & save
@@ -76,7 +77,7 @@ test('add border warning', async ({ page, extensionId }) => {
   await page.getByRole('button', { name: 'Save' }).click()
 
   // Land on warnings list
-  await page.waitForURL(`chrome-extension://${extensionId}/`)
+  await expect(page.locator('body')).toContainText('https://perdu\\.com')
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
