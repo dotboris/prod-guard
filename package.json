@@ -15,6 +15,7 @@
     "lint:web-ext": "web-ext lint -s dist",
     "lint:typecheck": "tsc --noEmit",
     "test": "vitest",
+    "e2e": "xvfb-run playwright test",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,json}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json}'",
     "prepare": "husky"

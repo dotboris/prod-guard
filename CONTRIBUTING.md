@@ -38,13 +38,35 @@ pnpm build:prod
     pnpm start
     ```
 
-### Test
+### Unit Test
 
 ```sh
 # Watch
 pnpm test
 # Single run
 pnpm test --single-run
+```
+
+### E2E Tests
+
+#### Setup
+
+These tests run using playwright, you'll need to install the playwright browsers
+with:
+
+```sh
+pnpm playwright install chromium
+```
+
+The E2E tests run through `xvfb-run` on linux to ensure consistent font
+rendering in the screenshots. Make sure that you have `xvfb` installed on your
+system. If you use the Nix development environment, it should be already
+present.
+
+#### Running E2E tests
+
+```sh
+pnpm e2e
 ```
 
 ### Lint
