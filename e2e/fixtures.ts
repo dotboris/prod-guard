@@ -13,6 +13,12 @@ export const test = base.extend<{
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
+
+        // Turn off a bunch of font stuff to normalize screenshots
+        '--font-render-hinting=none',
+        '--disable-skia-runtime-opts',
+        '--disable-font-subpixel-positioning',
+        '--disable-lcd-text',
       ],
     })
     await use(context)
