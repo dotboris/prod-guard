@@ -69,6 +69,22 @@ present.
 pnpm e2e
 ```
 
+#### Inspecting test results from GitHub Actions
+
+Sometimes, the E2E tests will fail complaining about screenshots not matching.
+You can see what's going on for yourself like this:
+
+```sh
+# Clear any previous test results / report
+rm -rf test-results playwright-report
+
+# Download the e2e results from GHA
+gh run download -n playwright-results
+
+# Open the report
+pnpm playwright show-report
+```
+
 ### Lint
 
 ```sh
