@@ -5,6 +5,10 @@ import { palette } from './theme'
 import CarretDownIcon from '@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri'
 
 export const GLOBAL_STYLES = css({
+  '*': {
+    boxSizing: 'border-box',
+  },
+
   'html, body': {
     margin: 0,
     padding: 0,
@@ -14,6 +18,13 @@ export const GLOBAL_STYLES = css({
   html: {
     backgroundColor: 'white',
     color: 'black',
+    fontSize: '16px',
+    width: '25rem',
+  },
+
+  body: {
+    // Not sure why, but chrome sets a font-size: 75% here.
+    fontSize: 'unset',
   },
 
   'input[type="text"]': {

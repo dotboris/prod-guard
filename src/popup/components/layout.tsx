@@ -6,10 +6,6 @@ import { css } from '@emotion/react'
 import { palette } from '../theme'
 
 const styles = {
-  root: css({
-    width: '25rem',
-  }),
-
   titleBar: css({
     top: 0,
     position: 'sticky',
@@ -46,7 +42,7 @@ export default function Layout({
   children,
 }: PropsWithChildren<LayoutProps>): JSX.Element {
   return (
-    <div css={styles.root} data-testid='layout-root'>
+    <div data-testid='layout-root'>
       <div css={styles.titleBar}>
         <IconLink
           to='/'
