@@ -8,10 +8,10 @@ export const GLOBAL_STYLES = css({
   'html, body': {
     margin: 0,
     padding: 0,
+    fontFamily: "'Roboto', sans-serif",
   },
 
   html: {
-    fontFamily: "'Roboto', sans-serif",
     backgroundColor: 'white',
     color: 'black',
   },
