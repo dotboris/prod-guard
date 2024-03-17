@@ -14,9 +14,12 @@ dependencies:
   '@emotion/styled':
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.4)(@types/react@18.2.66)(react@18.2.0)
-  '@fontsource-variable/open-sans':
-    specifier: ^5.0.28
-    version: 5.0.28
+  '@fontsource-variable/roboto-mono':
+    specifier: ^5.0.18
+    version: 5.0.18
+  '@fontsource/roboto':
+    specifier: ^5.0.12
+    version: 5.0.12
   '@fortawesome/fontawesome-free':
     specifier: ^6.5.1
     version: 6.5.1
@@ -2136,8 +2139,12 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=7.0.0'}
     dev: true
 
-  /@fontsource-variable/open-sans@5.0.28:
-    resolution: {integrity: sha512-PYfH6e+Jm8N5DRRAEOGneQx3ObnyNgAJ9WTbw7w84tSEmvk+ypo1kUslF2WGkgaygU2uN7wwAAPVnO7YYpipzg==}
+  /@fontsource-variable/roboto-mono@5.0.18:
+    resolution: {integrity: sha512-AIqr9HYQDqiJjGcs/fHedGc0ZGfEGdixm87O9viAQ4PXfiLEelpCnE2jlviJaYcGi3UHxe9+Nn3SalcHhKFSjw==}
+    dev: false
+
+  /@fontsource/roboto@5.0.12:
+    resolution: {integrity: sha512-x0o17jvgoSSbS9OZnUX2+xJmVRvVCfeaYJjkS7w62iN7CuJWtMf5vJj8LqgC7ibqIkitOHVW+XssRjgrcHn62g==}
     dev: false
 
   /@fortawesome/fontawesome-free@6.5.1:
