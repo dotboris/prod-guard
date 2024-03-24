@@ -9,7 +9,7 @@ import { type WarningWithId } from '../../schema'
 import { type CSSProperties } from 'react'
 import { trpc } from '../trpc'
 import { css } from '@emotion/react'
-import { palette } from '../theme'
+import { fontStacks, palette } from '../theme'
 import { LinkButton } from '../components/button'
 
 const pageStyles = {
@@ -107,7 +107,7 @@ const itemStyles = {
   }),
 
   pattern: css({
-    fontFamily: `'Lucida Console', Monaco, monospace`,
+    fontFamily: fontStacks.monospace,
     flexGrow: 1,
     overflowWrap: 'anywhere',
     alignSelf: 'center',

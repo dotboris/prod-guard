@@ -5,3 +5,8 @@ export const palette = {
   darkShade: '#2f3756',
   darkAccent: '#c66952',
 }
+
+export const fontStacks = {
+  sans: `'Roboto', sans-serif`,
+  monospace: `'Roboto Mono Variable', monospace`,
+}

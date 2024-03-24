@@ -1,7 +1,7 @@
 import '@fontsource/roboto'
 import '@fontsource-variable/roboto-mono'
 import { css } from '@emotion/react'
-import { palette } from './theme'
+import { fontStacks, palette } from './theme'
 import CarretDownIcon from '@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri'
 
 export const GLOBAL_STYLES = css({
@@ -12,7 +12,7 @@ export const GLOBAL_STYLES = css({
   'html, body': {
     margin: 0,
     padding: 0,
-    fontFamily: "'Roboto', sans-serif",
+    fontFamily: fontStacks.sans,
   },
 
   html: {
@@ -54,7 +54,7 @@ export const GLOBAL_STYLES = css({
   },
 
   textarea: {
-    fontFamily: "'Roboto Mono Variable', monospace",
+    fontFamily: fontStacks.monospace,
   },
 
   'h1, h2': {
