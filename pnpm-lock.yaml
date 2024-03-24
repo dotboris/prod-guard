@@ -193,6 +193,9 @@ devDependencies:
   sharp:
     specifier: ^0.33.2
     version: 0.33.2
+  style-loader:
+    specifier: ^3.3.4
+    version: 3.3.4(webpack@5.91.0)
   typescript:
     specifier: ^5.4.3
     version: 5.4.3
@@ -9297,6 +9300,15 @@ packages:
     resolution: {integrity: sha512-f9vHgsCWBq2ugHAkGMiiYY+AYG0D/cbloKKg0nhaaaSNsujdGIpVXCNsrJpCKr5M0f4aI31mr13UjY6GAuXCKA==}
     dependencies:
       js-tokens: 8.0.3
+    dev: true
+
+  /style-loader@3.3.4(webpack@5.91.0):
+    resolution: {integrity: sha512-0WqXzrsMTyb8yjZJHDqwmnwRJvhALK9LfRtRc6B4UTWe8AijYLZYZ9thuJTZc2VfQWINADW/j+LiJnfy2RoC1w==}
+    engines: {node: '>= 12.13.0'}
+    peerDependencies:
+      webpack: ^5.0.0
+    dependencies:
+      webpack: 5.91.0(webpack-cli@5.1.4)
     dev: true
 
   /stylis@4.2.0:
