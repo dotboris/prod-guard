@@ -1,4 +1,7 @@
+import path from 'node:path'
 import { defineConfig } from '@playwright/test'
+
+const EXAMPLE_APP_DIR = path.resolve(import.meta.dirname, 'e2e/example-app')
 
 export default defineConfig({
   testMatch: 'e2e/*.test.ts',
@@ -6,7 +9,7 @@ export default defineConfig({
     trace: 'on',
   },
   webServer: {
-    command: 'pnpm example',
+    command: `http-server ${EXAMPLE_APP_DIR} -p 7000`,
     url: 'http://localhost:7000',
     reuseExistingServer: process.env.CI == null,
   },

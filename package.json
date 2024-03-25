@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "start": "web-ext run -s dist --devtools",
-    "example": "http-server ./example-app -p 7000",
     "build": "webpack",
     "build:watch": "webpack --watch",
     "build:prod": "cross-env NODE_ENV=production webpack",
