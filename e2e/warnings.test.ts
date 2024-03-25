@@ -12,7 +12,7 @@ test('add top banner warning', async ({ page }) => {
 
   // Fill out the form & save
   await page.getByLabel('Enabled:').selectOption({ label: 'Yes' })
-  await page.getByLabel('URL Regex:').fill('https://perdu\\.com')
+  await page.getByLabel('URL Regex:').fill('http://localhost:7000')
   await page.getByLabel('Style:').selectOption({ label: 'Top Banner' })
   await page.getByLabel('Message:').fill('Warning from E2E tests')
   await page.getByLabel('Text Color:').fill('FF0000')
@@ -29,9 +29,9 @@ test('add top banner warning', async ({ page }) => {
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
-  await page.goto('https://perdu.com')
+  await page.goto('http://localhost:7000')
   await expect(page.locator('body')).toContainText('Warning from E2E tests')
-  await expect(page.locator('body')).toHaveScreenshot()
+  await expect(page).toHaveScreenshot()
 })
 
 test('add bottom banner warning', async ({ page }) => {
@@ -41,7 +41,7 @@ test('add bottom banner warning', async ({ page }) => {
 
   // Fill out the form & save
   await page.getByLabel('Enabled:').selectOption({ label: 'Yes' })
-  await page.getByLabel('URL Regex:').fill('https://perdu\\.com')
+  await page.getByLabel('URL Regex:').fill('http://localhost:7000')
   await page.getByLabel('Style:').selectOption({ label: 'Bottom Banner' })
   await page.getByLabel('Message:').fill('Warning from E2E tests')
   await page.getByLabel('Text Color:').fill('000000')
@@ -58,9 +58,9 @@ test('add bottom banner warning', async ({ page }) => {
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
-  await page.goto('https://perdu.com')
+  await page.goto('http://localhost:7000')
   await expect(page.locator('body')).toContainText('Warning from E2E tests')
-  await expect(page.locator('body')).toHaveScreenshot()
+  await expect(page).toHaveScreenshot()
 })
 
 test('add border warning', async ({ page }) => {
@@ -70,7 +70,7 @@ test('add border warning', async ({ page }) => {
 
   // Fill out the form & save
   await page.getByLabel('Enabled:').selectOption({ label: 'Yes' })
-  await page.getByLabel('URL Regex:').fill('https://perdu\\.com')
+  await page.getByLabel('URL Regex:').fill('http://localhost:7000')
   await page.getByLabel('Style:').selectOption({ label: 'Border' })
   await page.getByLabel('Border Color:').fill('FF8800')
 
@@ -80,11 +80,11 @@ test('add border warning', async ({ page }) => {
   await page.getByRole('button', { name: 'Save' }).click()
 
   // Land on warnings list
-  await expect(page.locator('body')).toContainText('https://perdu\\.com')
+  await expect(page.locator('body')).toContainText('http://localhost:7000')
   await expect(page.getByTestId('layout-root')).toHaveScreenshot()
 
   // Check if the warning actually gets rendered
-  await page.goto('https://perdu.com')
-  await expect(page.locator('body')).toContainText("Perdu sur l'Internet ?")
-  await expect(page.locator('body')).toHaveScreenshot()
+  await page.goto('http://localhost:7000')
+  await expect(page.locator('body')).toContainText('Hello, world!')
+  await expect(page).toHaveScreenshot()
 })

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "web-ext run -s dist --devtools",
+    "example": "http-server ./example-app -p 7000",
     "build": "webpack",
     "build:watch": "webpack --watch",
     "build:prod": "cross-env NODE_ENV=production webpack",
@@ -54,6 +55,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "html-webpack-plugin": "^5.6.0",
+    "http-server": "^14.1.1",
     "husky": "^9.0.11",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",

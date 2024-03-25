@@ -5,4 +5,9 @@ export default defineConfig({
   use: {
     trace: 'on',
   },
+  webServer: {
+    command: 'pnpm example',
+    url: 'http://localhost:7000',
+    reuseExistingServer: process.env.CI == null,
+  },
 })
