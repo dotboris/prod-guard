@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.2
+
+### Patch Changes
+
+- [#1092](https://github.com/dotboris/prod-guard/pull/1092) [`5bf3f7b`](https://github.com/dotboris/prod-guard/commit/5bf3f7b48369a696b490aa41e311504fd5a0b31f) Thanks [@dotboris](https://github.com/dotboris)! - Change the font family to Roboto and the font size to `16px`. Previously the font was not set and would therefore default to whatever the browser had. This ensures a more consistent look and feel across browsers and platforms.
+
 ## 1.5.1
 
 ### Patch Changes
