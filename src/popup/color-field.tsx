@@ -5,11 +5,15 @@ import { palette } from './theme'
 const styles = {
   root: css({
     position: 'relative',
-    display: 'flex',
 
     input: {
+      // Ensure that we can't type under the preview circle
       paddingRight: '2rem',
-      flexGrow: 1,
+      // Hack: This allows for this field to take the full width when inside a
+      // grid like the warning form. Technically this is a generic component and
+      // so it doesn't belong here but it's only ever used in that grid so it's
+      // not a problem now.
+      width: '100%',
     },
   }),
   previewWrapper: css({

@@ -12,6 +12,7 @@ jobs:
   build:
     outputs:
       version: ${{ steps.read-version.outputs.version }}
+      artifact: prod_guard-${{ steps.read-version.outputs.version }}.zip
 
     runs-on: ubuntu-latest
     steps:
@@ -39,6 +40,38 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
       - run: pnpm test
+
+  e2e-tests:
+    needs: [build]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+      - name: extract extension
+        run: |
+          mkdir -p dist
+          unzip -d dist ${{ needs.build.outputs.artifact }}
+
+      - uses: ./.github/actions/setup-node
+      - run: pnpm playwright install --with-deps chromium
+      - run: xvfb-run pnpm playwright test --reporter github,html
+        env:
+          PW_TEST_HTML_REPORT_OPEN: never
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-results
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: error
+          retention-days: 15
 
   lint-js:
     runs-on: ubuntu-latest
