@@ -32,8 +32,8 @@ async function patchManifest(manifestContent) {
 
   manifest.version = packageJson.version
   manifest.icons = darkIcons
-  manifest.browser_action.default_icon = darkIcons
-  manifest.browser_action.theme_icons = themeIcons
+  manifest.action.default_icon = darkIcons
+  manifest.action.theme_icons = themeIcons
 
   return JSON.stringify(manifest)
 }

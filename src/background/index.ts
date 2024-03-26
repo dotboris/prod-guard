@@ -108,10 +108,17 @@ browser.tabs.onUpdated.addListener((tabId, { status }, tab) => {
 
     const warnings = state.findMatchingWarnings(tab.url)
     if (warnings.length > 0) {
-      await browser.tabs.executeScript(tabId, {
-        code: `window.prodGuardWarnings = ${JSON.stringify(warnings)};`,
+      await browser.scripting.executeScript({
+        target: { tabId },
+        args: [warnings],
+        func: (warnings) => {
+          window.prodGuardWarnings = warnings
+        },
       })
-      await browser.tabs.executeScript(tabId, { file: 'content-script.js' })
+      await browser.scripting.executeScript({
+        target: { tabId },
+        files: ['content-script.js'],
+      })
 
       console.log(`Loaded content script into ${tab.url} (tabId: ${tabId})`)
     }
