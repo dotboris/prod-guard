@@ -4,7 +4,9 @@
   "description": "Warns you when you are connected to production. Never accidentally make changes to production.",
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js"],
+    "service_worker": "background.js",
+    "type": "module"
   },
 
   "action": {
