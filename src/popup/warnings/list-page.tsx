@@ -29,14 +29,12 @@ const pageStyles = {
 export default function WarningsListPage(): JSX.Element {
   return (
     <Layout title='Prod Guard'>
-      <div>
-        <div css={pageStyles.title}>
-          <h2>Warnings</h2>
-          <LinkButton to='/new'>New Warning</LinkButton>
-        </div>
-
-        <WarningList />
+      <div css={pageStyles.title}>
+        <h2>Warnings</h2>
+        <LinkButton to='/new'>New Warning</LinkButton>
       </div>
+
+      <WarningList />
     </Layout>
   )
 }
