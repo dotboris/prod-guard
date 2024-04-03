@@ -1,17 +1,30 @@
+import '@fontsource/roboto'
+import '@fontsource-variable/roboto-mono'
 import { css } from '@emotion/react'
-import { palette } from './theme'
+import { fontStacks, palette } from './theme'
 import CarretDownIcon from '@fortawesome/fontawesome-free/svgs/solid/caret-down.svg?data-uri'
 
 export const GLOBAL_STYLES = css({
+  '*': {
+    boxSizing: 'border-box',
+  },
+
   'html, body': {
     margin: 0,
     padding: 0,
+    fontFamily: fontStacks.sans,
   },
 
   html: {
-    fontFamily: 'Arial, Helvetica, sans-serif',
     backgroundColor: 'white',
     color: 'black',
+    fontSize: '16px',
+    width: '25rem',
+  },
+
+  body: {
+    // Not sure why, but chrome sets a font-size: 75% here.
+    fontSize: 'unset',
   },
 
   'input[type="text"]': {
@@ -38,6 +51,10 @@ export const GLOBAL_STYLES = css({
     '&:hover, &:focus, &:active': {
       borderColor: palette.darkAccent,
     },
+  },
+
+  textarea: {
+    fontFamily: fontStacks.monospace,
   },
 
   'h1, h2': {
