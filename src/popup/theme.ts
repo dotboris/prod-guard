@@ -4,6 +4,8 @@ export const palette = {
   lightAccent: '#a3bbbd',
   darkShade: '#2f3756',
   darkAccent: '#c66952',
+
+  yellow: '#fef08a',
 }
 
 export const fontStacks = {
