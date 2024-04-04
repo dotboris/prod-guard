@@ -5,7 +5,7 @@ export const palette = {
   darkShade: '#2f3756',
   darkAccent: '#c66952',
 
-  yellow: '#fef08a',
+  yellow100: '#fef9c3', // Shamelessly stolen from Tailwind
 }
 
 export const fontStacks = {

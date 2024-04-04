@@ -13,7 +13,7 @@ const PERMISSIONS = {
 
 const styles = {
   root: css({
-    background: palette.yellow,
+    background: palette.yellow100,
     padding: '1rem',
     marginBottom: '1rem',
 
