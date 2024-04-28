@@ -20,7 +20,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json}'",
     "prepare": "husky"
   },
-  "packageManager": "pnpm@8.15.7",
+  "packageManager": "pnpm@9.0.6",
   "devDependencies": {
     "@babel/core": "^7.24.4",
     "@babel/preset-env": "^7.24.4",
