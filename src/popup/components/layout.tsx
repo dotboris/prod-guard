@@ -4,7 +4,7 @@ import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
 import { type PropsWithChildren } from 'react'
 import { css } from '@emotion/react'
 import { palette } from '../theme'
-import { MissingPermissionsAlert } from '../warnings/missing-permissions-alert'
+import { MissingPermissionsAlert } from './missing-permissions-alert'
 
 const styles = {
   titleBar: css({
