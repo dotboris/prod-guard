@@ -4,6 +4,7 @@ import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
 import { type PropsWithChildren } from 'react'
 import { css } from '@emotion/react'
 import { palette } from '../theme'
+import { MissingPermissionsAlert } from '../warnings/missing-permissions-alert'
 
 const styles = {
   titleBar: css({
@@ -63,7 +64,10 @@ export default function Layout({
         />
       </div>
 
-      <div css={styles.content}>{children}</div>
+      <div css={styles.content}>
+        <MissingPermissionsAlert />
+        {children}
+      </div>
     </div>
   )
 }

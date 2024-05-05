@@ -11,7 +11,6 @@ import { trpc } from '../trpc'
 import { css } from '@emotion/react'
 import { fontStacks, palette } from '../theme'
 import { LinkButton } from '../components/button'
-import { MissingPermissionsAlert } from './missing-permissions-alert'
 
 const pageStyles = {
   title: css({
@@ -30,7 +29,6 @@ const pageStyles = {
 export default function WarningsListPage(): JSX.Element {
   return (
     <Layout title='Prod Guard'>
-      <MissingPermissionsAlert />
       <div css={pageStyles.title}>
         <h2>Warnings</h2>
         <LinkButton to='/new'>New Warning</LinkButton>
