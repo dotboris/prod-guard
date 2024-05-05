@@ -13,13 +13,13 @@ export const GLOBAL_STYLES = css({
     margin: 0,
     padding: 0,
     fontFamily: fontStacks.sans,
+    width: '25rem',
   },
 
   html: {
     backgroundColor: 'white',
     color: 'black',
     fontSize: '16px',
-    width: '25rem',
   },
 
   body: {

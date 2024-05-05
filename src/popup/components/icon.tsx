@@ -41,13 +41,20 @@ interface IconProps {
   svg: string
   theme: 'light' | 'dark'
   size?: string
+  className?: string
 }
 
 interface IconRawStyle extends CSSProperties {
   '--size': string
 }
 
-export function Icon({ title, svg, size, theme }: IconProps): JSX.Element {
+export function Icon({
+  title,
+  svg,
+  size,
+  theme,
+  className,
+}: IconProps): JSX.Element {
   let themeCss: SerializedStyles
   switch (theme) {
     case 'light':
@@ -65,6 +72,7 @@ export function Icon({ title, svg, size, theme }: IconProps): JSX.Element {
   return (
     <span
       css={css(styles.icon, themeCss)}
+      className={className}
       style={style}
       title={title}
       dangerouslySetInnerHTML={{ __html: svg }}
@@ -91,11 +99,11 @@ export function IconLink(props: IconProps & LinkProps): JSX.Element {
 }
 
 function iconProps<T>(props: T & IconProps): IconProps {
-  return pick(props, ['title', 'svg', 'size', 'theme'])
+  return pick(props, ['title', 'svg', 'size', 'theme', 'className'])
 }
 
 function nonIconProps<T extends object & IconProps>(
   props: T,
 ): Omit<T, keyof IconProps> {
-  return omit(props, ['title', 'svg', 'size', 'theme'])
+  return omit(props, ['title', 'svg', 'size', 'theme', 'className'])
 }

@@ -4,6 +4,7 @@ import path from 'path'
 export const test = base.extend<{
   context: BrowserContext
   extensionId: string
+  popupUrl: string
 }>({
   // eslint-disable-next-line no-empty-pattern
   context: async ({}, use) => {
@@ -26,19 +27,23 @@ export const test = base.extend<{
   },
   extensionId: async ({ context }, use) => {
     // for manifest v2:
-    let [background] = context.backgroundPages()
-    if (background == null) {
-      background = await context.waitForEvent('backgroundpage')
-    }
+    // let [background] = context.backgroundPages()
+    // if (background == null) {
+    //   background = await context.waitForEvent('backgroundpage')
+    // }
 
     // for manifest v3:
-    // let [background] = context.serviceWorkers()
-    // if (background != null) {
-    //   background = await context.waitForEvent('serviceworker')
-    // }
+    let [background] = context.serviceWorkers()
+    if (background == null) {
+      background = await context.waitForEvent('serviceworker')
+    }
 
     const extensionId = background.url().split('/')[2]
     await use(extensionId)
   },
+  popupUrl: async ({ extensionId }, use) => {
+    await use(`chrome-extension://${extensionId}/popup.html`)
+  },
 })
+
 export const expect = test.expect
