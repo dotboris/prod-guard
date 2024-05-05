@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- [#1004](https://github.com/dotboris/prod-guard/pull/1004) [`54aad0d`](https://github.com/dotboris/prod-guard/commit/54aad0d0a22fcf9c08978ac6e6d3c8144abbd1c7) Thanks [@dotboris](https://github.com/dotboris)! - Migrate to Manifest v3
+
+  This is considered a **breaking change** because a change in the web extension
+  permission model might require some users to accept new permissions. To resolve
+  this, **simply open the Prod Guard popup**. If you have new permissions to
+  accept, you'll see a yellow warning guiding you through the process.
+
+  The permission in question is "Access data for all websites". We use this
+  permission to inject the warnings that you have configured. Note that this is
+  not a new permission. In Manifest v2, this permission was granted to use
+  automatically when you installed Prod Guard. In Manifest v3, browsers may no
+  longer grant this permission implicitly. From our testing, we've seen this
+  behavior in Firefox.
+
+### Patch Changes
+
+- [#1092](https://github.com/dotboris/prod-guard/pull/1092) [`5bf3f7b`](https://github.com/dotboris/prod-guard/commit/5bf3f7b48369a696b490aa41e311504fd5a0b31f) Thanks [@dotboris](https://github.com/dotboris)! - Change the font family to Roboto and the font size to `16px`. Previously the font was not set and would therefore default to whatever the browser had. This ensures a more consistent look and feel across browsers and platforms.
+
 ## 1.5.1
 
 ### Patch Changes
