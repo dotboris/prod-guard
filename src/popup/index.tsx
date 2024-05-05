@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from './app'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { useState } from 'react'
 import { trpc } from './trpc'
 import { chromeLink } from 'trpc-chrome/link'
@@ -26,13 +26,13 @@ function Root(): JSX.Element {
   return (
     <>
       <Global styles={GLOBAL_STYLES} />
-      <BrowserRouter>
+      <HashRouter>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
             <App />
           </QueryClientProvider>
         </trpc.Provider>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }

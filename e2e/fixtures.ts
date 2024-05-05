@@ -4,6 +4,7 @@ import path from 'path'
 export const test = base.extend<{
   context: BrowserContext
   extensionId: string
+  popupUrl: string
 }>({
   // eslint-disable-next-line no-empty-pattern
   context: async ({}, use) => {
@@ -40,5 +41,9 @@ export const test = base.extend<{
     const extensionId = background.url().split('/')[2]
     await use(extensionId)
   },
+  popupUrl: ({ extensionId }, use) => {
+    use(`chrome-extension://${extensionId}/popup.html`)
+  },
 })
+
 export const expect = test.expect

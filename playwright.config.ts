@@ -4,6 +4,7 @@ import { defineConfig } from '@playwright/test'
 const EXAMPLE_APP_DIR = path.resolve(import.meta.dirname, 'e2e/example-app')
 
 export default defineConfig({
+  testDir: 'e2e',
   testMatch: 'e2e/*.test.ts',
   use: {
     trace: 'on',
