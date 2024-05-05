@@ -41,8 +41,8 @@ export const test = base.extend<{
     const extensionId = background.url().split('/')[2]
     await use(extensionId)
   },
-  popupUrl: ({ extensionId }, use) => {
-    use(`chrome-extension://${extensionId}/popup.html`)
+  popupUrl: async ({ extensionId }, use) => {
+    await use(`chrome-extension://${extensionId}/popup.html`)
   },
 })
 
