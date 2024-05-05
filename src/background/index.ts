@@ -1,14 +1,19 @@
 import browser from 'webextension-polyfill'
 import { createChromeHandler } from 'trpc-chrome/adapter'
-import { setupState } from './storage'
+import { loadState, setupState } from './storage'
 import { appRouter } from './router'
 
 export type AppRouter = typeof appRouter
 
-const state = await setupState()
+browser.runtime.onInstalled.addListener(() => {
+  void setupState()
+})
+
 createChromeHandler({
   router: appRouter,
-  createContext: () => ({ state }),
+  createContext: async () => ({
+    state: await loadState(),
+  }),
   onError: (error: any) => {
     console.error('tRPC error', error)
   },
@@ -24,13 +29,14 @@ browser.tabs.onUpdated.addListener((tabId, { status }, tab) => {
       return
     }
 
+    const state = await loadState()
     const warnings = state.findMatchingWarnings(tab.url)
     if (warnings.length > 0) {
       await browser.scripting.executeScript({
         target: { tabId },
         args: [warnings],
         func: (warnings) => {
-          window.prodGuardWarnings = warnings
+          ;(window as any).prodGuardWarnings = warnings
         },
       })
       await browser.scripting.executeScript({
