@@ -10,11 +10,10 @@
     flake-utils,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      nodejs = pkgs.nodejs_20;
       overlays = [
         (final: prev: {
           nodePackages = prev.nodePackages.override {
-            nodejs = nodejs;
+            nodejs = prev.nodejs_20;
           };
         })
       ];
@@ -23,8 +22,8 @@
       formatter = pkgs.alejandra;
       devShells.default = pkgs.mkShell {
         packages = [
-          nodejs
-          pkgs.nodePackages.pnpm
+          pkgs.nodejs
+          pkgs.corepack
 
           # for playwright tests
           pkgs.xvfb-run
