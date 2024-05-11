@@ -75,6 +75,7 @@ export function Icon({
       className={className}
       style={style}
       title={title}
+      aria-label={title}
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   )
