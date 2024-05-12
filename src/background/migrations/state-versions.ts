@@ -1,31 +1,31 @@
 export interface StateVersions {
   /** The initial state before we started versioning it */
   0: {
-    sites?: Array<{
+    sites?: {
       warningStyle: 'topBanner' | 'bottomBanner' | 'border'
       pattern: string
       text?: string
       backgroundColor?: string
       textColor?: string
       borderColor?: string
-    }>
+    }[]
   }
   /** Add dataVersion & rename sites to warnings */
   1: {
     dataVersion: 1
-    warnings: Array<{
+    warnings: {
       warningStyle: 'topBanner' | 'bottomBanner' | 'border'
       pattern: string
       text?: string
       backgroundColor?: string
       textColor?: string
       borderColor?: string
-    }>
+    }[]
   }
   /** Add default values for warnings */
   2: {
     dataVersion: 2
-    warnings: Array<
+    warnings: (
       | {
           warningStyle: 'topBanner' | 'bottomBanner'
           pattern: string
@@ -38,12 +38,12 @@ export interface StateVersions {
           warningStyle: 'border'
           borderColor: string
         }
-    >
+    )[]
   }
   /** Add ids */
   3: {
     dataVersion: 3
-    warnings: Array<
+    warnings: (
       | {
           warningStyle: 'topBanner' | 'bottomBanner'
           pattern: string
@@ -58,12 +58,12 @@ export interface StateVersions {
           id: string
           borderColor: string
         }
-    >
+    )[]
   }
   /** Add enabled flag */
   4: {
     dataVersion: 4
-    warnings: Array<
+    warnings: (
       | {
           enabled: boolean
           warningStyle: 'topBanner' | 'bottomBanner'
@@ -80,6 +80,6 @@ export interface StateVersions {
           id: string
           borderColor: string
         }
-    >
+    )[]
   }
 }

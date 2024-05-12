@@ -1,5 +1,5 @@
 export async function applyMigrations(
-  migrations: Array<(data: any) => Promise<any>>,
+  migrations: ((data: any) => Promise<any>)[],
   storageData: any,
 ): Promise<[boolean, any]> {
   let hasMigrated = false
