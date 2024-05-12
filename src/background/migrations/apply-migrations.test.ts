@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from 'vitest'
 import { applyMigrations } from './apply-migrations'
+import { ZodError } from 'zod'
 
 describe('applyMigrations()', () => {
   it('should return input data with no migrations', () => {
@@ -64,7 +65,7 @@ describe('applyMigrations()', () => {
 
   it('should crash when dataVersion is garbage', () => {
     expect(() => applyMigrations([], { dataVersion: 'garbage' })).toThrow(
-      TypeError,
+      ZodError,
     )
   })
 })
