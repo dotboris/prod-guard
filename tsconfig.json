@@ -18,6 +18,8 @@
     "./src/**/*.js",
     "./src/**/*.jsx",
     "./playwright.config.ts",
-    "./e2e/**/*.ts"
+    "./e2e/**/*.ts",
+    "*.js",
+    ".*.js"
   ]
 }
