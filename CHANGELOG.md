@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.1
+
+### Patch Changes
+
+- [#1122](https://github.com/dotboris/prod-guard/pull/1122) [`af94d16`](https://github.com/dotboris/prod-guard/commit/af94d16f2ac7f6e6bf230383f423d415c0efcb87) Thanks [@dotboris](https://github.com/dotboris)! - Set minimum version of Chrome to 121. This is the first version of Chrome that ignores the `background.scripts` property in `manifest.json`. We need this property to be ignored because we distribute this extension in Firefox which requires this key.
+
+- [#1122](https://github.com/dotboris/prod-guard/pull/1122) [`af94d16`](https://github.com/dotboris/prod-guard/commit/af94d16f2ac7f6e6bf230383f423d415c0efcb87) Thanks [@dotboris](https://github.com/dotboris)! - Set minimum version of Firefox to 112. This is the first version version of Firefox to support both Manifest v3 and the `background.type` property.
+
+- [#1118](https://github.com/dotboris/prod-guard/pull/1118) [`4d6325b`](https://github.com/dotboris/prod-guard/commit/4d6325bc456a208584fd8badfdba78e609a21590) Thanks [@renovate](https://github.com/apps/renovate)! - Give icons accessible labels based their titles
+
 ## 2.0.0
 
 ### Major Changes
