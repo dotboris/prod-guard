@@ -13,13 +13,12 @@
   },
   "include": [
     "./vitest.config.ts",
+    "./eslint.config.js",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/**/*.js",
     "./src/**/*.jsx",
     "./playwright.config.ts",
-    "./e2e/**/*.ts",
-    "*.js",
-    ".*.js"
+    "./e2e/**/*.ts"
   ]
 }
