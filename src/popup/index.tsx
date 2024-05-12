@@ -11,9 +11,7 @@ import { GLOBAL_STYLES } from './global-styles'
 
 const port = browser.runtime.connect()
 
-main().catch((err) => {
-  console.error('Failed to initialize popup', err)
-})
+main()
 
 function Root(): JSX.Element {
   const [queryClient] = useState(() => new QueryClient())
@@ -37,7 +35,7 @@ function Root(): JSX.Element {
   )
 }
 
-async function main(): Promise<void> {
+function main() {
   const rootElement = document.createElement('div')
   rootElement.className = 'app-root'
   document.body.append(rootElement)

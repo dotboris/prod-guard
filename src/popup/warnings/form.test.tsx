@@ -15,14 +15,14 @@ vi.mock('webextension-polyfill', () => ({
 }))
 
 beforeEach(() => {
-  browserMock.tabs.query.mockImplementation(async () => [])
+  browserMock.tabs.query.mockResolvedValue([])
 })
 
 describe('suggested pattern', () => {
   for (const style of Object.values(WarningStyle)) {
     describe(`when style=${style}`, () => {
       test('suggests pattern based on the current tab', async () => {
-        browserMock.tabs.query.mockImplementation(async () => [
+        browserMock.tabs.query.mockResolvedValue([
           {
             url: 'https://dotboris.io/stuff',
             index: 0,

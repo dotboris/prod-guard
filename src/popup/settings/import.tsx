@@ -4,6 +4,7 @@ import { trpc } from '../trpc'
 import { fromZodIssue } from 'zod-validation-error'
 import { useExpiringState } from './useExpiringState'
 import { Button } from '../components/button'
+import { allDataSchema } from '../../schema'
 
 const styles = {
   root: css({
@@ -79,7 +80,7 @@ function useImport(): UseImport {
     doImport: (data: string) => {
       let allData
       try {
-        allData = JSON.parse(data)
+        allData = allDataSchema.parse(JSON.parse(data))
       } catch (error) {
         importMutation.reset()
         if (error instanceof Error) {

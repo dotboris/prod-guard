@@ -13,6 +13,7 @@
   },
   "include": [
     "./vitest.config.ts",
+    "./eslint.config.js",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/**/*.js",

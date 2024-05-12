@@ -51,8 +51,8 @@ export function makeBanner({
     bannerBox: banner.getBoundingClientRect(),
   }
 
-  const setOpacity = rafThrottle((opacity) => {
-    banner.style.opacity = opacity
+  const setOpacity = rafThrottle((opacity: number) => {
+    banner.style.opacity = String(opacity)
   })
 
   function update(newState: Partial<BannerState>): void {
