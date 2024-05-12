@@ -17,9 +17,11 @@
   "permissions": ["storage", "scripting", "tabs"],
   "host_permissions": ["*://*/*"],
 
+  "minimum_chrome_version": "121",
   "browser_specific_settings": {
     "gecko": {
-      "id": "dev-prog-guard-extension@example.com"
+      "id": "dev-prog-guard-extension@example.com",
+      "strict_min_version": "109"
     }
   }
 }
