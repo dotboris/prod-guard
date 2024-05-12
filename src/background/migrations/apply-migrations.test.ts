@@ -1,9 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from 'vitest'
 import { applyMigrations } from './apply-migrations'
 import { ZodError } from 'zod'
+
+// We're playing a little wild and loose with the types here. The linter doesn't
+// like `any` which is fair but in this context, lining up the types a ton of
+// work so we turn these off.
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 describe('applyMigrations()', () => {
   it('should return input data with no migrations', () => {
