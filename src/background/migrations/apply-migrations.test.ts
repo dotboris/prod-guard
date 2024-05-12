@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from 'vitest'
 import { applyMigrations } from './apply-migrations'
 
 describe('applyMigrations()', () => {
-  it('should return input data with no migrations', async () => {
+  it('should return input data with no migrations', () => {
     const storageData = {
       test: 1,
       foo: 'bar',
     }
 
-    const [hasMigrated, res] = await applyMigrations([], storageData)
+    const [hasMigrated, res] = applyMigrations([], storageData)
 
     expect(hasMigrated).toBe(false)
     expect(res).toEqual({
@@ -18,16 +21,16 @@ describe('applyMigrations()', () => {
     })
   })
 
-  it('should apply all migrations when starting from scratch', async () => {
+  it('should apply all migrations when starting from scratch', () => {
     const storageData = {}
     const migrations = [
-      async () => ({ list: [] }),
-      async (data: any) => ({ ...data, thing: true }),
-      async (data: { list: any }) => ({ ...data, list: [...data.list, 42] }),
-      async (data: { list: any }) => ({ ...data, list: [...data.list, 43] }),
+      () => ({ list: [] }),
+      (data: any) => ({ ...data, thing: true }),
+      (data: { list: any }) => ({ ...data, list: [...data.list, 42] }),
+      (data: { list: any }) => ({ ...data, list: [...data.list, 43] }),
     ]
 
-    const [hasMigrated, res] = await applyMigrations(migrations, storageData)
+    const [hasMigrated, res] = applyMigrations(migrations, storageData)
 
     expect(hasMigrated).toBe(true)
     expect(res).toEqual({
@@ -37,18 +40,18 @@ describe('applyMigrations()', () => {
     })
   })
 
-  it('should apply only new migrations when starting in the middle', async () => {
+  it('should apply only new migrations when starting in the middle', () => {
     const storageData = { dataVersion: 3 }
     const migrations = [
-      async () => ({ zero: true }),
-      async (data: any) => ({ ...data, one: true }),
-      async (data: any) => ({ ...data, two: true }),
-      async (data: any) => ({ ...data, three: true }),
-      async (data: any) => ({ ...data, four: true }),
-      async (data: any) => ({ ...data, five: true }),
+      () => ({ zero: true }),
+      (data: any) => ({ ...data, one: true }),
+      (data: any) => ({ ...data, two: true }),
+      (data: any) => ({ ...data, three: true }),
+      (data: any) => ({ ...data, four: true }),
+      (data: any) => ({ ...data, five: true }),
     ]
 
-    const [hasMigrated, res] = await applyMigrations(migrations, storageData)
+    const [hasMigrated, res] = applyMigrations(migrations, storageData)
 
     expect(hasMigrated).toBe(true)
     expect(res).toEqual({
@@ -59,9 +62,9 @@ describe('applyMigrations()', () => {
     })
   })
 
-  it('should crash when dataVersion is garbage', async () => {
-    await expect(
-      async () => await applyMigrations([], { dataVersion: 'garbage' }),
-    ).rejects.toThrow(TypeError)
+  it('should crash when dataVersion is garbage', () => {
+    expect(() => applyMigrations([], { dataVersion: 'garbage' })).toThrow(
+      TypeError,
+    )
   })
 })

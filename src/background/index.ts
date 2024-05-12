@@ -14,7 +14,7 @@ createChromeHandler({
   createContext: async () => ({
     state: await loadState(),
   }),
-  onError: (error: any) => {
+  onError: (error: unknown) => {
     console.error('tRPC error', error)
   },
 })
@@ -36,6 +36,7 @@ browser.tabs.onUpdated.addListener((tabId, { status }, tab) => {
         target: { tabId },
         args: [warnings],
         func: (warnings) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
           ;(window as any).prodGuardWarnings = warnings
         },
       })

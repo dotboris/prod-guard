@@ -23,8 +23,8 @@ describe('data migrations', () => {
     'starting from v1': { dataVersion: 1, warnings: [] },
     'starting from v2': { dataVersion: 2, warnings: [] },
   })) {
-    it(`should start us off with a sane empty state (${label})`, async () => {
-      const [, res] = await migrateStorageData(data)
+    it(`should start us off with a sane empty state (${label})`, () => {
+      const [, res] = migrateStorageData(data)
 
       expect(res.warnings).toEqual([])
     })
@@ -48,12 +48,12 @@ describe('data migrations', () => {
       ],
     },
   })) {
-    it(`should fill in default values (${label})`, async () => {
+    it(`should fill in default values (${label})`, () => {
       for (const i of range(0, 4)) {
         uuidV4.mockImplementationOnce(() => `uuid-${i}`)
       }
 
-      const [, res] = await migrateStorageData(data)
+      const [, res] = migrateStorageData(data)
 
       expect(res.warnings).toEqual([
         {
@@ -135,12 +135,12 @@ describe('data migrations', () => {
       ],
     },
   })) {
-    it(`should leave existing options around (${label})`, async () => {
+    it(`should leave existing options around (${label})`, () => {
       for (const i of range(0, 4)) {
         uuidV4.mockImplementationOnce(() => `uuid-${i}`)
       }
 
-      const [, res] = await migrateStorageData(data)
+      const [, res] = migrateStorageData(data)
 
       expect(res.warnings).toEqual([
         {
@@ -188,7 +188,7 @@ describe('data migrations', () => {
       ],
     },
   })) {
-    it(`should convert numeric ids to unique ids (${label})`, async () => {
+    it(`should convert numeric ids to unique ids (${label})`, () => {
       // Duplicate ids are returned to test that the id generation is resistant
       // to hitting duplicates.
       uuidV4.mockImplementationOnce(() => 'uuid-1')
@@ -196,7 +196,7 @@ describe('data migrations', () => {
       uuidV4.mockImplementationOnce(() => 'uuid-2')
       uuidV4.mockImplementationOnce(() => 'uuid-2')
 
-      const [, res] = await migrateStorageData(data)
+      const [, res] = migrateStorageData(data)
 
       const warningIds = res.warnings.map((warning) => warning.id)
       expect(warningIds).toEqual(['uuid-1', 'uuid-2'])

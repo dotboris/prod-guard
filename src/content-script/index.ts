@@ -1,9 +1,7 @@
 import { type Warning, WarningStyle } from '../schema'
 import { makeBanner } from './banner'
 
-main().catch((error) => {
-  console.error('ProdGuard failed to initialize on this page', error)
-})
+main()
 
 interface Globals {
   prodGuardHasRun?: boolean
@@ -12,7 +10,7 @@ interface Globals {
 
 declare const window: Window & typeof globalThis & Globals
 
-async function main(): Promise<void> {
+function main() {
   if (window.prodGuardHasRun ?? false) {
     return
   }

@@ -1,24 +1,27 @@
-export async function applyMigrations(
-  migrations: ((data: any) => Promise<any>)[],
-  storageData: any,
-): Promise<[boolean, any]> {
-  let hasMigrated = false
-  let res = storageData
+import { z } from 'zod'
+import { AllData } from '../../schema'
 
-  const startVersion = res.dataVersion ?? 0
-  if (typeof startVersion !== 'number') {
-    throw TypeError(
-      'Invalid storage data. Expected storageData.dataVersion to be a number ' +
-        `but it was a ${typeof startVersion}`,
-    )
-  }
+const baseStorageDataSchema = z.object({
+  dataVersion: z.number().optional().default(0),
+})
+
+export function applyMigrations(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  migrations: ((data: any) => any)[],
+  storageData: unknown,
+): [boolean, AllData] {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let res: any = storageData
+  const startVersion = baseStorageDataSchema.parse(storageData).dataVersion
 
   let version
+  let hasMigrated = false
   for (version = startVersion; version < migrations.length; version += 1) {
     hasMigrated = true
     const migrate = migrations[version]
-    res = await migrate(res)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    res = migrate(res)
   }
 
-  return [hasMigrated, { ...res, dataVersion: version }]
+  return [hasMigrated, { ...res, dataVersion: version } as AllData]
 }

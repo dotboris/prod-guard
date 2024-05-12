@@ -8,7 +8,7 @@ export type MigrateFunc<
   ? never
   : (
       data: StateVersions[CurrentVersion],
-    ) => Promise<Omit<StateVersions[TargetVersion], 'dataVersion'>>
+    ) => Omit<StateVersions[TargetVersion], 'dataVersion'>
 
 export type MigrationFuncs = [
   MigrateFunc<0, 1>,
@@ -18,10 +18,10 @@ export type MigrationFuncs = [
 ]
 
 export const migrations: MigrationFuncs = [
-  async (data) => ({
+  (data) => ({
     warnings: data.sites ?? [],
   }),
-  async (data) => {
+  (data) => {
     return {
       ...data,
       warnings: data.warnings.map((warning) => {
@@ -51,7 +51,7 @@ export const migrations: MigrationFuncs = [
       }),
     }
   },
-  async (data) => {
+  (data) => {
     const ids = new Set()
 
     function generateId(): string {
@@ -72,7 +72,7 @@ export const migrations: MigrationFuncs = [
       })),
     }
   },
-  async (data) => {
+  (data) => {
     return {
       ...data,
       warnings: data.warnings.map((warning) => ({

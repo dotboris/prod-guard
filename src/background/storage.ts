@@ -7,7 +7,7 @@ export async function setupState(): Promise<void> {
   console.log('setting up storage')
 
   const rawStorageData = (await browser.storage.sync.get()) ?? {}
-  const [hasMigrated, storageData] = await migrateStorageData(rawStorageData)
+  const [hasMigrated, storageData] = migrateStorageData(rawStorageData)
 
   if (hasMigrated) {
     console.log('storage data was migrated')
