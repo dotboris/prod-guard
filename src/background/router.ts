@@ -1,7 +1,7 @@
-import { z } from 'zod'
-import { publicProcedure, router } from './trpc'
-import { allDataSchema, warningSchema } from '../schema'
-import { saveState } from './storage'
+import { z } from "zod";
+import { publicProcedure, router } from "./trpc";
+import { allDataSchema, warningSchema } from "../schema";
+import { saveState } from "./storage";
 
 export const appRouter = router({
   warnings: router({
@@ -16,9 +16,9 @@ export const appRouter = router({
         }),
       )
       .mutation(async ({ ctx, input }) => {
-        const res = ctx.state.addWarning(input.warning)
-        await saveState(ctx.state)
-        return res
+        const res = ctx.state.addWarning(input.warning);
+        await saveState(ctx.state);
+        return res;
       }),
     update: publicProcedure
       .input(
@@ -28,28 +28,28 @@ export const appRouter = router({
         }),
       )
       .mutation(async ({ ctx, input }) => {
-        ctx.state.updateWarning(input.id, input.warning)
-        await saveState(ctx.state)
+        ctx.state.updateWarning(input.id, input.warning);
+        await saveState(ctx.state);
       }),
     remove: publicProcedure
       .input(z.object({ id: z.string() }))
       .mutation(async ({ ctx, input }) => {
-        const res = ctx.state.removeWarning(input.id)
-        await saveState(ctx.state)
-        return res
+        const res = ctx.state.removeWarning(input.id);
+        await saveState(ctx.state);
+        return res;
       }),
     toggleEnabled: publicProcedure
       .input(z.object({ id: z.string() }))
       .mutation(async ({ ctx, input }) => {
-        ctx.state.toggleWarningEnabled(input.id)
-        await saveState(ctx.state)
+        ctx.state.toggleWarningEnabled(input.id);
+        await saveState(ctx.state);
       }),
   }),
   exportAllData: publicProcedure.query(({ ctx }) => ctx.state.exportAllData()),
   importAllData: publicProcedure
     .input(z.object({ allData: allDataSchema }))
     .mutation(async ({ ctx, input }) => {
-      ctx.state.importAllData(input.allData)
-      await saveState(ctx.state)
+      ctx.state.importAllData(input.allData);
+      await saveState(ctx.state);
     }),
-})
+});

@@ -1,23 +1,23 @@
-import { css } from '@emotion/react'
-import { type JSX } from 'react'
-import { useAsyncFn } from 'react-use'
-import { trpc } from '../trpc'
-import { useExpiringState } from './useExpiringState'
-import { Button } from '../components/button'
+import { css } from "@emotion/react";
+import { type JSX } from "react";
+import { useAsyncFn } from "react-use";
+import { trpc } from "../trpc";
+import { useExpiringState } from "./useExpiringState";
+import { Button } from "../components/button";
 
 const styles = {
   root: css({
-    display: 'grid',
-    gap: '0.5rem',
+    display: "grid",
+    gap: "0.5rem",
   }),
   textBox: css({
-    height: '8rem',
+    height: "8rem",
   }),
-}
+};
 
 export default function ExportBox(): JSX.Element | undefined {
-  const { error, data } = trpc.exportAllData.useQuery()
-  const formattedData = JSON.stringify(data, null, 2)
+  const { error, data } = trpc.exportAllData.useQuery();
+  const formattedData = JSON.stringify(data, null, 2);
 
   return (
     <div css={styles.root}>
@@ -27,32 +27,32 @@ export default function ExportBox(): JSX.Element | undefined {
       <textarea css={styles.textBox} readOnly value={formattedData} />
       <CopyToClipboardButton text={formattedData} />
     </div>
-  )
+  );
 }
 
 function CopyToClipboardButton({ text }: { text: string }): JSX.Element {
-  const [copiedRecently, setCopiedRecently] = useExpiringState(false, 2000)
+  const [copiedRecently, setCopiedRecently] = useExpiringState(false, 2000);
   const [state, doCopy] = useAsyncFn(async () => {
     try {
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(text);
     } finally {
-      setCopiedRecently(true)
+      setCopiedRecently(true);
     }
-  }, [text, setCopiedRecently])
+  }, [text, setCopiedRecently]);
 
-  let buttonText = 'Copy to Clipboard'
+  let buttonText = "Copy to Clipboard";
   if (copiedRecently) {
     if (state.error == null) {
-      buttonText = 'Copied!'
+      buttonText = "Copied!";
     } else {
-      buttonText = 'Failed to Copy'
+      buttonText = "Failed to Copy";
     }
   }
 
   return (
     <>
       <Button
-        type='button'
+        type="button"
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onClick={state.loading ? undefined : doCopy}
         disabled={state.loading}
@@ -61,5 +61,5 @@ function CopyToClipboardButton({ text }: { text: string }): JSX.Element {
       </Button>
       {state.error != null ? <p>{state.error.message}</p> : null}
     </>
-  )
+  );
 }

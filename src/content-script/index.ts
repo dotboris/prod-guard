@@ -1,33 +1,33 @@
-import { type Warning, WarningStyle } from '../schema'
-import { makeBanner } from './banner'
+import { type Warning, WarningStyle } from "../schema";
+import { makeBanner } from "./banner";
 
-main()
+main();
 
 interface Globals {
-  prodGuardHasRun?: boolean
-  prodGuardWarnings?: Warning[]
+  prodGuardHasRun?: boolean;
+  prodGuardWarnings?: Warning[];
 }
 
-declare const window: Window & typeof globalThis & Globals
+declare const window: Window & typeof globalThis & Globals;
 
 function main() {
   if (window.prodGuardHasRun ?? false) {
-    return
+    return;
   }
 
-  window.prodGuardHasRun = true
+  window.prodGuardHasRun = true;
 
-  const warnings = window.prodGuardWarnings ?? []
+  const warnings = window.prodGuardWarnings ?? [];
 
   for (const warning of warnings) {
     switch (warning.warningStyle) {
       case WarningStyle.Border:
-        document.body.style.border = `3px solid #${warning.borderColor}`
-        break
+        document.body.style.border = `3px solid #${warning.borderColor}`;
+        break;
       case WarningStyle.TopBanner:
       case WarningStyle.BottomBanner:
-        makeBanner(warning)
-        break
+        makeBanner(warning);
+        break;
     }
   }
 }

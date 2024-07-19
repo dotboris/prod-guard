@@ -1,28 +1,28 @@
-import { IconLink } from './icon'
-import HomeIcon from '@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg'
-import GearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg'
-import { type PropsWithChildren } from 'react'
-import { css } from '@emotion/react'
-import { palette } from '../theme'
-import { MissingPermissionsAlert } from './missing-permissions-alert'
+import { IconLink } from "./icon";
+import HomeIcon from "@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg";
+import GearIcon from "@fortawesome/fontawesome-free/svgs/solid/gear.svg";
+import { type PropsWithChildren } from "react";
+import { css } from "@emotion/react";
+import { palette } from "../theme";
+import { MissingPermissionsAlert } from "./missing-permissions-alert";
 
 const styles = {
   titleBar: css({
     top: 0,
-    position: 'sticky',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    color: 'white',
+    position: "sticky",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    color: "white",
     backgroundColor: palette.darkShade,
 
-    '> *': {
-      padding: '0.75rem 1rem',
+    "> *": {
+      padding: "0.75rem 1rem",
     },
 
     h1: {
       flexGrow: 1,
-      fontSize: '1.5rem',
+      fontSize: "1.5rem",
       lineHeight: 1,
       margin: 0,
       padding: 0,
@@ -30,12 +30,12 @@ const styles = {
   }),
 
   content: css({
-    padding: '1rem',
+    padding: "1rem",
   }),
-}
+};
 
 export interface LayoutProps {
-  title: string
+  title: string;
 }
 
 export default function Layout({
@@ -43,24 +43,24 @@ export default function Layout({
   children,
 }: PropsWithChildren<LayoutProps>): JSX.Element {
   return (
-    <div data-testid='layout-root'>
+    <div data-testid="layout-root">
       <div css={styles.titleBar}>
         <IconLink
-          to='/'
+          to="/"
           svg={HomeIcon}
-          title='Home'
-          size='1.5rem'
-          theme='light'
+          title="Home"
+          size="1.5rem"
+          theme="light"
         />
 
         <h1>{title}</h1>
 
         <IconLink
-          to='/settings'
+          to="/settings"
           svg={GearIcon}
-          title='Settings'
-          size='1.5rem'
-          theme='light'
+          title="Settings"
+          size="1.5rem"
+          theme="light"
         />
       </div>
 
@@ -69,5 +69,5 @@ export default function Layout({
         {children}
       </div>
     </div>
-  )
+  );
 }

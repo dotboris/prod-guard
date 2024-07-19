@@ -1,28 +1,28 @@
-import rafThrottle from 'raf-throttle'
-import { type BannerWarning } from '../schema'
-import { css, cx } from '@emotion/css'
+import rafThrottle from "raf-throttle";
+import { type BannerWarning } from "../schema";
+import { css, cx } from "@emotion/css";
 
 const styles = {
   root: css({
-    position: 'fixed',
+    position: "fixed",
     left: 0,
     right: 0,
     zIndex: 9999999,
-    pointerEvents: 'none',
-    fontSize: '1.25rem',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: '0.5rem 0',
+    pointerEvents: "none",
+    fontSize: "1.25rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: "0.5rem 0",
   }),
   top: css({ top: 0 }),
   bottom: css({ bottom: 0 }),
-}
+};
 
 interface BannerState {
-  mouseInWindow: boolean
-  mouseX: number
-  mouseY: number
-  bannerBox: DOMRect
+  mouseInWindow: boolean;
+  mouseX: number;
+  mouseY: number;
+  bannerBox: DOMRect;
 }
 
 export function makeBanner({
@@ -31,77 +31,77 @@ export function makeBanner({
   backgroundColor,
   textColor,
 }: BannerWarning): void {
-  const banner = document.createElement('div')
+  const banner = document.createElement("div");
   banner.classList.add(
     cx(
       styles.root,
-      warningStyle === 'topBanner' && styles.top,
-      warningStyle === 'bottomBanner' && styles.bottom,
+      warningStyle === "topBanner" && styles.top,
+      warningStyle === "bottomBanner" && styles.bottom,
     ),
-  )
-  banner.textContent = text
-  banner.style.color = `#${textColor}`
-  banner.style.backgroundColor = `#${backgroundColor}`
-  document.body.append(banner)
+  );
+  banner.textContent = text;
+  banner.style.color = `#${textColor}`;
+  banner.style.backgroundColor = `#${backgroundColor}`;
+  document.body.append(banner);
 
   const state: BannerState = {
     mouseInWindow: true,
     mouseX: 0,
     mouseY: 0,
     bannerBox: banner.getBoundingClientRect(),
-  }
+  };
 
   const setOpacity = rafThrottle((opacity: number) => {
-    banner.style.opacity = String(opacity)
-  })
+    banner.style.opacity = String(opacity);
+  });
 
   function update(newState: Partial<BannerState>): void {
-    Object.assign(state, newState)
+    Object.assign(state, newState);
 
     if (state.mouseInWindow) {
-      const distance = verticalDistance(state.bannerBox, state.mouseY)
+      const distance = verticalDistance(state.bannerBox, state.mouseY);
 
-      const threshold = state.bannerBox.height * 2
-      const opacity = Math.min(distance, threshold) / threshold
+      const threshold = state.bannerBox.height * 2;
+      const opacity = Math.min(distance, threshold) / threshold;
 
-      setOpacity(opacity)
+      setOpacity(opacity);
     } else {
-      setOpacity(1)
+      setOpacity(1);
     }
   }
 
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     update({
       bannerBox: banner.getClientRects()[0],
-    })
-  })
-  document.addEventListener('mousemove', (event) => {
+    });
+  });
+  document.addEventListener("mousemove", (event) => {
     update({
       mouseX: event.clientX,
       mouseY: event.clientY,
-    })
-  })
-  document.documentElement.addEventListener('mouseenter', () => {
+    });
+  });
+  document.documentElement.addEventListener("mouseenter", () => {
     update({
       mouseInWindow: true,
-    })
-  })
-  document.documentElement.addEventListener('mouseleave', () => {
+    });
+  });
+  document.documentElement.addEventListener("mouseleave", () => {
     update({
       mouseInWindow: false,
-    })
-  })
+    });
+  });
 }
 
 function verticalDistance(box: DOMRect, y: number): number {
-  const topDistance = Math.abs(box.top - y)
-  const bottomDistance = Math.abs(box.bottom - y)
+  const topDistance = Math.abs(box.top - y);
+  const bottomDistance = Math.abs(box.bottom - y);
 
   if (topDistance < box.height && bottomDistance < box.height) {
     // we are within the box
-    return 0
+    return 0;
   } else {
     // return the closest one
-    return Math.min(topDistance, bottomDistance)
+    return Math.min(topDistance, bottomDistance);
   }
 }

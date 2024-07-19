@@ -1,115 +1,115 @@
-import { css } from '@emotion/react'
-import { useState } from 'react'
-import { trpc } from '../trpc'
-import { fromZodIssue } from 'zod-validation-error'
-import { useExpiringState } from './useExpiringState'
-import { Button } from '../components/button'
-import { allDataSchema } from '../../schema'
+import { css } from "@emotion/react";
+import { useState } from "react";
+import { trpc } from "../trpc";
+import { fromZodIssue } from "zod-validation-error";
+import { useExpiringState } from "./useExpiringState";
+import { Button } from "../components/button";
+import { allDataSchema } from "../../schema";
 
 const styles = {
   root: css({
-    display: 'grid',
-    gap: '0.5rem',
+    display: "grid",
+    gap: "0.5rem",
   }),
   textBox: css({
-    height: '8rem',
+    height: "8rem",
   }),
   errors: css({
     ul: {
       margin: 0,
-      paddingLeft: '1rem',
+      paddingLeft: "1rem",
     },
   }),
-}
+};
 
 export function ImportBox(): JSX.Element {
-  const [data, setData] = useState('')
-  const { doImport, isLoading, errors, importedRecently } = useImport()
+  const [data, setData] = useState("");
+  const { doImport, isLoading, errors, importedRecently } = useImport();
 
   return (
     <form
       css={styles.root}
       onSubmit={(e) => {
-        e.preventDefault()
-        doImport(data)
+        e.preventDefault();
+        doImport(data);
       }}
     >
       <textarea
         disabled={isLoading}
         css={styles.textBox}
         onChange={(e) => {
-          setData(e.target.value)
+          setData(e.target.value);
         }}
         value={data}
       />
-      <Button type='submit' disabled={isLoading}>
-        {importedRecently ? 'Imported!' : 'Import'}
+      <Button type="submit" disabled={isLoading}>
+        {importedRecently ? "Imported!" : "Import"}
       </Button>
       <Errors errors={errors} />
     </form>
-  )
+  );
 }
 
 interface UseImport {
-  doImport: (data: string) => void
-  isLoading: boolean
-  errors: string[]
-  importedRecently: boolean
+  doImport: (data: string) => void;
+  isLoading: boolean;
+  errors: string[];
+  importedRecently: boolean;
 }
 
 function useImport(): UseImport {
-  const [importedRecently, setImportedRecently] = useExpiringState(false, 2000)
-  const importMutation = trpc.importAllData.useMutation()
+  const [importedRecently, setImportedRecently] = useExpiringState(false, 2000);
+  const importMutation = trpc.importAllData.useMutation();
 
-  const zodIssues = importMutation.error?.shape?.data.zodIssues ?? []
-  let errors: string[] = []
+  const zodIssues = importMutation.error?.shape?.data.zodIssues ?? [];
+  let errors: string[] = [];
   if (zodIssues.length > 0) {
     errors = zodIssues.map(
       (issue) => fromZodIssue(issue, { prefix: null }).message,
-    )
+    );
   } else if (importMutation.error != null) {
-    errors = [importMutation.error.message]
+    errors = [importMutation.error.message];
   }
 
-  const [parseError, setParseError] = useState<string | null>(null)
+  const [parseError, setParseError] = useState<string | null>(null);
   if (parseError != null) {
-    errors.push(parseError)
+    errors.push(parseError);
   }
 
   return {
     doImport: (data: string) => {
-      let allData
+      let allData;
       try {
-        allData = allDataSchema.parse(JSON.parse(data))
+        allData = allDataSchema.parse(JSON.parse(data));
       } catch (error) {
-        importMutation.reset()
+        importMutation.reset();
         if (error instanceof Error) {
-          setParseError(error.message)
+          setParseError(error.message);
         }
-        return
+        return;
       }
 
       importMutation.mutate(
         { allData },
         {
           onSuccess: () => {
-            setImportedRecently(true)
+            setImportedRecently(true);
           },
           onSettled: () => {
-            setParseError(null)
+            setParseError(null);
           },
         },
-      )
+      );
     },
     isLoading: importMutation.isLoading,
     errors,
     importedRecently,
-  }
+  };
 }
 
 function Errors({ errors }: { errors: string[] }): JSX.Element | undefined {
   if (errors.length === 0) {
-    return undefined
+    return undefined;
   }
 
   return (
@@ -121,5 +121,5 @@ function Errors({ errors }: { errors: string[] }): JSX.Element | undefined {
         ))}
       </ul>
     </div>
-  )
+  );
 }

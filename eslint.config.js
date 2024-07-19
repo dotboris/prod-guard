@@ -1,19 +1,19 @@
 // @ts-check
-import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default tseslint.config(
   {
     ignores: [
-      'dist',
-      'node_modules',
-      'playwright-report',
-      'test-results',
-      'web-ext-artifacts',
-      'babel.config.js',
-      'prettier.config.js',
-      'webpack.config.js',
+      "dist",
+      "node_modules",
+      "playwright-report",
+      "test-results",
+      "web-ext-artifacts",
+      "babel.config.js",
+      "prettier.config.js",
+      "webpack.config.js",
     ],
   },
   eslint.configs.recommended,
@@ -27,4 +27,4 @@ export default tseslint.config(
     },
   },
   eslintConfigPrettier,
-)
+);

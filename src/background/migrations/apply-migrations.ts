@@ -1,9 +1,9 @@
-import { z } from 'zod'
-import { AllData } from '../../schema'
+import { z } from "zod";
+import { AllData } from "../../schema";
 
 const baseStorageDataSchema = z.object({
   dataVersion: z.number().optional().default(0),
-})
+});
 
 export function applyMigrations(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,17 +11,17 @@ export function applyMigrations(
   storageData: unknown,
 ): [boolean, AllData] {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let res: any = storageData
-  const startVersion = baseStorageDataSchema.parse(storageData).dataVersion
+  let res: any = storageData;
+  const startVersion = baseStorageDataSchema.parse(storageData).dataVersion;
 
-  let version
-  let hasMigrated = false
+  let version;
+  let hasMigrated = false;
   for (version = startVersion; version < migrations.length; version += 1) {
-    hasMigrated = true
-    const migrate = migrations[version]
+    hasMigrated = true;
+    const migrate = migrations[version];
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    res = migrate(res)
+    res = migrate(res);
   }
 
-  return [hasMigrated, { ...res, dataVersion: version } as AllData]
+  return [hasMigrated, { ...res, dataVersion: version } as AllData];
 }
