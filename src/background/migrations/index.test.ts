@@ -5,11 +5,12 @@ import { range } from 'lodash-es'
 
 vi.mock('uuid', () => ({ v4: vi.fn() }))
 const uuidV4 = vi.mocked(uuid.v4)
-const _uuid = await vi.importActual<typeof uuid>('uuid')
+const { v4: _uuidV4 } = await vi.importActual<typeof import('uuid')>('uuid')
+type UuidV4Fn = typeof _uuidV4
 
 function resetUuidV4(): void {
   uuidV4.mockReset()
-  uuidV4.mockImplementation(() => _uuid.v4())
+  uuidV4.mockImplementation(_uuidV4)
 }
 
 describe('data migrations', () => {
@@ -50,7 +51,7 @@ describe('data migrations', () => {
   })) {
     it(`should fill in default values (${label})`, () => {
       for (const i of range(0, 4)) {
-        uuidV4.mockImplementationOnce(() => `uuid-${i}`)
+        uuidV4.mockImplementationOnce((() => `uuid-${i}`) as UuidV4Fn)
       }
 
       const [, res] = migrateStorageData(data)
@@ -137,7 +138,7 @@ describe('data migrations', () => {
   })) {
     it(`should leave existing options around (${label})`, () => {
       for (const i of range(0, 4)) {
-        uuidV4.mockImplementationOnce(() => `uuid-${i}`)
+        uuidV4.mockImplementationOnce((() => `uuid-${i}`) as UuidV4Fn)
       }
 
       const [, res] = migrateStorageData(data)
@@ -191,10 +192,10 @@ describe('data migrations', () => {
     it(`should convert numeric ids to unique ids (${label})`, () => {
       // Duplicate ids are returned to test that the id generation is resistant
       // to hitting duplicates.
-      uuidV4.mockImplementationOnce(() => 'uuid-1')
-      uuidV4.mockImplementationOnce(() => 'uuid-1')
-      uuidV4.mockImplementationOnce(() => 'uuid-2')
-      uuidV4.mockImplementationOnce(() => 'uuid-2')
+      uuidV4.mockImplementationOnce((() => 'uuid-1') as UuidV4Fn)
+      uuidV4.mockImplementationOnce((() => 'uuid-1') as UuidV4Fn)
+      uuidV4.mockImplementationOnce((() => 'uuid-2') as UuidV4Fn)
+      uuidV4.mockImplementationOnce((() => 'uuid-2') as UuidV4Fn)
 
       const [, res] = migrateStorageData(data)
 

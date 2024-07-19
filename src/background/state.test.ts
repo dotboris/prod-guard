@@ -12,10 +12,11 @@ import * as uuid from 'uuid'
 vi.mock('uuid', () => ({ v4: vi.fn() }))
 const uuidV4 = vi.mocked(uuid.v4)
 const _uuid = await vi.importActual<typeof uuid>('uuid')
+type UuidV4Fn = typeof _uuid.v4
 
 function resetUuidV4(): void {
   uuidV4.mockReset()
-  uuidV4.mockImplementation(() => _uuid.v4())
+  uuidV4.mockImplementation(_uuid.v4)
 }
 
 const STUB_WARNING: Warning = {
@@ -94,12 +95,12 @@ describe('state.ts', () => {
       })
 
       it('should not generate duplicate ids', () => {
-        uuidV4.mockImplementationOnce(() => 'uuid-1')
-        uuidV4.mockImplementationOnce(() => 'uuid-2')
-        uuidV4.mockImplementationOnce(() => 'uuid-2')
-        uuidV4.mockImplementationOnce(() => 'uuid-3')
-        uuidV4.mockImplementationOnce(() => 'uuid-3')
-        uuidV4.mockImplementationOnce(() => 'uuid-4')
+        uuidV4.mockImplementationOnce((() => 'uuid-1') as UuidV4Fn)
+        uuidV4.mockImplementationOnce((() => 'uuid-2') as UuidV4Fn)
+        uuidV4.mockImplementationOnce((() => 'uuid-2') as UuidV4Fn)
+        uuidV4.mockImplementationOnce((() => 'uuid-3') as UuidV4Fn)
+        uuidV4.mockImplementationOnce((() => 'uuid-3') as UuidV4Fn)
+        uuidV4.mockImplementationOnce((() => 'uuid-4') as UuidV4Fn)
 
         const state = new State(makeAllData())
 
