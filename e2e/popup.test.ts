@@ -11,6 +11,8 @@ test("popup with no warnings screenshot", async ({ page }) => {
 
 test("empty settings page screenshot", async ({ page }) => {
   await page.getByRole("link", { name: "Settings" }).click();
+  await page.mouse.move(0, 0); // Move mouse away to stop hover on cog icon
+
   await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
   await expect(page.getByText(/"dataVersion": *\d/)).toBeVisible();
 
