@@ -66,8 +66,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)
       uuid:
-        specifier: ^10.0.0
-        version: 10.0.0
+        specifier: ^11.0.2
+        version: 11.0.2
       webextension-polyfill:
         specifier: ^0.12.0
         version: 0.12.0
@@ -4626,8 +4626,8 @@ packages:
   utila@0.4.0:
     resolution: {integrity: sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==}
 
-  uuid@10.0.0:
-    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+  uuid@11.0.2:
+    resolution: {integrity: sha512-14FfcOJmqdjbBPdDjFQyk/SdT4NySW4eM0zcG+HqbHP5jzuH56xO3J1DGhgs/cEMCfwYi3HQI1gnTO62iaG+tQ==}
     hasBin: true
 
   uuid@8.3.2:
@@ -9753,7 +9753,7 @@ snapshots:
 
   utila@0.4.0: {}
 
-  uuid@10.0.0: {}
+  uuid@11.0.2: {}
 
   uuid@8.3.2: {}
 
