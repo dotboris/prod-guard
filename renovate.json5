@@ -1,21 +1,17 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    ':dependencyDashboard',
-    ':ignoreModulesAndTests',
-    'workarounds:all',
-    'group:monorepos',
-    'group:recommended',
+    'config:recommended',
     'group:allNonMajor',
   ],
 
   timezone: 'America/Toronto',
-  schedule: ['after 2pm on friday'],
+  schedule: ['before 5 am on saturday'],
 
   rangeStrategy: 'bump',
   lockFileMaintenance: {
     enabled: true,
-    schedule: ['after 2pm on friday'],
+    schedule: ['before 5 am on saturday'],
   },
 
   nix: { enabled: true },
