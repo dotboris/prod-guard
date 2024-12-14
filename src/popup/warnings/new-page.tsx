@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { type Warning } from "../../schema";
 import { trpc } from "../trpc";
 
-export default function NewWarningPage(): JSX.Element {
+export default function NewWarningPage() {
   const addMutation = trpc.warnings.add.useMutation();
 
   const navigate = useNavigate();

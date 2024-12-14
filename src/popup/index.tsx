@@ -13,7 +13,7 @@ const port = browser.runtime.connect();
 
 main();
 
-function Root(): JSX.Element {
+function Root() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({

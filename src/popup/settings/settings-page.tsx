@@ -2,7 +2,7 @@ import Layout from "../components/layout";
 import ExportBox from "./export";
 import { ImportBox } from "./import";
 
-export default function SettingsPage(): JSX.Element {
+export default function SettingsPage() {
   return (
     <Layout title="Settings">
       <h2>Export All Data</h2>

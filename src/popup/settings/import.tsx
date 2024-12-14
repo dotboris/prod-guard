@@ -22,7 +22,7 @@ const styles = {
   }),
 };
 
-export function ImportBox(): JSX.Element {
+export function ImportBox() {
   const [data, setData] = useState("");
   const { doImport, isLoading, errors, importedRecently } = useImport();
 
@@ -107,7 +107,7 @@ function useImport(): UseImport {
   };
 }
 
-function Errors({ errors }: { errors: string[] }): JSX.Element | undefined {
+function Errors({ errors }: { errors: string[] }) {
   if (errors.length === 0) {
     return undefined;
   }

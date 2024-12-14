@@ -47,10 +47,7 @@ interface FormData {
   backgroundColor?: BannerWarning["backgroundColor"];
 }
 
-export default function WarningForm({
-  onSave,
-  value,
-}: WarningFormProps): JSX.Element {
+export default function WarningForm({ onSave, value }: WarningFormProps) {
   const { register, handleSubmit, control, watch } = useForm<FormData>({
     values: value,
     defaultValues: async () => ({

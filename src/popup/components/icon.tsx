@@ -48,13 +48,7 @@ interface IconRawStyle extends CSSProperties {
   "--size": string;
 }
 
-export function Icon({
-  title,
-  svg,
-  size,
-  theme,
-  className,
-}: IconProps): JSX.Element {
+export function Icon({ title, svg, size, theme, className }: IconProps) {
   let themeCss: SerializedStyles;
   switch (theme) {
     case "light":
@@ -83,7 +77,7 @@ export function Icon({
 
 export function IconButton(
   props: IconProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type">,
-): JSX.Element {
+) {
   return (
     <Button css={styles.button} {...nonIconProps(props)} type="button">
       <Icon {...iconProps(props)} />
@@ -91,7 +85,7 @@ export function IconButton(
   );
 }
 
-export function IconLink(props: IconProps & LinkProps): JSX.Element {
+export function IconLink(props: IconProps & LinkProps) {
   return (
     <Link {...nonIconProps(props)}>
       <Icon {...iconProps(props)} />
