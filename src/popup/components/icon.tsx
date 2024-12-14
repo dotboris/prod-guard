@@ -1,7 +1,7 @@
 import { type SerializedStyles, css } from "@emotion/react";
 import { Button } from "./button";
 import { type ButtonHTMLAttributes, type CSSProperties } from "react";
-import { Link, type LinkProps } from "react-router-dom";
+import { Link, type LinkProps } from "react-router";
 import { omit, pick } from "lodash-es";
 import { palette } from "../theme";
 

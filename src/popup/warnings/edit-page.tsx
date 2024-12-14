@@ -17,7 +17,7 @@ export default function EditWarningPage() {
   const navigate = useNavigate();
   const handleSave = async (warning: Warning): Promise<void> => {
     await updateWarningMutation.mutateAsync({ id, warning });
-    navigate("/");
+    await navigate("/");
   };
 
   return (
