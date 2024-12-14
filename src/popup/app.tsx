@@ -10,7 +10,6 @@ export default function App() {
       <Route path="/" element={<WarningsListPage />} />
       <Route path="/new" element={<NewWarningPage />} />
       <Route path="/edit/:id" element={<EditWarningPage />} />
-
       <Route path="/settings" element={<SettingsPage />} />
     </Routes>
   );
