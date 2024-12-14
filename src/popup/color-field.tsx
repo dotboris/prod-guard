@@ -41,7 +41,7 @@ export interface ColorFieldProps {
   onChange: (value: string) => void;
 }
 
-export default function ColorField(props: ColorFieldProps): JSX.Element {
+export default function ColorField(props: ColorFieldProps) {
   const { id, value, disabled, required, onChange } = props;
   const [rawValue, setRawValue] = useState(value);
 

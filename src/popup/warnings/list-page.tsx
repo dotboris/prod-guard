@@ -26,7 +26,7 @@ const pageStyles = {
   }),
 };
 
-export default function WarningsListPage(): JSX.Element {
+export default function WarningsListPage() {
   return (
     <Layout title="Prod Guard">
       <div css={pageStyles.title}>
@@ -66,7 +66,7 @@ const listStyles = {
   }),
 };
 
-function WarningList(): JSX.Element | undefined {
+function WarningList() {
   const { isLoading, data: warnings } = trpc.warnings.list.useQuery();
 
   if (isLoading || warnings == null) {
@@ -123,7 +123,7 @@ const itemStyles = {
   }),
 };
 
-function WarningItem({ warning }: { warning: WarningWithId }): JSX.Element {
+function WarningItem({ warning }: { warning: WarningWithId }) {
   const removeWarningMutation = trpc.warnings.remove.useMutation();
   const toggleWarningMutation = trpc.warnings.toggleEnabled.useMutation();
 
@@ -206,7 +206,7 @@ interface ColorCSSProperties extends CSSProperties {
   "--color": string;
 }
 
-function Color({ colorHex }: { colorHex: string }): JSX.Element {
+function Color({ colorHex }: { colorHex: string }) {
   const style: ColorCSSProperties = {
     "--color": `#${colorHex}`,
   };

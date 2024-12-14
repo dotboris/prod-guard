@@ -37,7 +37,7 @@ const styles = {
   }),
 };
 
-export function MissingPermissionsAlert(): JSX.Element | undefined {
+export function MissingPermissionsAlert() {
   const [{ value: hasPermission, loading }, checkPermission] = useAsyncFn(
     async () => await browser.permissions.contains(PERMISSIONS),
   );

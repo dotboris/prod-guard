@@ -41,7 +41,7 @@ export interface LayoutProps {
 export default function Layout({
   title,
   children,
-}: PropsWithChildren<LayoutProps>): JSX.Element {
+}: PropsWithChildren<LayoutProps>) {
   return (
     <div data-testid="layout-root">
       <div css={styles.titleBar}>
