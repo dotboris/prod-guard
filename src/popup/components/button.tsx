@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "../theme";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export const buttonStyle = css({
   appearance: "none",

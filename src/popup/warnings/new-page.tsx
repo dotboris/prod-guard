@@ -10,7 +10,7 @@ export default function NewWarningPage() {
   const navigate = useNavigate();
   const handleSave = async (warning: Warning): Promise<void> => {
     await addMutation.mutateAsync({ warning });
-    navigate("/");
+    await navigate("/");
   };
 
   return (
