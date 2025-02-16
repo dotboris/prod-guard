@@ -60,7 +60,7 @@ jobs:
 
       - uses: ./.github/actions/setup-node
       - run: pnpm playwright install --with-deps chromium
-      - run: xvfb-run pnpm playwright test --reporter github,html
+      - run: pnpm e2e --reporter github,html
         env:
           PW_TEST_HTML_REPORT_OPEN: never
       - uses: actions/upload-artifact@v4

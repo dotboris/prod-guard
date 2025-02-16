@@ -10,29 +10,16 @@ export const test = base.extend<{
   context: async ({}, use) => {
     const pathToExtension = path.join(import.meta.dirname, "../dist");
     const context = await chromium.launchPersistentContext("", {
-      headless: false,
+      channel: "chromium", // enables headless mode
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
-
-        // Turn off a bunch of font stuff to normalize screenshots
-        "--font-render-hinting=none",
-        "--disable-skia-runtime-opts",
-        "--disable-font-subpixel-positioning",
-        "--disable-lcd-text",
       ],
     });
     await use(context);
     await context.close();
   },
   extensionId: async ({ context }, use) => {
-    // for manifest v2:
-    // let [background] = context.backgroundPages()
-    // if (background == null) {
-    //   background = await context.waitForEvent('backgroundpage')
-    // }
-
-    // for manifest v3:
     let [background] = context.serviceWorkers();
     if (background == null) {
       background = await context.waitForEvent("serviceworker");

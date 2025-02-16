@@ -23,10 +23,13 @@
       devShells.default = pkgs.mkShell {
         packages = [
           pkgs.nodejs
-          pkgs.corepack
 
-          # for playwright tests
-          pkgs.xvfb-run
+          # Using corepack latest to ensure that we get the most up to date
+          # version. I don't understand full details of what's going on but it
+          # has to do with https://github.com/nodejs/corepack/issues/612. Long
+          # story short: NPM updates its signing keys from time to time and that
+          # seems to require a corepack update.
+          pkgs.corepack_latest
         ];
 
         # In the nix environment, playwright won't see the libs but it'll work
