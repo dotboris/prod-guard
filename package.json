@@ -80,7 +80,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.55.0",
-    "react-router": "^7.5.0",
+    "react-router": "^7.5.2",
     "react-use": "^17.6.0",
     "trpc-chrome": "^1.0.0",
     "uuid": "^11.1.0",
