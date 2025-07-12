@@ -69,11 +69,11 @@ importers:
         specifier: ^0.12.0
         version: 0.12.0
       zod:
-        specifier: ^3.24.2
-        version: 3.24.2
+        specifier: ^4.0.5
+        version: 4.0.5
       zod-validation-error:
         specifier: ^3.4.0
-        version: 3.4.0(zod@3.24.2)
+        version: 3.4.0(zod@4.0.5)
     devDependencies:
       '@babel/core':
         specifier: ^7.26.10
@@ -4585,8 +4585,8 @@ packages:
     peerDependencies:
       zod: ^3.18.0
 
-  zod@3.24.2:
-    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
+  zod@4.0.5:
+    resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
 snapshots:
 
@@ -9238,8 +9238,8 @@ snapshots:
       async: 3.2.6
       jszip: 3.10.1
 
-  zod-validation-error@3.4.0(zod@3.24.2):
+  zod-validation-error@3.4.0(zod@4.0.5):
     dependencies:
-      zod: 3.24.2
+      zod: 4.0.5
 
-  zod@3.24.2: {}
+  zod@4.0.5: {}
