@@ -1,4 +1,3 @@
-import { type ChangeEventHandler, useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import { palette } from "./theme";
 
@@ -43,33 +42,21 @@ export interface ColorFieldProps {
 
 export default function ColorField(props: ColorFieldProps) {
   const { id, value, disabled, required, onChange } = props;
-  const [rawValue, setRawValue] = useState(value);
-
-  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    (event) => {
-      const newValue = event.target.value;
-      setRawValue(newValue);
-      if (event.target.validity.valid) {
-        onChange(newValue);
-      }
-    },
-    [setRawValue, onChange],
-  );
 
   return (
     <div css={styles.root}>
       <div css={styles.previewWrapper}>
-        <div css={styles.preview} style={{ backgroundColor: `#${rawValue}` }} />
+        <div css={styles.preview} style={{ backgroundColor: `#${value}` }} />
       </div>
 
       <input
         id={id}
         type="text"
         pattern="^[0-9a-fA-F]{3}|[0-9a-fA-F]{6}$"
-        value={rawValue}
+        value={value}
         disabled={disabled}
         required={required}
-        onChange={handleChange}
+        onChange={(event) => onChange(event.target.value)}
       />
     </div>
   );
