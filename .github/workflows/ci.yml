@@ -27,7 +27,7 @@ jobs:
         run: |
           version="$(jq < package.json -r '.version')"
           echo "version=$version" >> "$GITHUB_OUTPUT"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: prod_guard-${{ steps.read-version.outputs.version }}.zip
           path: web-ext-artifacts/prod_guard-*.zip
@@ -50,7 +50,7 @@ jobs:
         with:
           lfs: true
 
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           name: ${{ needs.build.outputs.artifact }}
       - name: extract extension
@@ -63,7 +63,7 @@ jobs:
       - run: pnpm e2e --reporter github,html
         env:
           PW_TEST_HTML_REPORT_OPEN: never
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: playwright-results
