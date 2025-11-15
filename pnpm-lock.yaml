@@ -72,8 +72,8 @@ importers:
         specifier: ^4.1.12
         version: 4.1.12
       zod-validation-error:
-        specifier: ^4.0.2
-        version: 4.0.2(zod@4.1.12)
+        specifier: ^5.0.0
+        version: 5.0.0(zod@4.1.12)
     devDependencies:
       '@babel/core':
         specifier: ^7.28.5
@@ -4567,8 +4567,8 @@ packages:
   zip-dir@2.0.0:
     resolution: {integrity: sha512-uhlsJZWz26FLYXOD6WVuq+fIcZ3aBPGo/cFdiLlv3KNwpa52IF3ISV8fLhQLiqVu5No3VhlqlgthN6gehil1Dg==}
 
-  zod-validation-error@4.0.2:
-    resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
+  zod-validation-error@5.0.0:
+    resolution: {integrity: sha512-hmk+pkyKq7Q71PiWVSDUc3VfpzpvcRHZ3QPw9yEMVvmtCekaMeOHnbr3WbxfrgEnQTv6haGP4cmv0Ojmihzsxw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
@@ -9196,7 +9196,7 @@ snapshots:
       async: 3.2.6
       jszip: 3.10.1
 
-  zod-validation-error@4.0.2(zod@4.1.12):
+  zod-validation-error@5.0.0(zod@4.1.12):
     dependencies:
       zod: 4.1.12
 
