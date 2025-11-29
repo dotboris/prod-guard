@@ -47,7 +47,7 @@ jobs:
     env:
       VERSION: ${{ needs.ci.outputs.version }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: sean0x42/markdown-extract@v2
         id: extract-notes
