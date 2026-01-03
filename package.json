@@ -20,7 +20,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json}'",
     "prepare": "husky"
   },
-  "packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa",
+  "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6",
   "devDependencies": {
     "@babel/core": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
@@ -48,7 +48,7 @@
     "html-webpack-plugin": "^5.6.5",
     "http-server": "^14.1.1",
     "husky": "^9.1.7",
-    "jsdom": "^27.3.0",
+    "jsdom": "^27.4.0",
     "lint-staged": "^16.2.7",
     "lodash": "^4.17.21",
     "npm-run-all2": "^8.0.4",
@@ -56,7 +56,7 @@
     "sharp": "^0.34.5",
     "style-loader": "^4.0.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.50.0",
+    "typescript-eslint": "^8.50.1",
     "vitest": "^4.0.16",
     "web-ext": "^9.2.0",
     "webpack": "^5.104.1",
