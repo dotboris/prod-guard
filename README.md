@@ -12,7 +12,7 @@ A browser extension that lets you know when you're connected to production by
 giving you a clear visual warning. Never accidentally make changes to
 production.
 
-Specifically, Prog Guard lets you add big red warnings to any website.
+Specifically, Prod Guard lets you add big red warnings to any website.
 
 ## Install
 
