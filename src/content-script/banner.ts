@@ -30,8 +30,10 @@ export function makeBanner({
   text,
   backgroundColor,
   textColor,
-}: BannerWarning): void {
+  id,
+}: BannerWarning & { id: string }): void {
   const banner = document.createElement("div");
+  banner.setAttribute("data-banner-id", id);
   banner.classList.add(
     cx(
       styles.root,

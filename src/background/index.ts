@@ -19,9 +19,9 @@ createChromeHandler({
   },
 });
 
-browser.tabs.onUpdated.addListener((tabId, { status }, tab) => {
+browser.tabs.onUpdated.addListener((tabId, _changeInfo, tab) => {
   void (async () => {
-    if (status !== "complete") {
+    if (tab.status !== "complete") {
       return;
     }
 
