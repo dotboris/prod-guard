@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2
+
+### Patch Changes
+
+- [#1287](https://github.com/dotboris/prod-guard/pull/1287) [`fbeaa58`](https://github.com/dotboris/prod-guard/commit/fbeaa583183f981a6edb062e173cd39194e71895) Thanks [@edwardloveall](https://github.com/edwardloveall)! - Fix warnings disappearing on sites that implement navigation by replacing the content of the page with Javascript.
+
 ## 2.0.1
 
 ### Patch Changes
