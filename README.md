@@ -46,7 +46,7 @@ What follows are the available warnings that can be shown on websites.
 
 Adding a warning to a site is very simple.
 
-1.  Open click on the Prod Guard icon in your browser to open the settings.
+1.  Click on the Prod Guard icon in your browser to open the settings.
 
     ![home screen showing that no warnings are configured](doc/empty-home-screen.png)
 
