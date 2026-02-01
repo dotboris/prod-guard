@@ -13,7 +13,7 @@ function main() {
   const warnings = window.prodGuardWarnings ?? [];
 
   for (const warning of warnings) {
-    const selector = `[data-banner-id="${warning.id}"]`;
+    const selector = `[data-prod-guard-warning-id="${warning.id}"]`;
     const element = document.querySelector(selector);
     if (!document.contains(element)) {
       switch (warning.warningStyle) {

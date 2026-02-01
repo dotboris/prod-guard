@@ -33,7 +33,7 @@ export function makeBanner({
   id,
 }: BannerWarning & { id: string }): void {
   const banner = document.createElement("div");
-  banner.setAttribute("data-banner-id", id);
+  banner.setAttribute("data-prod-guard-warning-id", id);
   banner.classList.add(
     cx(
       styles.root,
