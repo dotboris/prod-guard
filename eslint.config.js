@@ -12,6 +12,7 @@ export default tseslint.config(
       "test-results",
       "web-ext-artifacts",
       "babel.config.js",
+      "postcss.config.mjs",
       "prettier.config.js",
       "webpack.config.js",
     ],
