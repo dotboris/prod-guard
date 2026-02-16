@@ -57,16 +57,16 @@ export const GLOBAL_STYLES = css({
     fontFamily: fontStacks.monospace,
   },
 
-  "h1, h2": {
-    fontWeight: 700,
-    margin: "0.25em 0 0.5em",
-  },
+  // "h1, h2": {
+  //   fontWeight: 700,
+  //   margin: "0.25em 0 0.5em",
+  // },
 
-  h1: {
-    fontSize: "1.5em",
-  },
+  // h1: {
+  //   fontSize: "1.5em",
+  // },
 
-  h2: {
-    fontSize: "1.3em",
-  },
+  // h2: {
+  //   fontSize: "1.3em",
+  // },
 });

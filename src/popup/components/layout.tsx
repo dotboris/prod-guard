@@ -2,37 +2,7 @@ import { IconLink } from "./icon";
 import HomeIcon from "@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg";
 import GearIcon from "@fortawesome/fontawesome-free/svgs/solid/gear.svg";
 import { type PropsWithChildren } from "react";
-import { css } from "@emotion/react";
-import { palette } from "../theme";
 import { MissingPermissionsAlert } from "./missing-permissions-alert";
-
-const styles = {
-  titleBar: css({
-    top: 0,
-    position: "sticky",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    color: "white",
-    backgroundColor: palette.darkShade,
-
-    "> *": {
-      padding: "0.75rem 1rem",
-    },
-
-    h1: {
-      flexGrow: 1,
-      fontSize: "1.5rem",
-      lineHeight: 1,
-      margin: 0,
-      padding: 0,
-    },
-  }),
-
-  content: css({
-    padding: "1rem",
-  }),
-};
 
 export interface LayoutProps {
   title: string;
@@ -44,7 +14,7 @@ export default function Layout({
 }: PropsWithChildren<LayoutProps>) {
   return (
     <div data-testid="layout-root">
-      <div css={styles.titleBar}>
+      <div className="sticky top-0 flex items-end gap-3 bg-slate-800 px-4 py-3 text-white">
         <IconLink
           to="/"
           svg={HomeIcon}
@@ -53,7 +23,7 @@ export default function Layout({
           theme="light"
         />
 
-        <h1>{title}</h1>
+        <h1 className="m-0 grow text-2xl leading-none font-bold">{title}</h1>
 
         <IconLink
           to="/settings"
@@ -64,7 +34,7 @@ export default function Layout({
         />
       </div>
 
-      <div css={styles.content}>
+      <div className="p-4">
         <MissingPermissionsAlert />
         {children}
       </div>
