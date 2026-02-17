@@ -1,3 +1,5 @@
+import { Input } from "./Input";
+
 export interface ColorFieldProps {
   id?: string;
   value: string;
@@ -18,8 +20,8 @@ export default function ColorField(props: ColorFieldProps) {
         />
       </div>
 
-      <input
-        className="w-full border border-black p-2 pr-8"
+      <Input
+        className="w-full pr-8"
         id={id}
         type="text"
         pattern="^[0-9a-fA-F]{3}|[0-9a-fA-F]{6}$"

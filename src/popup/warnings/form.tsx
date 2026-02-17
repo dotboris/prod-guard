@@ -10,6 +10,8 @@ import {
   type Warning,
 } from "../../schema";
 import { Button } from "../components/Button";
+import { Input } from "../components/Input";
+import { Select, SelectOption } from "../components/Select";
 
 export interface WarningFormProps {
   onSave?: (warning: Warning) => void;
@@ -67,8 +69,8 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
         name="enabled"
         control={control}
         render={({ field }) => (
-          <select
-            className="border border-black bg-no-repeat p-2"
+          <Select
+            className="w-full"
             id={enabledId}
             {...field}
             value={field.value ? "true" : "false"}
@@ -76,32 +78,31 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
               field.onChange(e.target.value === "true");
             }}
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
+            <SelectOption value="true">Yes</SelectOption>
+            <SelectOption value="false">No</SelectOption>
+          </Select>
         )}
       />
 
       <label htmlFor={patternId}>URL Regex:</label>
-      <input
-        className="border border-black bg-no-repeat p-2"
+      <Input
         id={patternId}
         type="text"
         {...register("pattern", { required: true })}
       />
 
       <label htmlFor={warningStyleId}>Style:</label>
-      <select
-        className="border border-black bg-no-repeat p-2"
+      <Select
+        className="w-full"
         id={warningStyleId}
         {...register("warningStyle", { required: true })}
       >
         {Object.entries(warningStyles).map(([key, name]) => (
-          <option key={key} value={key}>
+          <SelectOption key={key} value={key}>
             {name}
-          </option>
+          </SelectOption>
         ))}
-      </select>
+      </Select>
 
       {watch("warningStyle") === "border" ? (
         <>
@@ -124,8 +125,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
       {["topBanner", "bottomBanner"].includes(watch("warningStyle")) ? (
         <>
           <label htmlFor={textId}>Message:</label>
-          <input
-            className="border border-black bg-no-repeat p-2"
+          <Input
             id={textId}
             type="text"
             {...register("text", { required: true })}

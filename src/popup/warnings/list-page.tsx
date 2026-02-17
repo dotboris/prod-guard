@@ -13,8 +13,8 @@ import { Link } from "react-router";
 export default function WarningsListPage() {
   return (
     <Layout title="Prod Guard">
-      <div className="mb-2 flex items-center">
-        <h2 className="grow text-xl">Warnings</h2>
+      <div className="mb-2 flex items-baseline">
+        <h2 className="grow text-lg font-bold">Warnings</h2>
         <Button asChild>
           <Link to="/new">New Warning</Link>
         </Button>
