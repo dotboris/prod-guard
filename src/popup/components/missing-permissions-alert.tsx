@@ -1,6 +1,6 @@
 import browser from "webextension-polyfill";
 import { useAsyncFn } from "react-use";
-import { Button } from "./button";
+import { Button } from "./Button";
 import { useEffect } from "react";
 import { Icon } from "./icon";
 import AlertIcon from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";

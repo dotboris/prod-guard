@@ -7,8 +7,6 @@ import { HashRouter } from "react-router";
 import { useState } from "react";
 import { trpc } from "./trpc";
 import { chromeLink } from "trpc-chrome/link";
-import { Global } from "@emotion/react";
-import { GLOBAL_STYLES } from "./global-styles";
 
 const port = browser.runtime.connect();
 
@@ -24,7 +22,6 @@ function Root() {
 
   return (
     <>
-      <Global styles={GLOBAL_STYLES} />
       <HashRouter>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>

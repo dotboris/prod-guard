@@ -4,3 +4,14 @@
   --font-sans: "Roboto", sans-serif;
   --font-mono: "Roboto Mono Variable", monospace;
 }
+
+html,
+body {
+  font-family: var(--font-sans);
+  width: 25rem;
+}
+
+body {
+  /* Not sure why, but chrome sets a font-size: 75% here. */
+  font-size: unset;
+}

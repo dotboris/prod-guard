@@ -1,26 +1,9 @@
-import { css } from "@emotion/react";
 import { useState } from "react";
 import { trpc } from "../trpc";
 import { fromZodIssue } from "zod-validation-error";
 import { useExpiringState } from "./useExpiringState";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
 import { allDataSchema } from "../../schema";
-
-const styles = {
-  root: css({
-    display: "grid",
-    gap: "0.5rem",
-  }),
-  textBox: css({
-    height: "8rem",
-  }),
-  errors: css({
-    ul: {
-      margin: 0,
-      paddingLeft: "1rem",
-    },
-  }),
-};
 
 export function ImportBox() {
   const [data, setData] = useState("");
@@ -28,7 +11,7 @@ export function ImportBox() {
 
   return (
     <form
-      css={styles.root}
+      className="grid gap-2"
       onSubmit={(e) => {
         e.preventDefault();
         doImport(data);
@@ -36,7 +19,7 @@ export function ImportBox() {
     >
       <textarea
         disabled={isLoading}
-        css={styles.textBox}
+        className="h-32 border border-slate-800 p-2 font-mono"
         onChange={(e) => {
           setData(e.target.value);
         }}
@@ -113,9 +96,9 @@ function Errors({ errors }: { errors: string[] }) {
   }
 
   return (
-    <div css={styles.errors}>
+    <div>
       Failed to import because of the following errors:
-      <ul>
+      <ul className="mt-2 list-disc pl-5">
         {errors.map((error) => (
           <li key={error}>{error}</li>
         ))}

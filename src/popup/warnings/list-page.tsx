@@ -7,14 +7,17 @@ import ToggleOffIcon from "@fortawesome/fontawesome-free/svgs/solid/toggle-off.s
 import Layout from "../components/layout";
 import { type WarningWithId } from "../../schema";
 import { trpc } from "../trpc";
-import { LinkButton } from "../components/button";
+import { Button } from "../components/Button";
+import { Link } from "react-router";
 
 export default function WarningsListPage() {
   return (
     <Layout title="Prod Guard">
       <div className="mb-2 flex items-center">
-        <h2 className="grow text-xl font-bold">Warnings</h2>
-        <LinkButton to="/new">New Warning</LinkButton>
+        <h2 className="grow text-xl">Warnings</h2>
+        <Button asChild>
+          <Link to="/new">New Warning</Link>
+        </Button>
       </div>
 
       <WarningList />
@@ -64,29 +67,29 @@ function WarningItem({ warning }: { warning: WarningWithId }) {
           {warning.pattern}
         </div>
         <IconButton
+          className="size-6"
           svg={warning.enabled ? ToggleOnIcon : ToggleOffIcon}
           title={warning.enabled ? "Disable warning" : "Enable warning"}
           onClick={() => {
             toggleWarningMutation.mutate({ id: warning.id });
           }}
-          theme="dark"
-          size="1.5rem"
+          variant="dark"
         />
         <IconLink
+          className="size-6"
           to={`/edit/${warning.id}`}
           svg={EditIcon}
           title="Edit Warning"
-          theme="dark"
-          size="1.5rem"
+          variant="dark"
         />
         <IconButton
+          className="size-6"
           svg={TrashIcon}
           title="Delete Warning"
           onClick={() => {
             removeWarningMutation.mutate({ id: warning.id });
           }}
-          theme="dark"
-          size="1.5rem"
+          variant="dark"
         />
       </div>
       <dl className="grid grid-cols-[min-content_1fr] gap-2">

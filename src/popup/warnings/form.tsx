@@ -9,28 +9,7 @@ import {
   type BorderWarning,
   type Warning,
 } from "../../schema";
-import { Button } from "../components/button";
-import { css } from "@emotion/react";
-
-const styles = {
-  root: css({
-    display: "grid",
-    gridTemplateColumns: "max-content 1fr",
-    alignItems: "center",
-    gap: "1rem",
-
-    label: {
-      textAlign: "right",
-    },
-  }),
-
-  buttons: css({
-    gridColumn: "span 2",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  }),
-};
+import { Button } from "../components/Button";
 
 export interface WarningFormProps {
   onSave?: (warning: Warning) => void;
@@ -78,7 +57,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
 
   return (
     <form
-      css={styles.root}
+      className="grid grid-cols-[max-content_1fr] items-center gap-4 [&_label]:text-right"
       onSubmit={(e) => {
         void handleSubmit(onSubmit)(e);
       }}
@@ -89,8 +68,9 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
         control={control}
         render={({ field }) => (
           <select
-            {...field}
+            className="border border-black bg-no-repeat p-2"
             id={enabledId}
+            {...field}
             value={field.value ? "true" : "false"}
             onChange={(e) => {
               field.onChange(e.target.value === "true");
@@ -104,6 +84,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
 
       <label htmlFor={patternId}>URL Regex:</label>
       <input
+        className="border border-black bg-no-repeat p-2"
         id={patternId}
         type="text"
         {...register("pattern", { required: true })}
@@ -111,6 +92,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
 
       <label htmlFor={warningStyleId}>Style:</label>
       <select
+        className="border border-black bg-no-repeat p-2"
         id={warningStyleId}
         {...register("warningStyle", { required: true })}
       >
@@ -143,6 +125,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
         <>
           <label htmlFor={textId}>Message:</label>
           <input
+            className="border border-black bg-no-repeat p-2"
             id={textId}
             type="text"
             {...register("text", { required: true })}
@@ -178,7 +161,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
         </>
       ) : null}
 
-      <div css={styles.buttons}>
+      <div className="col-span-2 flex justify-end">
         <Button type="submit">Save</Button>
       </div>
     </form>

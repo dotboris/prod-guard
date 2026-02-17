@@ -16,21 +16,21 @@ export default function Layout({
     <div data-testid="layout-root">
       <div className="sticky top-0 flex items-end gap-3 bg-slate-800 px-4 py-3 text-white">
         <IconLink
+          className="size-6"
           to="/"
           svg={HomeIcon}
           title="Home"
-          size="1.5rem"
-          theme="light"
+          variant="light"
         />
 
         <h1 className="m-0 grow text-2xl leading-none font-bold">{title}</h1>
 
         <IconLink
+          className="size-6"
           to="/settings"
           svg={GearIcon}
           title="Settings"
-          size="1.5rem"
-          theme="light"
+          variant="light"
         />
       </div>
 
