@@ -1,34 +1,22 @@
+import { cn } from "../utils";
 import { Input } from "./Input";
 
-export interface ColorFieldProps {
-  id?: string;
+type ColorFieldProps = {
   value: string;
-  disabled?: boolean;
-  required?: boolean;
-  onChange: (value: string) => void;
-}
+} & Omit<React.ComponentProps<"input">, "pattern" | "type">;
 
-export default function ColorField(props: ColorFieldProps) {
-  const { id, value, disabled, required, onChange } = props;
-
+export default function ColorField({ className, ...props }: ColorFieldProps) {
   return (
-    <div className="relative">
-      <div className="absolute top-0 right-2 bottom-0 flex content-center items-center">
-        <div
-          className="size-4 rounded-full border border-black"
-          style={{ backgroundColor: `#${value}` }}
-        />
-      </div>
-
+    <div className={cn("relative w-fit", className)}>
       <Input
         className="w-full pr-8"
-        id={id}
         type="text"
         pattern="^[0-9a-fA-F]{3}|[0-9a-fA-F]{6}$"
-        value={value}
-        disabled={disabled}
-        required={required}
-        onChange={(event) => onChange(event.target.value)}
+        {...props}
+      />
+      <div
+        className="pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 rounded-full border border-black select-none"
+        style={{ backgroundColor: `#${props.value}` }}
       />
     </div>
   );
