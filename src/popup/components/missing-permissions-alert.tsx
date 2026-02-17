@@ -4,37 +4,9 @@ import { Button } from "./Button";
 import { useEffect } from "react";
 import { Icon } from "./icon";
 import AlertIcon from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";
-import { css } from "@emotion/react";
-import { palette } from "../theme";
 
 const PERMISSIONS = {
   origins: ["*://*/*"],
-};
-
-const styles = {
-  root: css({
-    background: palette.yellow100,
-    padding: "1rem",
-    marginBottom: "1rem",
-
-    "& > :first-child": {
-      marginTop: 0,
-    },
-    "& > :last-child": {
-      marginBottom: 0,
-    },
-  }),
-  icon: css({
-    margin: "0.25rem 0.5rem 0 0",
-    display: "block",
-    float: "left",
-  }),
-  button: css({
-    fontSize: "1rem",
-    display: "block",
-    maxWidth: "fit-content",
-    margin: "auto",
-  }),
 };
 
 export function MissingPermissionsAlert() {
@@ -51,13 +23,12 @@ export function MissingPermissionsAlert() {
 
   if (hasPermission !== true) {
     return (
-      <div css={styles.root}>
+      <div className="mb-4 bg-amber-100 p-4 *:mb-2 *:last:mb-0">
         <p>
           <Icon
-            css={styles.icon}
-            size="1.75rem"
+            className="float-left mt-2 mr-2 ml-1 block size-7"
             title="alert"
-            theme="dark"
+            variant="dark"
             svg={AlertIcon}
           />
           Prod Guard is missing an important permission that is required for it
@@ -69,7 +40,7 @@ export function MissingPermissionsAlert() {
           the button below and grant the requested permission.
         </p>
         <Button
-          css={styles.button}
+          className="m-auto block max-w-fit"
           onClick={() => {
             void (async () => {
               await browser.permissions.request(PERMISSIONS);
