@@ -1,7 +1,7 @@
 import browser from "webextension-polyfill";
 import { useId } from "react";
 import { type SubmitHandler, Controller, useForm } from "react-hook-form";
-import ColorField from "../color-field";
+import ColorField from "../components/ColorField";
 import { warningStyles } from "./friendly-names";
 import {
   warningSchema,

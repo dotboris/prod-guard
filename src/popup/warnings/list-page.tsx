@@ -1,10 +1,10 @@
 import { warningStyles } from "./friendly-names";
-import { IconButton, IconLink } from "../components/icon";
+import { IconButton, IconLink } from "../components/Icon";
 import EditIcon from "@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg";
 import TrashIcon from "@fortawesome/fontawesome-free/svgs/solid/trash.svg";
 import ToggleOnIcon from "@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg";
 import ToggleOffIcon from "@fortawesome/fontawesome-free/svgs/solid/toggle-off.svg";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import { type WarningWithId } from "../../schema";
 import { trpc } from "../trpc";
 import { Button } from "../components/Button";

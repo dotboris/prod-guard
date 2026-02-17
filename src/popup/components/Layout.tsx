@@ -1,8 +1,8 @@
-import { IconLink } from "./icon";
+import { IconLink } from "./Icon";
 import HomeIcon from "@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg";
 import GearIcon from "@fortawesome/fontawesome-free/svgs/solid/gear.svg";
 import { type PropsWithChildren } from "react";
-import { MissingPermissionsAlert } from "./missing-permissions-alert";
+import { MissingPermissionsAlert } from "./MissingPermissionsAlert";
 
 export interface LayoutProps {
   title: string;

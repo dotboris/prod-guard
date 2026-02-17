@@ -2,7 +2,7 @@ import browser from "webextension-polyfill";
 import { useAsyncFn } from "react-use";
 import { Button } from "./Button";
 import { useEffect } from "react";
-import { Icon } from "./icon";
+import { Icon } from "./Icon";
 import AlertIcon from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";
 
 const PERMISSIONS = {
