@@ -6,31 +6,14 @@ import ToggleOnIcon from "@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg
 import ToggleOffIcon from "@fortawesome/fontawesome-free/svgs/solid/toggle-off.svg";
 import Layout from "../components/layout";
 import { type WarningWithId } from "../../schema";
-import { type CSSProperties } from "react";
 import { trpc } from "../trpc";
-import { css } from "@emotion/react";
-import { fontStacks, palette } from "../theme";
 import { LinkButton } from "../components/button";
-
-const pageStyles = {
-  title: css({
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: "0.5rem",
-
-    h2: {
-      flexGrow: 1,
-      margin: 0,
-    },
-  }),
-};
 
 export default function WarningsListPage() {
   return (
     <Layout title="Prod Guard">
-      <div css={pageStyles.title}>
-        <h2>Warnings</h2>
+      <div className="mb-2 flex items-center">
+        <h2 className="grow text-xl font-bold">Warnings</h2>
         <LinkButton to="/new">New Warning</LinkButton>
       </div>
 
@@ -38,33 +21,6 @@ export default function WarningsListPage() {
     </Layout>
   );
 }
-
-const listStyles = {
-  root: css({
-    margin: 0,
-    padding: 0,
-    listStyle: "none",
-  }),
-
-  item: css({
-    padding: "1rem",
-    borderBottom: "1px solid #ddd",
-
-    "&:last-child": {
-      marginBottom: 0,
-      borderBottom: "none",
-    },
-
-    "&:hover": {
-      backgroundColor: palette.lightShade,
-    },
-  }),
-
-  emptyState: css({
-    padding: "3rem 0",
-    textAlign: "center",
-  }),
-};
 
 function WarningList() {
   const { isLoading, data: warnings } = trpc.warnings.list.useQuery();
@@ -75,9 +31,12 @@ function WarningList() {
 
   if (warnings.length > 0) {
     return (
-      <ul css={listStyles.root}>
+      <ul>
         {warnings.map((warning) => (
-          <li key={warning.id} css={listStyles.item}>
+          <li
+            key={warning.id}
+            className="border-b border-b-gray-300 p-4 last:border-b-0 hover:bg-gray-50"
+          >
             <WarningItem warning={warning} />
           </li>
         ))}
@@ -85,7 +44,7 @@ function WarningList() {
     );
   } else {
     return (
-      <p css={listStyles.emptyState}>
+      <p className="py-12 text-center">
         There's nothing here.
         <br />
         Click on "New Warning" to get started.
@@ -94,43 +53,16 @@ function WarningList() {
   }
 }
 
-const itemStyles = {
-  header: css({
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: "1rem",
-    fontSize: "1.1rem",
-    gap: "1rem",
-    alignItems: "start",
-  }),
-
-  pattern: css({
-    fontFamily: fontStacks.monospace,
-    flexGrow: 1,
-    overflowWrap: "anywhere",
-    alignSelf: "center",
-  }),
-
-  properties: css({
-    display: "grid",
-    gridTemplateColumns: "min-content 1fr",
-    gap: "0.5em",
-    margin: 0,
-
-    "> *": {
-      margin: 0,
-    },
-  }),
-};
-
 function WarningItem({ warning }: { warning: WarningWithId }) {
   const removeWarningMutation = trpc.warnings.remove.useMutation();
   const toggleWarningMutation = trpc.warnings.toggleEnabled.useMutation();
 
   return (
     <>
-      <div css={itemStyles.header}>
-        <div css={itemStyles.pattern}>{warning.pattern}</div>
+      <div className="mb-4 flex items-start gap-4 text-lg">
+        <div className="grow self-center font-mono wrap-anywhere">
+          {warning.pattern}
+        </div>
         <IconButton
           svg={warning.enabled ? ToggleOnIcon : ToggleOffIcon}
           title={warning.enabled ? "Disable warning" : "Enable warning"}
@@ -157,7 +89,7 @@ function WarningItem({ warning }: { warning: WarningWithId }) {
           size="1.5rem"
         />
       </div>
-      <dl css={itemStyles.properties}>
+      <dl className="grid grid-cols-[min-content_1fr] gap-2">
         <dt>Style:</dt>
         <dd>{warningStyles[warning.warningStyle]}</dd>
         {warning.warningStyle === "border" ? (
@@ -186,33 +118,13 @@ function WarningItem({ warning }: { warning: WarningWithId }) {
   );
 }
 
-const colorStyles = {
-  root: css({
-    whiteSpace: "nowrap",
-    "&::before": {
-      display: "inline-block",
-      verticalAlign: "baseline",
-      marginRight: "0.25em",
-      content: "''",
-      width: "0.6em",
-      height: "0.6em",
-      border: "1px solid black",
-      backgroundColor: "var(--color)",
-    },
-  }),
-};
-
-interface ColorCSSProperties extends CSSProperties {
-  "--color": string;
-}
-
 function Color({ colorHex }: { colorHex: string }) {
-  const style: ColorCSSProperties = {
-    "--color": `#${colorHex}`,
-  };
-
   return (
-    <span css={colorStyles.root} style={style}>
+    <span className="whitespace-nowrap">
+      <span
+        className="mr-1 inline-block size-2.5 border border-black align-baseline content-['']"
+        style={{ backgroundColor: `#${colorHex}` }}
+      />
       #{colorHex.toUpperCase()}
     </span>
   );

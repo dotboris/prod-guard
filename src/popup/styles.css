@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Roboto", sans-serif;
+  --font-mono: "Roboto Mono Variable", monospace;
+}
