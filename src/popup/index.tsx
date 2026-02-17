@@ -1,3 +1,5 @@
+import "@fontsource/roboto";
+import "@fontsource-variable/roboto-mono";
 import "./styles.css";
 import browser from "webextension-polyfill";
 import { createRoot } from "react-dom/client";
