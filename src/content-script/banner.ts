@@ -1,22 +1,5 @@
 import rafThrottle from "raf-throttle";
 import { type BannerWarning } from "../schema";
-import { css, cx } from "@emotion/css";
-
-const styles = {
-  root: css({
-    position: "fixed",
-    left: 0,
-    right: 0,
-    zIndex: 9999999,
-    pointerEvents: "none",
-    fontSize: "1.25rem",
-    fontWeight: "bold",
-    textAlign: "center",
-    padding: "0.5rem 0",
-  }),
-  top: css({ top: 0 }),
-  bottom: css({ bottom: 0 }),
-};
 
 interface BannerState {
   mouseInWindow: boolean;
@@ -34,16 +17,26 @@ export function makeBanner({
 }: BannerWarning & { id: string }): void {
   const banner = document.createElement("div");
   banner.setAttribute("data-prod-guard-warning-id", id);
-  banner.classList.add(
-    cx(
-      styles.root,
-      warningStyle === "topBanner" && styles.top,
-      warningStyle === "bottomBanner" && styles.bottom,
-    ),
-  );
   banner.textContent = text;
   banner.style.color = `#${textColor}`;
   banner.style.backgroundColor = `#${backgroundColor}`;
+  banner.style.position = "fixed";
+  banner.style.left = "0";
+  banner.style.right = "0";
+  banner.style.zIndex = "9999999";
+  banner.style.pointerEvents = "none";
+  banner.style.fontSize = "1.25rem";
+  banner.style.fontWeight = "bold";
+  banner.style.textAlign = "center";
+  banner.style.padding = "0.5rem 0";
+  switch (warningStyle) {
+    case "topBanner":
+      banner.style.top = "0";
+      break;
+    case "bottomBanner":
+      banner.style.bottom = "0";
+      break;
+  }
   document.body.append(banner);
 
   const state: BannerState = {

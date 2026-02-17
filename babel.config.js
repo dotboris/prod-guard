@@ -2,10 +2,6 @@ export default {
   presets: [
     "@babel/preset-typescript",
     "@babel/preset-env",
-    [
-      "@babel/preset-react",
-      { runtime: "automatic", importSource: "@emotion/react" },
-    ],
+    ["@babel/preset-react", { runtime: "automatic" }],
   ],
-  plugins: ["@emotion"],
 };

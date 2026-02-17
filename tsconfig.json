@@ -8,8 +8,7 @@
     "allowJs": true,
     "noEmit": true,
     "strict": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react"
+    "jsx": "react-jsx"
   },
   "include": [
     "./vitest.config.ts",
