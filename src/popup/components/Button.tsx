@@ -14,7 +14,7 @@ export function Button({
     <Comp
       data-slot="button"
       className={cn(
-        "cursor-pointer bg-slate-800 px-4 py-2 text-white hover:text-amber-300 focus:text-amber-300",
+        "cursor-pointer bg-slate-800 px-4 py-2 text-white outline-none hover:text-amber-300 focus-visible:text-amber-300 focus-visible:ring-1 focus-visible:ring-amber-300",
         className,
       )}
       {...props}
