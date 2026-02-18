@@ -1,8 +1,7 @@
-import { IconLink } from "./Icon";
-import HomeIcon from "@fortawesome/fontawesome-free/svgs/solid/house-chimney.svg";
-import GearIcon from "@fortawesome/fontawesome-free/svgs/solid/gear.svg";
-import { type PropsWithChildren } from "react";
 import { MissingPermissionsAlert } from "./MissingPermissionsAlert";
+import { House, Settings } from "lucide-react";
+import { Button } from "./Button";
+import { Link } from "react-router";
 
 export interface LayoutProps {
   title: string;
@@ -11,27 +10,23 @@ export interface LayoutProps {
 export default function Layout({
   title,
   children,
-}: PropsWithChildren<LayoutProps>) {
+}: React.PropsWithChildren<LayoutProps>) {
   return (
     <div data-testid="layout-root">
       <div className="sticky top-0 flex items-end gap-3 bg-slate-800 px-4 py-3 text-white">
-        <IconLink
-          className="size-6"
-          to="/"
-          svg={HomeIcon}
-          title="Home"
-          variant="light"
-        />
+        <Button className="p-0" asChild>
+          <Link to="/">
+            <House className="size-6" aria-label="Home" />
+          </Link>
+        </Button>
 
         <h1 className="m-0 grow text-2xl leading-none font-bold">{title}</h1>
 
-        <IconLink
-          className="size-6"
-          to="/settings"
-          svg={GearIcon}
-          title="Settings"
-          variant="light"
-        />
+        <Button className="p-0" asChild>
+          <Link to="/settings">
+            <Settings className="size-6" aria-label="Settings" />
+          </Link>
+        </Button>
       </div>
 
       <div className="p-4">
