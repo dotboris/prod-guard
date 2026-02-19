@@ -13,7 +13,7 @@ export default function Layout({
 }: React.PropsWithChildren<LayoutProps>) {
   return (
     <div data-testid="layout-root">
-      <div className="sticky top-0 flex items-end gap-3 bg-slate-700 px-4 py-3 text-white">
+      <div className="sticky top-0 z-50 flex items-end gap-3 bg-slate-700 px-4 py-3 text-white">
         <Button className="p-0" asChild color="none">
           <Link to="/">
             <HouseIcon className="size-6" aria-label="Home" />
