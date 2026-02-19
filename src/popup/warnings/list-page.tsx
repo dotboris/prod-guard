@@ -1,20 +1,17 @@
 import { warningStyles } from "./friendly-names";
-import { IconButton, IconLink } from "../components/Icon";
-import EditIcon from "@fortawesome/fontawesome-free/svgs/solid/pen-to-square.svg";
-import TrashIcon from "@fortawesome/fontawesome-free/svgs/solid/trash.svg";
-import ToggleOnIcon from "@fortawesome/fontawesome-free/svgs/solid/toggle-on.svg";
-import ToggleOffIcon from "@fortawesome/fontawesome-free/svgs/solid/toggle-off.svg";
 import Layout from "../components/Layout";
 import { type WarningWithId } from "../../schema";
 import { trpc } from "../trpc";
 import { Button } from "../components/Button";
 import { Link } from "react-router";
+import { Switch } from "../components/Switch";
+import { TrashIcon, EditIcon } from "lucide-react";
 
 export default function WarningsListPage() {
   return (
     <Layout title="Prod Guard">
-      <div className="mb-2 flex items-baseline">
-        <h2 className="grow text-lg font-bold">Warnings</h2>
+      <div className="mb-4 flex items-center">
+        <h2 className="grow pl-1 text-2xl font-bold">Warnings</h2>
         <Button asChild>
           <Link to="/new">New Warning</Link>
         </Button>
@@ -34,20 +31,15 @@ function WarningList() {
 
   if (warnings.length > 0) {
     return (
-      <ul>
+      <ul className="grid gap-4">
         {warnings.map((warning) => (
-          <li
-            key={warning.id}
-            className="border-b border-b-gray-300 p-4 last:border-b-0 hover:bg-gray-50"
-          >
-            <WarningItem warning={warning} />
-          </li>
+          <WarningItem key={warning.id} warning={warning} />
         ))}
       </ul>
     );
   } else {
     return (
-      <p className="py-12 text-center">
+      <p className="pt-12 pb-16 text-center text-neutral-600">
         There's nothing here.
         <br />
         Click on "New Warning" to get started.
@@ -61,38 +53,20 @@ function WarningItem({ warning }: { warning: WarningWithId }) {
   const toggleWarningMutation = trpc.warnings.toggleEnabled.useMutation();
 
   return (
-    <>
-      <div className="mb-4 flex items-start gap-4 text-lg">
-        <div className="grow self-center font-mono wrap-anywhere">
+    <li className="grid gap-4 rounded-lg border border-neutral-300 p-4">
+      <div className="flex items-center">
+        <h3 className="grow font-mono text-lg leading-none wrap-anywhere">
           {warning.pattern}
-        </div>
-        <IconButton
-          className="size-6"
-          svg={warning.enabled ? ToggleOnIcon : ToggleOffIcon}
-          title={warning.enabled ? "Disable warning" : "Enable warning"}
-          onClick={() => {
+        </h3>
+        <Switch
+          checked={warning.enabled}
+          aria-label={warning.enabled ? "Disable warning" : "Enable warning"}
+          onCheckedChange={() => {
             toggleWarningMutation.mutate({ id: warning.id });
           }}
-          variant="dark"
-        />
-        <IconLink
-          className="size-6"
-          to={`/edit/${warning.id}`}
-          svg={EditIcon}
-          title="Edit Warning"
-          variant="dark"
-        />
-        <IconButton
-          className="size-6"
-          svg={TrashIcon}
-          title="Delete Warning"
-          onClick={() => {
-            removeWarningMutation.mutate({ id: warning.id });
-          }}
-          variant="dark"
         />
       </div>
-      <dl className="grid grid-cols-[min-content_1fr] gap-2">
+      <dl className="grid grid-cols-[min-content_1fr] gap-2 leading-none">
         <dt>Style:</dt>
         <dd>{warningStyles[warning.warningStyle]}</dd>
         {warning.warningStyle === "border" ? (
@@ -117,7 +91,26 @@ function WarningItem({ warning }: { warning: WarningWithId }) {
           </>
         ) : null}
       </dl>
-    </>
+      <div className="grid grid-cols-2 gap-4 text-center">
+        <Button asChild>
+          <Link
+            className="flex items-center justify-center gap-1"
+            to={`/edit/${warning.id}`}
+          >
+            Edit <EditIcon className="inline size-4" />
+          </Link>
+        </Button>
+        <Button
+          className="flex items-center justify-center gap-1"
+          color="danger"
+          onClick={() => {
+            removeWarningMutation.mutate({ id: warning.id });
+          }}
+        >
+          Delete <TrashIcon className="inline size-4" />
+        </Button>
+      </div>
+    </li>
   );
 }
 

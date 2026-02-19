@@ -2,8 +2,7 @@ import browser from "webextension-polyfill";
 import { useAsyncFn } from "react-use";
 import { Button } from "./Button";
 import { useEffect } from "react";
-import { Icon } from "./Icon";
-import AlertIcon from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";
+import { TriangleAlertIcon } from "lucide-react";
 
 const PERMISSIONS = {
   origins: ["*://*/*"],
@@ -23,14 +22,9 @@ export function MissingPermissionsAlert() {
 
   if (hasPermission !== true) {
     return (
-      <div className="mb-4 bg-amber-100 p-4 *:mb-2 *:last:mb-0">
+      <div className="mb-4 grid gap-4 rounded-lg border border-amber-300 bg-amber-50 p-4">
         <p>
-          <Icon
-            className="float-left mt-2 mr-2 ml-1 block size-7"
-            title="alert"
-            variant="dark"
-            svg={AlertIcon}
-          />
+          <TriangleAlertIcon className="float-left mr-1 inline-block size-6 text-amber-700" />
           Prod Guard is missing an important permission that is required for it
           to function correctly. It needs the "Access data for all websites"
           permission. This permission is used to add warnings to webpages.

@@ -7,7 +7,7 @@ type ColorFieldProps = {
 
 export default function ColorField({ className, ...props }: ColorFieldProps) {
   return (
-    <div className={cn("relative w-fit", className)}>
+    <div className={cn("relative", className)}>
       <Input
         className="w-full pr-8"
         type="text"

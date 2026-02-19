@@ -4,6 +4,7 @@ import { fromZodIssue } from "zod-validation-error";
 import { useExpiringState } from "./useExpiringState";
 import { Button } from "../components/Button";
 import { allDataSchema } from "../../schema";
+import { TextArea } from "../components/TextArea";
 
 export function ImportBox() {
   const [data, setData] = useState("");
@@ -17,9 +18,9 @@ export function ImportBox() {
         doImport(data);
       }}
     >
-      <textarea
+      <TextArea
         disabled={isLoading}
-        className="h-32 border border-slate-800 p-2 font-mono"
+        className="h-32 font-mono leading-none"
         onChange={(e) => {
           setData(e.target.value);
         }}

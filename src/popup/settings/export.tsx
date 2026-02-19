@@ -2,6 +2,7 @@ import { useAsyncFn } from "react-use";
 import { trpc } from "../trpc";
 import { useExpiringState } from "./useExpiringState";
 import { Button } from "../components/Button";
+import { TextArea } from "../components/TextArea";
 
 export default function ExportBox() {
   const { error, data } = trpc.exportAllData.useQuery();
@@ -12,8 +13,8 @@ export default function ExportBox() {
       {error != null ? (
         <p>Failed to load data export: {error.message}</p>
       ) : null}
-      <textarea
-        className="h-32 border border-slate-800 p-2 font-mono"
+      <TextArea
+        className="h-32 font-mono leading-none"
         readOnly
         value={formattedData}
       />

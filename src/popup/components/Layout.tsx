@@ -1,5 +1,5 @@
 import { MissingPermissionsAlert } from "./MissingPermissionsAlert";
-import { House, Settings } from "lucide-react";
+import { HouseIcon, SettingsIcon } from "lucide-react";
 import { Button } from "./Button";
 import { Link } from "react-router";
 
@@ -13,18 +13,18 @@ export default function Layout({
 }: React.PropsWithChildren<LayoutProps>) {
   return (
     <div data-testid="layout-root">
-      <div className="sticky top-0 flex items-end gap-3 bg-slate-800 px-4 py-3 text-white">
-        <Button className="p-0" asChild>
+      <div className="sticky top-0 flex items-end gap-3 bg-slate-700 px-4 py-3 text-white">
+        <Button className="p-0" asChild color="none">
           <Link to="/">
-            <House className="size-6" aria-label="Home" />
+            <HouseIcon className="size-6" aria-label="Home" />
           </Link>
         </Button>
 
         <h1 className="m-0 grow text-2xl leading-none font-bold">{title}</h1>
 
-        <Button className="p-0" asChild>
+        <Button className="p-0" asChild color="none">
           <Link to="/settings">
-            <Settings className="size-6" aria-label="Settings" />
+            <SettingsIcon className="size-6" aria-label="Settings" />
           </Link>
         </Button>
       </div>

@@ -14,9 +14,6 @@ importers:
       '@fontsource/roboto':
         specifier: ^5.2.9
         version: 5.2.9
-      '@fortawesome/fontawesome-free':
-        specifier: ^7.1.0
-        version: 7.1.0
       '@tanstack/react-query':
         specifier: ^4.43.0
         version: 4.43.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -1125,10 +1122,6 @@ packages:
 
   '@fontsource/roboto@5.2.9':
     resolution: {integrity: sha512-ZTkyHiPk74B/aj8BZWbsxD5Yu+Lq+nR64eV4wirlrac2qXR7jYk2h6JlLYuOuoruTkGQWNw2fMuKNavw7/rg0w==}
-
-  '@fortawesome/fontawesome-free@7.1.0':
-    resolution: {integrity: sha512-+WxNld5ZCJHvPQCr/GnzCTVREyStrAJjisUPtUxG5ngDA8TMlPnKp6dddlTpai4+1GNmltAeuk1hJEkBohwZYA==}
-    engines: {node: '>=6'}
 
   '@fregante/relaxed-json@2.0.0':
     resolution: {integrity: sha512-PyUXQWB42s4jBli435TDiYuVsadwRHnMc27YaLouINktvTWsL3FcKrRMGawTayFk46X+n5bE23RjUTWQwrukWw==}
@@ -6529,8 +6522,6 @@ snapshots:
   '@fontsource-variable/roboto-mono@5.2.8': {}
 
   '@fontsource/roboto@5.2.9': {}
-
-  '@fortawesome/fontawesome-free@7.1.0': {}
 
   '@fregante/relaxed-json@2.0.0': {}
 

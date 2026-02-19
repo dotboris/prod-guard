@@ -12,7 +12,7 @@ function Select({ className, ...props }: React.ComponentProps<"select">) {
     >
       <select
         data-slot="select"
-        className="selection:bg-primary selection:text-primary-foreground h-8 w-full min-w-0 appearance-none border bg-transparent py-1 pr-8 pl-2.5 text-base outline-none select-none focus-within:ring-amber-300 focus-visible:ring-1 disabled:pointer-events-none disabled:cursor-not-allowed"
+        className="h-8 w-full min-w-0 appearance-none rounded border border-neutral-500 bg-transparent py-1 pr-8 pl-2.5 text-base outline-none select-none open:ring-1 open:ring-amber-300 focus-visible:ring-1 focus-visible:ring-amber-300 disabled:pointer-events-none disabled:cursor-not-allowed"
         {...props}
       />
       <ChevronDownIcon
