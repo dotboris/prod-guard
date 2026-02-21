@@ -1,36 +1,29 @@
-import { css } from "@emotion/react";
-import { type JSX } from "react";
 import { useAsyncFn } from "react-use";
 import { trpc } from "../trpc";
 import { useExpiringState } from "./useExpiringState";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
+import { TextArea } from "../components/TextArea";
 
-const styles = {
-  root: css({
-    display: "grid",
-    gap: "0.5rem",
-  }),
-  textBox: css({
-    height: "8rem",
-  }),
-};
-
-export default function ExportBox(): JSX.Element | undefined {
+export default function ExportBox() {
   const { error, data } = trpc.exportAllData.useQuery();
   const formattedData = JSON.stringify(data, null, 2);
 
   return (
-    <div css={styles.root}>
+    <div className="grid gap-2">
       {error != null ? (
         <p>Failed to load data export: {error.message}</p>
       ) : null}
-      <textarea css={styles.textBox} readOnly value={formattedData} />
+      <TextArea
+        className="h-32 font-mono leading-none"
+        readOnly
+        value={formattedData}
+      />
       <CopyToClipboardButton text={formattedData} />
     </div>
   );
 }
 
-function CopyToClipboardButton({ text }: { text: string }): JSX.Element {
+function CopyToClipboardButton({ text }: { text: string }) {
   const [copiedRecently, setCopiedRecently] = useExpiringState(false, 2000);
   const [state, doCopy] = useAsyncFn(async () => {
     try {

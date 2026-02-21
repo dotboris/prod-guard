@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import WarningForm from "./form";
 import { useParams, useNavigate } from "react-router";
 import { type Warning } from "../../schema";

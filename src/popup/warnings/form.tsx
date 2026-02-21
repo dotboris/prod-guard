@@ -1,7 +1,7 @@
 import browser from "webextension-polyfill";
 import { useId } from "react";
 import { type SubmitHandler, Controller, useForm } from "react-hook-form";
-import ColorField from "../color-field";
+import ColorField from "../components/ColorField";
 import { warningStyles } from "./friendly-names";
 import {
   warningSchema,
@@ -9,28 +9,9 @@ import {
   type BorderWarning,
   type Warning,
 } from "../../schema";
-import { Button } from "../components/button";
-import { css } from "@emotion/react";
-
-const styles = {
-  root: css({
-    display: "grid",
-    gridTemplateColumns: "max-content 1fr",
-    alignItems: "center",
-    gap: "1rem",
-
-    label: {
-      textAlign: "right",
-    },
-  }),
-
-  buttons: css({
-    gridColumn: "span 2",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  }),
-};
+import { Button } from "../components/Button";
+import { Input } from "../components/Input";
+import { Select, SelectOption } from "../components/Select";
 
 export interface WarningFormProps {
   onSave?: (warning: Warning) => void;
@@ -78,7 +59,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
 
   return (
     <form
-      css={styles.root}
+      className="grid grid-cols-[max-content_1fr] items-center gap-4 [&_label]:text-right"
       onSubmit={(e) => {
         void handleSubmit(onSubmit)(e);
       }}
@@ -88,38 +69,40 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
         name="enabled"
         control={control}
         render={({ field }) => (
-          <select
-            {...field}
+          <Select
+            className="w-full"
             id={enabledId}
+            {...field}
             value={field.value ? "true" : "false"}
             onChange={(e) => {
               field.onChange(e.target.value === "true");
             }}
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
+            <SelectOption value="true">Yes</SelectOption>
+            <SelectOption value="false">No</SelectOption>
+          </Select>
         )}
       />
 
       <label htmlFor={patternId}>URL Regex:</label>
-      <input
+      <Input
         id={patternId}
         type="text"
         {...register("pattern", { required: true })}
       />
 
       <label htmlFor={warningStyleId}>Style:</label>
-      <select
+      <Select
+        className="w-full"
         id={warningStyleId}
         {...register("warningStyle", { required: true })}
       >
         {Object.entries(warningStyles).map(([key, name]) => (
-          <option key={key} value={key}>
+          <SelectOption key={key} value={key}>
             {name}
-          </option>
+          </SelectOption>
         ))}
-      </select>
+      </Select>
 
       {watch("warningStyle") === "border" ? (
         <>
@@ -142,7 +125,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
       {["topBanner", "bottomBanner"].includes(watch("warningStyle")) ? (
         <>
           <label htmlFor={textId}>Message:</label>
-          <input
+          <Input
             id={textId}
             type="text"
             {...register("text", { required: true })}
@@ -178,7 +161,7 @@ export default function WarningForm({ onSave, value }: WarningFormProps) {
         </>
       ) : null}
 
-      <div css={styles.buttons}>
+      <div className="col-span-2 flex justify-end">
         <Button type="submit">Save</Button>
       </div>
     </form>

@@ -1,5 +1,5 @@
 import WarningForm from "./form";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import { useNavigate } from "react-router";
 import { type Warning } from "../../schema";
 import { trpc } from "../trpc";

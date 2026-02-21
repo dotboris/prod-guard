@@ -1,40 +1,11 @@
 import browser from "webextension-polyfill";
 import { useAsyncFn } from "react-use";
-import { Button } from "./button";
+import { Button } from "./Button";
 import { useEffect } from "react";
-import { Icon } from "./icon";
-import AlertIcon from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";
-import { css } from "@emotion/react";
-import { palette } from "../theme";
+import { TriangleAlertIcon } from "lucide-react";
 
 const PERMISSIONS = {
   origins: ["*://*/*"],
-};
-
-const styles = {
-  root: css({
-    background: palette.yellow100,
-    padding: "1rem",
-    marginBottom: "1rem",
-
-    "& > :first-child": {
-      marginTop: 0,
-    },
-    "& > :last-child": {
-      marginBottom: 0,
-    },
-  }),
-  icon: css({
-    margin: "0.25rem 0.5rem 0 0",
-    display: "block",
-    float: "left",
-  }),
-  button: css({
-    fontSize: "1rem",
-    display: "block",
-    maxWidth: "fit-content",
-    margin: "auto",
-  }),
 };
 
 export function MissingPermissionsAlert() {
@@ -51,15 +22,9 @@ export function MissingPermissionsAlert() {
 
   if (hasPermission !== true) {
     return (
-      <div css={styles.root}>
+      <div className="mb-4 grid gap-4 rounded-lg border border-amber-300 bg-amber-50 p-4">
         <p>
-          <Icon
-            css={styles.icon}
-            size="1.75rem"
-            title="alert"
-            theme="dark"
-            svg={AlertIcon}
-          />
+          <TriangleAlertIcon className="float-left mr-1 inline-block size-6 text-amber-700" />
           Prod Guard is missing an important permission that is required for it
           to function correctly. It needs the "Access data for all websites"
           permission. This permission is used to add warnings to webpages.
@@ -69,7 +34,7 @@ export function MissingPermissionsAlert() {
           the button below and grant the requested permission.
         </p>
         <Button
-          css={styles.button}
+          className="m-auto block max-w-fit"
           onClick={() => {
             void (async () => {
               await browser.permissions.request(PERMISSIONS);
