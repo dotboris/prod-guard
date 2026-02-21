@@ -7,7 +7,7 @@
   rangeStrategy: "bump",
   lockFileMaintenance: {
     enabled: true,
-    prCreation: "approval",
+    minimumReleaseAge: null,
   },
   nix: { enabled: true },
 }
