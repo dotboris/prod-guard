@@ -13,23 +13,21 @@
       overlays = [
         (final: prev: {
           nodePackages = prev.nodePackages.override {
-            nodejs = prev.nodejs_20;
+            nodejs = prev.nodejs_24;
           };
         })
       ];
       pkgs = import nixpkgs {inherit system overlays;};
     in {
-      formatter = pkgs.alejandra;
+      formatter = pkgs.writeShellApplication {
+        name = "alejandra-format-repo";
+        runtimeInputs = [pkgs.alejandra];
+        text = "alejandra .";
+      };
       devShells.default = pkgs.mkShell {
         packages = [
           pkgs.nodejs
-
-          # Using corepack latest to ensure that we get the most up to date
-          # version. I don't understand full details of what's going on but it
-          # has to do with https://github.com/nodejs/corepack/issues/612. Long
-          # story short: NPM updates its signing keys from time to time and that
-          # seems to require a corepack update.
-          pkgs.corepack_latest
+          pkgs.corepack # provides pnpm
         ];
 
         # In the nix environment, playwright won't see the libs but it'll work
