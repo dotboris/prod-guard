@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- [#1299](https://github.com/dotboris/prod-guard/pull/1299) [`c8b77a7`](https://github.com/dotboris/prod-guard/commit/c8b77a7f58205f613cd6369f90183c4a305ba1ea) Thanks [@dotboris](https://github.com/dotboris)! - Redesign the whole UI. The new UI looks better and is easier to use.
+
 ## 2.0.2
 
 ### Patch Changes
