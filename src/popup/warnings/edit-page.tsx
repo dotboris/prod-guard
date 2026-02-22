@@ -36,11 +36,11 @@ export default function EditWarningPage() {
   });
 
   if (isPending) {
-    return <p>loading</p>; // todo pretty
+    return; // should load very fast
   }
 
   if (error) {
-    return <p>Error: {String(error)}</p>;
+    return <pre>Error: {error.stack ?? error.message}</pre>;
   }
 
   return (
