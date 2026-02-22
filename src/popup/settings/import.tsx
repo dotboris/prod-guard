@@ -1,107 +1,77 @@
-import { useState } from "react";
-import { trpc } from "../trpc";
-import { fromZodIssue } from "zod-validation-error";
 import { useExpiringState } from "./useExpiringState";
 import { Button } from "../components/Button";
 import { allDataSchema } from "../../schema";
 import { TextArea } from "../components/TextArea";
+import { useMutation } from "@tanstack/react-query";
+import { loadState, saveState } from "../../state/storage";
+import { ZodError } from "zod";
 
 export function ImportBox() {
-  const [data, setData] = useState("");
-  const { doImport, isLoading, errors, importedRecently } = useImport();
+  const [importedRecently, setImportedRecently] = useExpiringState(false, 2000);
+  const importMutation = useMutation({
+    mutationFn: async ({ rawData }: { rawData: string | null }) => {
+      if (!rawData) {
+        throw new TypeError("Nothing to import");
+      }
+
+      const allData = allDataSchema.parse(JSON.parse(rawData));
+
+      const state = await loadState();
+      state.importAllData(allData);
+      await saveState(state);
+    },
+    onSuccess: async (data, variables, result, context) => {
+      await context.client.invalidateQueries({ queryKey: ["app"] });
+      setImportedRecently(true);
+    },
+  });
 
   return (
     <form
       className="grid gap-2"
       onSubmit={(e) => {
         e.preventDefault();
-        doImport(data);
+        const formData = new FormData(e.currentTarget);
+        importMutation.mutate({ rawData: formData.get("data") as string });
       }}
     >
       <TextArea
-        disabled={isLoading}
+        name="data"
+        disabled={importMutation.isPending}
         className="h-32 font-mono leading-none"
-        onChange={(e) => {
-          setData(e.target.value);
-        }}
-        value={data}
       />
-      <Button type="submit" disabled={isLoading}>
+      <Button type="submit" disabled={importMutation.isPending}>
         {importedRecently ? "Imported!" : "Import"}
       </Button>
-      <Errors errors={errors} />
+      <Errors error={importMutation.error} />
     </form>
   );
 }
 
-interface UseImport {
-  doImport: (data: string) => void;
-  isLoading: boolean;
-  errors: string[];
-  importedRecently: boolean;
-}
-
-function useImport(): UseImport {
-  const [importedRecently, setImportedRecently] = useExpiringState(false, 2000);
-  const importMutation = trpc.importAllData.useMutation();
-
-  const zodIssues = importMutation.error?.shape?.data.zodIssues ?? [];
-  let errors: string[] = [];
-  if (zodIssues.length > 0) {
-    errors = zodIssues.map(
-      (issue) => fromZodIssue(issue, { prefix: null }).message,
-    );
-  } else if (importMutation.error != null) {
-    errors = [importMutation.error.message];
+function Errors({ error }: { error: Error | null }) {
+  if (!error) {
+    return;
   }
 
-  const [parseError, setParseError] = useState<string | null>(null);
-  if (parseError != null) {
-    errors.push(parseError);
-  }
-
-  return {
-    doImport: (data: string) => {
-      let allData;
-      try {
-        allData = allDataSchema.parse(JSON.parse(data));
-      } catch (error) {
-        importMutation.reset();
-        if (error instanceof Error) {
-          setParseError(error.message);
-        }
-        return;
+  const messages = [];
+  if (error instanceof ZodError) {
+    for (const issue of error.issues) {
+      let message = `${issue.message} at ${issue.path.join(".")} (${issue.code})`;
+      if (issue.input) {
+        message += ` input=${JSON.stringify(issue.input)}`;
       }
-
-      importMutation.mutate(
-        { allData },
-        {
-          onSuccess: () => {
-            setImportedRecently(true);
-          },
-          onSettled: () => {
-            setParseError(null);
-          },
-        },
-      );
-    },
-    isLoading: importMutation.isLoading,
-    errors,
-    importedRecently,
-  };
-}
-
-function Errors({ errors }: { errors: string[] }) {
-  if (errors.length === 0) {
-    return undefined;
+      messages.push(message);
+    }
+  } else {
+    messages.push(error.message);
   }
 
   return (
     <div>
       Failed to import because of the following errors:
       <ul className="mt-2 list-disc pl-5">
-        {errors.map((error) => (
-          <li key={error}>{error}</li>
+        {messages.map((message) => (
+          <li key={message}>{message}</li>
         ))}
       </ul>
     </div>

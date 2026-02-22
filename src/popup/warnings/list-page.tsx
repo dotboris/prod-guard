@@ -1,11 +1,12 @@
 import { warningStyles } from "./friendly-names";
 import Layout from "../components/Layout";
 import { type WarningWithId } from "../../schema";
-import { trpc } from "../trpc";
 import { Button } from "../components/Button";
 import { Link } from "react-router";
 import { Switch } from "../components/Switch";
 import { TrashIcon, EditIcon } from "lucide-react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { loadState, saveState } from "../../state/storage";
 
 export default function WarningsListPage() {
   return (
@@ -23,10 +24,24 @@ export default function WarningsListPage() {
 }
 
 function WarningList() {
-  const { isLoading, data: warnings } = trpc.warnings.list.useQuery();
+  const {
+    data: warnings,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["app", "warnings"],
+    queryFn: async () => {
+      const state = await loadState();
+      return state.getAllWarnings();
+    },
+  });
 
-  if (isLoading || warnings == null) {
-    return undefined;
+  if (isPending) {
+    return; // should load very fast
+  }
+
+  if (error) {
+    return <pre>Error: {error.stack ?? error.message}</pre>;
   }
 
   if (warnings.length > 0) {
@@ -49,8 +64,26 @@ function WarningList() {
 }
 
 function WarningItem({ warning }: { warning: WarningWithId }) {
-  const removeWarningMutation = trpc.warnings.remove.useMutation();
-  const toggleWarningMutation = trpc.warnings.toggleEnabled.useMutation();
+  const removeWarningMutation = useMutation({
+    mutationFn: async ({ id }: { id: string }) => {
+      const state = await loadState();
+      state.removeWarning(id);
+      await saveState(state);
+    },
+    onSuccess: async (data, variables, result, context) => {
+      await context.client.invalidateQueries({ queryKey: ["app", "warnings"] });
+    },
+  });
+  const toggleWarningMutation = useMutation({
+    mutationFn: async ({ id }: { id: string }) => {
+      const state = await loadState();
+      state.toggleWarningEnabled(id);
+      await saveState(state);
+    },
+    onSuccess: async (data, variables, result, context) => {
+      await context.client.invalidateQueries({ queryKey: ["app", "warnings"] });
+    },
+  });
 
   return (
     <li className="grid gap-4 rounded-lg border border-neutral-300 p-4">

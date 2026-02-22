@@ -2,22 +2,27 @@ import WarningForm from "./form";
 import Layout from "../components/Layout";
 import { useNavigate } from "react-router";
 import { type Warning } from "../../schema";
-import { trpc } from "../trpc";
+import { useMutation } from "@tanstack/react-query";
+import { loadState, saveState } from "../../state/storage";
 
 export default function NewWarningPage() {
-  const addMutation = trpc.warnings.add.useMutation();
-
   const navigate = useNavigate();
-  const handleSave = async (warning: Warning): Promise<void> => {
-    await addMutation.mutateAsync({ warning });
-    await navigate("/");
-  };
+  const addWarningMutation = useMutation({
+    mutationFn: async ({ warning }: { warning: Warning }) => {
+      const state = await loadState();
+      state.addWarning(warning);
+      await saveState(state);
+    },
+    onSuccess: async (data, variables, result, context) => {
+      await context.client.invalidateQueries({ queryKey: ["app", "warnings"] });
+      await navigate("/");
+    },
+  });
 
   return (
     <Layout title="New Warning">
       <WarningForm
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSave={handleSave}
+        onSave={(warning) => addWarningMutation.mutate({ warning })}
       />
     </Layout>
   );

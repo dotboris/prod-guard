@@ -2,33 +2,59 @@ import Layout from "../components/Layout";
 import WarningForm from "./form";
 import { useParams, useNavigate } from "react-router";
 import { type Warning } from "../../schema";
-import { trpc } from "../trpc";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { loadState, saveState } from "../../state/storage";
 
 export default function EditWarningPage() {
-  const updateWarningMutation = trpc.warnings.update.useMutation();
+  return (
+    <Layout title="Edit Warning">
+      <EditWarningContent />
+    </Layout>
+  );
+}
 
+function EditWarningContent() {
   const { id } = useParams();
   if (id == null) {
     throw new TypeError("Parameter id is required");
   }
-
-  const { isLoading, data: warning } = trpc.warnings.get.useQuery({ id });
+  const {
+    data: warning,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["app", "warnings", id],
+    queryFn: async () => {
+      const state = await loadState();
+      return state.getWarning(id);
+    },
+  });
 
   const navigate = useNavigate();
-  const handleSave = async (warning: Warning): Promise<void> => {
-    await updateWarningMutation.mutateAsync({ id, warning });
-    await navigate("/");
-  };
+  const updateWarningMutation = useMutation({
+    mutationFn: async ({ id, warning }: { id: string; warning: Warning }) => {
+      const state = await loadState();
+      state.updateWarning(id, warning);
+      await saveState(state);
+    },
+    onSuccess: async (data, variables, result, context) => {
+      await context.client.invalidateQueries({ queryKey: ["app", "warnings"] });
+      await navigate("/");
+    },
+  });
+
+  if (isPending) {
+    return; // should load very fast
+  }
+
+  if (error) {
+    return <pre>Error: {error.stack ?? error.message}</pre>;
+  }
 
   return (
-    <Layout title="Edit Warning">
-      {!isLoading && warning != null ? (
-        <WarningForm
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onSave={handleSave}
-          value={warning}
-        />
-      ) : null}
-    </Layout>
+    <WarningForm
+      onSave={(warning) => updateWarningMutation.mutate({ id, warning })}
+      value={warning}
+    />
   );
 }

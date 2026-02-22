@@ -1,22 +1,8 @@
 import browser from "webextension-polyfill";
-import { createChromeHandler } from "trpc-chrome/adapter";
-import { loadState, setupState } from "./storage";
-import { appRouter } from "./router";
-
-export type AppRouter = typeof appRouter;
+import { loadState, setupState } from "../state/storage";
 
 browser.runtime.onInstalled.addListener(() => {
   void setupState();
-});
-
-createChromeHandler({
-  router: appRouter,
-  createContext: async () => ({
-    state: await loadState(),
-  }),
-  onError: (error: unknown) => {
-    console.error("tRPC error", error);
-  },
 });
 
 browser.tabs.onUpdated.addListener((tabId, _changeInfo, tab) => {

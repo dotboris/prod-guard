@@ -1,26 +1,29 @@
 import browser from "webextension-polyfill";
-import { useAsyncFn } from "react-use";
 import { Button } from "./Button";
-import { useEffect } from "react";
 import { TriangleAlertIcon } from "lucide-react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const PERMISSIONS = {
   origins: ["*://*/*"],
 };
 
 export function MissingPermissionsAlert() {
-  const [{ value: hasPermission, loading }, checkPermission] = useAsyncFn(
-    async () => await browser.permissions.contains(PERMISSIONS),
-  );
-  useEffect(() => {
-    void checkPermission();
-  }, [checkPermission]);
+  const { data: hasPermission = false } = useQuery({
+    queryKey: ["permissions"],
+    queryFn: async () => {
+      return await browser.permissions.contains(PERMISSIONS);
+    },
+  });
+  const requestMutation = useMutation({
+    mutationFn: async () => {
+      await browser.permissions.request(PERMISSIONS);
+    },
+    onSettled: async (data, error, variables, result, context) => {
+      await context.client.invalidateQueries({ queryKey: ["permissions"] });
+    },
+  });
 
-  if (loading) {
-    return;
-  }
-
-  if (hasPermission !== true) {
+  if (!hasPermission) {
     return (
       <div className="mb-4 grid gap-4 rounded-lg border border-amber-300 bg-amber-50 p-4">
         <p>
@@ -35,12 +38,7 @@ export function MissingPermissionsAlert() {
         </p>
         <Button
           className="m-auto block max-w-fit"
-          onClick={() => {
-            void (async () => {
-              await browser.permissions.request(PERMISSIONS);
-              await checkPermission();
-            })();
-          }}
+          onClick={() => requestMutation.mutate()}
         >
           Open Permission Prompt
         </Button>
