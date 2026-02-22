@@ -6,6 +6,14 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { loadState, saveState } from "../../state/storage";
 
 export default function EditWarningPage() {
+  return (
+    <Layout title="Edit Warning">
+      <EditWarningContent />
+    </Layout>
+  );
+}
+
+function EditWarningContent() {
   const { id } = useParams();
   if (id == null) {
     throw new TypeError("Parameter id is required");
@@ -44,11 +52,9 @@ export default function EditWarningPage() {
   }
 
   return (
-    <Layout title="Edit Warning">
-      <WarningForm
-        onSave={(warning) => updateWarningMutation.mutate({ id, warning })}
-        value={warning}
-      />
-    </Layout>
+    <WarningForm
+      onSave={(warning) => updateWarningMutation.mutate({ id, warning })}
+      value={warning}
+    />
   );
 }

@@ -37,7 +37,7 @@ export default function ExportBox() {
 function CopyToClipboardButton({ text }: { text: string }) {
   const [copiedRecently, setCopiedRecently] = useExpiringState(false, 2000);
   const copyMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async ({ text }: { text: string }) => {
       await navigator.clipboard.writeText(text);
     },
     onSuccess: () => {
@@ -58,7 +58,7 @@ function CopyToClipboardButton({ text }: { text: string }) {
     <>
       <Button
         type="button"
-        onClick={() => copyMutation.mutate()}
+        onClick={() => copyMutation.mutate({ text })}
         disabled={copyMutation.isPending}
       >
         {buttonText}
