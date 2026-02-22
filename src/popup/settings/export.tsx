@@ -1,18 +1,29 @@
-import { useAsyncFn } from "react-use";
-import { trpc } from "../trpc";
 import { useExpiringState } from "./useExpiringState";
 import { Button } from "../components/Button";
 import { TextArea } from "../components/TextArea";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { loadState } from "../../state/storage";
 
 export default function ExportBox() {
-  const { error, data } = trpc.exportAllData.useQuery();
-  const formattedData = JSON.stringify(data, null, 2);
+  const { data, isPending, error } = useQuery({
+    queryKey: ["app"],
+    queryFn: async () => {
+      const state = await loadState();
+      return state.exportAllData();
+    },
+  });
 
+  if (isPending) {
+    return <p>loading</p>; // todo pretty
+  }
+
+  if (error) {
+    return <p>Error: {String(error)}</p>;
+  }
+
+  const formattedData = JSON.stringify(data, null, 2);
   return (
     <div className="grid gap-2">
-      {error != null ? (
-        <p>Failed to load data export: {error.message}</p>
-      ) : null}
       <TextArea
         className="h-32 font-mono leading-none"
         readOnly
@@ -25,17 +36,18 @@ export default function ExportBox() {
 
 function CopyToClipboardButton({ text }: { text: string }) {
   const [copiedRecently, setCopiedRecently] = useExpiringState(false, 2000);
-  const [state, doCopy] = useAsyncFn(async () => {
-    try {
+  const copyMutation = useMutation({
+    mutationFn: async () => {
       await navigator.clipboard.writeText(text);
-    } finally {
+    },
+    onSuccess: () => {
       setCopiedRecently(true);
-    }
-  }, [text, setCopiedRecently]);
+    },
+  });
 
   let buttonText = "Copy to Clipboard";
   if (copiedRecently) {
-    if (state.error == null) {
+    if (copyMutation.error == null) {
       buttonText = "Copied!";
     } else {
       buttonText = "Failed to Copy";
@@ -46,13 +58,12 @@ function CopyToClipboardButton({ text }: { text: string }) {
     <>
       <Button
         type="button"
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onClick={state.loading ? undefined : doCopy}
-        disabled={state.loading}
+        onClick={() => copyMutation.mutate()}
+        disabled={copyMutation.isPending}
       >
         {buttonText}
       </Button>
-      {state.error != null ? <p>{state.error.message}</p> : null}
+      {copyMutation.error && <p>{copyMutation.error.message}</p>}
     </>
   );
 }
