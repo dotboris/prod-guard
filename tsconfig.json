@@ -13,6 +13,8 @@
   "include": [
     "./vitest.config.ts",
     "./eslint.config.js",
+    "./.storybook/*.ts",
+    "./.storybook/*.tsx",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/**/*.js",
