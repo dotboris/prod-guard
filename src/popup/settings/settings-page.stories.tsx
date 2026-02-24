@@ -8,6 +8,7 @@ import { AllData } from "../../schema";
 const meta = {
   component: SettingsPage,
   beforeEach: () => {
+    mocked(browser, true).permissions.contains.mockResolvedValue(true);
     mocked(browser, true).storage.sync.get.mockResolvedValue({
       dataVersion: 4,
       warnings: [
