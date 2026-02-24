@@ -19,6 +19,18 @@ function stubEvent() {
   };
 }
 
+function stubStorage() {
+  return {
+    onChanged: stubEvent(),
+    get: stub(),
+    getBytesInUse: stub(),
+    getKeys: stub(),
+    set: stub(),
+    remove: stub(),
+    clear: stub(),
+  };
+}
+
 /**
  * Manual mock of `webextension-polyfill` where all functions are implemented as
  * vitest spies. This is what storybook uses under the hood. So when used with
@@ -32,5 +44,12 @@ export default {
     request: stub(),
     onAdded: stubEvent(),
     onRemoved: stubEvent(),
+  },
+  storage: {
+    onChanged: stubEvent(),
+    sync: stubStorage(),
+    local: stubStorage(),
+    managed: stubStorage(),
+    session: stubStorage(),
   },
 } satisfies Partial<Browser>;
