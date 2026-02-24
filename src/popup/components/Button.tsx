@@ -12,6 +12,9 @@ const variants = cva(
         none: "",
       },
     },
+    defaultVariants: {
+      color: "default",
+    },
   },
 );
 
@@ -22,7 +25,7 @@ type ButtonProps = React.ComponentProps<"button"> &
 
 export function Button({
   className,
-  color,
+  color = "default",
   asChild = false,
   ...props
 }: ButtonProps) {
@@ -31,7 +34,7 @@ export function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(variants({ color: color ?? "default" }), className)}
+      className={cn(variants({ color }), className)}
       {...props}
     />
   );

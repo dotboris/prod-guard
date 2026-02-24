@@ -8,7 +8,11 @@ const PERMISSIONS = {
 };
 
 export function MissingPermissionsAlert() {
-  const { data: hasPermission = false } = useQuery({
+  const {
+    data: hasPermission,
+    isPending,
+    error,
+  } = useQuery({
     queryKey: ["permissions"],
     queryFn: async () => {
       return await browser.permissions.contains(PERMISSIONS);
@@ -22,6 +26,20 @@ export function MissingPermissionsAlert() {
       await context.client.invalidateQueries({ queryKey: ["permissions"] });
     },
   });
+
+  if (isPending) {
+    return null;
+  }
+
+  if (error) {
+    return (
+      <pre>
+        Failed to check permission: {error.message}
+        {"\n"}
+        {error.stack}
+      </pre>
+    );
+  }
 
   if (!hasPermission) {
     return (
