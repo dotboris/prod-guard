@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import { type Warning } from "../../schema";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { loadState, saveState } from "../../state/storage";
+import { ErrorPanel } from "../components/ErrorPanel";
 
 export default function EditWarningPage() {
   return (
@@ -48,7 +49,7 @@ function EditWarningContent() {
   }
 
   if (error) {
-    return <pre>Error: {error.stack ?? error.message}</pre>;
+    return <ErrorPanel error={error} />;
   }
 
   return (

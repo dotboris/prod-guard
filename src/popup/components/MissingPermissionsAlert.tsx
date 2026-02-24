@@ -2,6 +2,7 @@ import browser from "webextension-polyfill";
 import { Button } from "./Button";
 import { TriangleAlertIcon } from "lucide-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { ErrorPanel } from "./ErrorPanel";
 
 const PERMISSIONS = {
   origins: ["*://*/*"],
@@ -32,13 +33,7 @@ export function MissingPermissionsAlert() {
   }
 
   if (error) {
-    return (
-      <pre>
-        Failed to check permission: {error.message}
-        {"\n"}
-        {error.stack}
-      </pre>
-    );
+    return <ErrorPanel error={error} />;
   }
 
   if (!hasPermission) {

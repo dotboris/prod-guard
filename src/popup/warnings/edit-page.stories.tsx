@@ -1,81 +1,81 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 
-import SettingsPage from "./settings-page";
+import EditPage from "./edit-page";
 import { mocked } from "storybook/test";
 import browser from "webextension-polyfill";
 import { AllData } from "../../schema";
+import { Route, Routes } from "react-router";
 
 const meta = {
-  component: SettingsPage,
+  component: EditPage,
+  decorators: (Story) => (
+    <Routes location="/warnings/bogus">
+      <Route path="/warnings/:id" element={<Story />} />
+    </Routes>
+  ),
   beforeEach: () => {
     mocked(browser, true).permissions.contains.mockResolvedValue(true);
-    mocked(browser, true).storage.sync.get.mockResolvedValue({
-      dataVersion: 4,
-      warnings: [
-        {
-          id: "bogus1",
-          warningStyle: "topBanner",
-          enabled: true,
-          pattern: "example\\.com",
-          text: "Example Warning",
-          backgroundColor: "FF8800",
-          textColor: "FFFFFF",
-        },
-        {
-          id: "bogus2",
-          warningStyle: "topBanner",
-          enabled: false,
-          pattern: "example\\.com",
-          text: "Example Warning",
-          backgroundColor: "FF8800",
-          textColor: "FFFFFF",
-        },
-        {
-          id: "bogus3",
-          warningStyle: "bottomBanner",
-          enabled: true,
-          pattern: "example\\.com",
-          text: "Example Warning",
-          backgroundColor: "FF8800",
-          textColor: "FFFFFF",
-        },
-        {
-          id: "bogus4",
-          warningStyle: "bottomBanner",
-          enabled: false,
-          pattern: "example\\.com",
-          text: "Example Warning",
-          backgroundColor: "FF8800",
-          textColor: "FFFFFF",
-        },
-        {
-          id: "bogus5",
-          warningStyle: "border",
-          enabled: true,
-          pattern: "example\\.com",
-          borderColor: "FF8800",
-        },
-        {
-          id: "bogus6",
-          warningStyle: "border",
-          enabled: false,
-          pattern: "example\\.com",
-          borderColor: "FF8800",
-        },
-      ],
-    } satisfies AllData);
-    mocked(browser, true).storage.sync.set.mockImplementation((data) => {
-      alert("import: " + JSON.stringify(data, null, 2));
-      return Promise.resolve();
-    });
   },
-} satisfies Meta<typeof SettingsPage>;
+} satisfies Meta<typeof EditPage>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const TopBanner: Story = {
+  beforeEach: () => {
+    mocked(browser, true).storage.sync.get.mockResolvedValue({
+      dataVersion: 4,
+      warnings: [
+        {
+          id: "bogus",
+          warningStyle: "topBanner",
+          enabled: true,
+          pattern: "example\\.com",
+          text: "Example Warning",
+          backgroundColor: "FF8800",
+          textColor: "FFFFFF",
+        },
+      ],
+    } satisfies AllData);
+  },
+};
+
+export const BottomBanner: Story = {
+  beforeEach: () => {
+    mocked(browser, true).storage.sync.get.mockResolvedValue({
+      dataVersion: 4,
+      warnings: [
+        {
+          id: "bogus",
+          warningStyle: "bottomBanner",
+          enabled: true,
+          pattern: "example\\.com",
+          text: "Example Warning",
+          backgroundColor: "FF8800",
+          textColor: "FFFFFF",
+        },
+      ],
+    } satisfies AllData);
+  },
+};
+
+export const Border: Story = {
+  beforeEach: () => {
+    mocked(browser, true).storage.sync.get.mockResolvedValue({
+      dataVersion: 4,
+      warnings: [
+        {
+          id: "bogus",
+          warningStyle: "border",
+          enabled: true,
+          pattern: "example\\.com",
+          borderColor: "FF8800",
+        },
+      ],
+    } satisfies AllData);
+  },
+};
 
 export const ErrorState: Story = {
   beforeEach: () => {

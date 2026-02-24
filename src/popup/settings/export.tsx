@@ -3,6 +3,7 @@ import { Button } from "../components/Button";
 import { TextArea } from "../components/TextArea";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { loadState } from "../../state/storage";
+import { ErrorPanel } from "../components/ErrorPanel";
 
 export default function ExportBox() {
   const { data, isPending, error } = useQuery({
@@ -18,7 +19,7 @@ export default function ExportBox() {
   }
 
   if (error) {
-    return <pre>Error: {error.stack ?? error.message}</pre>;
+    return <ErrorPanel error={error} />;
   }
 
   const formattedData = JSON.stringify(data, null, 2);

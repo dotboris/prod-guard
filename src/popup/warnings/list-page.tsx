@@ -7,6 +7,7 @@ import { Switch } from "../components/Switch";
 import { TrashIcon, EditIcon } from "lucide-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { loadState, saveState } from "../../state/storage";
+import { ErrorPanel } from "../components/ErrorPanel";
 
 export default function WarningsListPage() {
   return (
@@ -41,7 +42,7 @@ function WarningList() {
   }
 
   if (error) {
-    return <pre>Error: {error.stack ?? error.message}</pre>;
+    return <ErrorPanel error={error} />;
   }
 
   if (warnings.length > 0) {
