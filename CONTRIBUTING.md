@@ -38,6 +38,17 @@ pnpm build:prod
     pnpm start
     ```
 
+### Storybook
+
+When working on reusable components, it's useful to be able to play with them
+and see them in all their different states. This is often hard to achieve during
+the real execution of the extension. To make this process easier, you should use
+storybook:
+
+```sh
+pnpm storybook
+```
+
 ### Unit Test
 
 ```sh
