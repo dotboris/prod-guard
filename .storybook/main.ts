@@ -19,6 +19,7 @@ const config: StorybookConfig = {
         ],
       },
     },
+    "@storybook/addon-a11y",
   ],
   webpackFinal: (config) => {
     if (config.resolve) {
