@@ -34,11 +34,11 @@ export default {
         }),
     );
     return (
-      <MemoryRouter>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
           <Story />
-        </QueryClientProvider>
-      </MemoryRouter>
+        </MemoryRouter>
+      </QueryClientProvider>
     );
   },
 } satisfies Preview;

@@ -1,4 +1,4 @@
-import { useExpiringState } from "./useExpiringState";
+import { useExpiringState } from "../components/useExpiringState";
 import { Button } from "../components/Button";
 import { allDataSchema } from "../../schema";
 import { TextArea } from "../components/TextArea";
