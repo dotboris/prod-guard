@@ -100,3 +100,13 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-node
       - run: pnpm format:check
+
+  nix-flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+        with:
+          # Helps avoid rate limiting
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake check -L --all-systems --keep-going
