@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- [#1299](https://github.com/dotboris/prod-guard/pull/1299) [`c8b77a7`](https://github.com/dotboris/prod-guard/commit/c8b77a7f58205f613cd6369f90183c4a305ba1ea) Thanks [@dotboris](https://github.com/dotboris)! - Redesign the whole UI. The new UI looks better and is easier to use.
+
+- [#1311](https://github.com/dotboris/prod-guard/pull/1311) [`74bf394`](https://github.com/dotboris/prod-guard/commit/74bf394bc7b5f12cfa8b4a01a78b1103782eab88) Thanks [@dotboris](https://github.com/dotboris)! - Surface load time errors to users.
+
 ## 2.0.2
 
 ### Patch Changes
