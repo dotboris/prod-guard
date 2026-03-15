@@ -42,7 +42,7 @@ function errorWithLongStack(depth: number) {
       }
     } catch (error) {
       if (!(error instanceof Error)) {
-        throw new TypeError("unexpected error type");
+        throw new TypeError("unexpected error type", { cause: error });
       }
       if (d === depth) {
         return error;
