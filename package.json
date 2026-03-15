@@ -48,7 +48,7 @@
     "@types/webextension-polyfill": "^0.12.5",
     "@vitest/spy": "^4.0.18",
     "babel-loader": "^10.0.0",
-    "copy-webpack-plugin": "^13.0.1",
+    "copy-webpack-plugin": "^14.0.0",
     "cross-env": "^10.1.0",
     "css-loader": "^7.1.4",
     "eslint": "^9.39.3",
