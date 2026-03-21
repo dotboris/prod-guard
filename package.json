@@ -73,7 +73,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.0",
     "vitest": "^4.1.0",
-    "web-ext": "^9.4.0",
+    "web-ext": "^10.0.0",
     "webpack": "^5.105.4",
     "webpack-clean-plugin": "^0.2.3",
     "webpack-cli": "^6.0.1"
