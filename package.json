@@ -76,7 +76,7 @@
     "web-ext": "^9.4.0",
     "webpack": "^5.105.4",
     "webpack-clean-plugin": "^0.2.3",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^7.0.0"
   },
   "dependencies": {
     "@fontsource-variable/roboto-mono": "^5.2.8",
