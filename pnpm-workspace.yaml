@@ -1,7 +1,7 @@
 minimumReleaseAge: 10080 # 7 days
 minimumReleaseAgeExclude:
-  # Renovate security update: lodash@4.17.23
-  - lodash@4.17.23
+  # Renovate security update: lodash@4.17.23 || 4.18.1
+  - lodash@4.17.23 || 4.18.1
   # Renovate security update: lodash-es@4.17.23 || 4.18.1
   - lodash-es@4.17.23 || 4.18.1
   # Renovate security update: storybook@10.2.10
