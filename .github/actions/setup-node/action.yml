@@ -3,7 +3,7 @@ description: Sets up the node / javascript environment
 runs:
   using: composite
   steps:
-    - uses: pnpm/action-setup@v3
+    - uses: pnpm/action-setup@v6
     - uses: actions/setup-node@v6
       with:
         node-version: 24.15.0
