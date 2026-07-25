@@ -172,11 +172,11 @@ importers:
         specifier: ^8.0.4
         version: 8.0.4
       postcss:
-        specifier: ^8.5.14
-        version: 8.5.14
+        specifier: ^8.5.18
+        version: 8.5.23
       postcss-loader:
         specifier: ^8.2.1
-        version: 8.2.1(postcss@8.5.14)(typescript@6.0.3)(webpack@5.106.2)
+        version: 8.2.1(postcss@8.5.23)(typescript@6.0.3)(webpack@5.106.2)
       prettier:
         specifier: ^3.8.3
         version: 3.8.3
@@ -4847,11 +4847,6 @@ packages:
     resolution: {integrity: sha512-I7tSVxHGPlmPN/enE3mS1aOSo6bWBfls+3HmuEeCUBCE7gWnm3cBXCBkpurzFjVRwC6Kld8lLaZ1Iv5vOcjvcQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  nanoid@3.3.11:
-    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   nanoid@3.3.16:
     resolution: {integrity: sha512-bzlKTyNJ7+LdGIIwy8ijFpIqEQIvafahV7eYykJ8Cvh42EdJeODoJ6gUJXpQJvej1BddH8OqTXZNE/KfbWAu8Q==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -5171,14 +5166,6 @@ packages:
 
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
-
-  postcss@8.5.13:
-    resolution: {integrity: sha512-qif0+jGGZoLWdHey3UFHHWP0H7Gbmsk8T5VEqyYFbWqPr1XqvLGBbk/sl8V5exGmcYJklJOhOQq1pV9IcsiFag==}
-    engines: {node: ^10 || ^12 || >=14}
-
-  postcss@8.5.14:
-    resolution: {integrity: sha512-SoSL4+OSEtR99LHFZQiJLkT59C5B1amGO1NzTwj7TT1qCUgUO6hxOvzkOYxD+vMrXBM3XJIKzokoERdqQq/Zmg==}
-    engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.23:
     resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
@@ -8975,7 +8962,7 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.3.0
       '@tailwindcss/oxide': 4.3.0
-      postcss: 8.5.13
+      postcss: 8.5.23
       tailwindcss: 4.3.0
 
   '@tanstack/query-core@5.100.10': {}
@@ -9905,12 +9892,12 @@ snapshots:
 
   css-loader@7.1.4(webpack@5.106.2):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.13)
-      postcss: 8.5.13
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.13)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.13)
-      postcss-modules-scope: 3.2.1(postcss@8.5.13)
-      postcss-modules-values: 4.0.0(postcss@8.5.13)
+      icss-utils: 5.1.0(postcss@8.5.23)
+      postcss: 8.5.23
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.23)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.23)
+      postcss-modules-scope: 3.2.1(postcss@8.5.23)
+      postcss-modules-values: 4.0.0(postcss@8.5.23)
       postcss-value-parser: 4.2.0
       semver: 7.7.4
     optionalDependencies:
@@ -10661,9 +10648,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  icss-utils@5.1.0(postcss@8.5.13):
+  icss-utils@5.1.0(postcss@8.5.23):
     dependencies:
-      postcss: 8.5.13
+      postcss: 8.5.23
 
   ignore@5.3.2: {}
 
@@ -11200,8 +11187,6 @@ snapshots:
       array-union: 3.0.1
       minimatch: 3.1.5
 
-  nanoid@3.3.11: {}
-
   nanoid@3.3.16: {}
 
   natural-compare@1.4.0: {}
@@ -11515,37 +11500,37 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  postcss-loader@8.2.1(postcss@8.5.14)(typescript@6.0.3)(webpack@5.106.2):
+  postcss-loader@8.2.1(postcss@8.5.23)(typescript@6.0.3)(webpack@5.106.2):
     dependencies:
       cosmiconfig: 9.0.1(typescript@6.0.3)
       jiti: 2.6.1
-      postcss: 8.5.14
+      postcss: 8.5.23
       semver: 7.7.4
     optionalDependencies:
       webpack: 5.106.2(esbuild@0.27.7)(webpack-cli@7.0.2)
     transitivePeerDependencies:
       - typescript
 
-  postcss-modules-extract-imports@3.1.0(postcss@8.5.13):
+  postcss-modules-extract-imports@3.1.0(postcss@8.5.23):
     dependencies:
-      postcss: 8.5.13
+      postcss: 8.5.23
 
-  postcss-modules-local-by-default@4.2.0(postcss@8.5.13):
+  postcss-modules-local-by-default@4.2.0(postcss@8.5.23):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.13)
-      postcss: 8.5.13
+      icss-utils: 5.1.0(postcss@8.5.23)
+      postcss: 8.5.23
       postcss-selector-parser: 7.1.1
       postcss-value-parser: 4.2.0
 
-  postcss-modules-scope@3.2.1(postcss@8.5.13):
+  postcss-modules-scope@3.2.1(postcss@8.5.23):
     dependencies:
-      postcss: 8.5.13
+      postcss: 8.5.23
       postcss-selector-parser: 7.1.1
 
-  postcss-modules-values@4.0.0(postcss@8.5.13):
+  postcss-modules-values@4.0.0(postcss@8.5.23):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.13)
-      postcss: 8.5.13
+      icss-utils: 5.1.0(postcss@8.5.23)
+      postcss: 8.5.23
 
   postcss-selector-parser@7.1.1:
     dependencies:
@@ -11553,18 +11538,6 @@ snapshots:
       util-deprecate: 1.0.2
 
   postcss-value-parser@4.2.0: {}
-
-  postcss@8.5.13:
-    dependencies:
-      nanoid: 3.3.11
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
-  postcss@8.5.14:
-    dependencies:
-      nanoid: 3.3.11
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
 
   postcss@8.5.23:
     dependencies:
