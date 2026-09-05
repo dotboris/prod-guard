@@ -60,7 +60,7 @@
     "jsdom": "^30.0.1",
     "lint-staged": "^16.4.0",
     "lodash": "^4.18.1",
-    "npm-run-all2": "^8.0.4",
+    "npm-run-all2": "^9.0.3",
     "postcss": "^8.5.26",
     "postcss-loader": "^8.2.1",
     "prettier": "^3.9.6",
