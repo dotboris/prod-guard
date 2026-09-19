@@ -22,7 +22,7 @@
     "storybook:build": "storybook build",
     "prepare": "husky"
   },
-  "packageManager": "pnpm@11.26.0",
+  "packageManager": "pnpm@12.4.1",
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
